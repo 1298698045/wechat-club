@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
  *
@@ -46,15 +45,9 @@
   position: absolute;
   bottom: 120rpx;
   right: 20rpx;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 .wrapper .banner .custom-dots .dot {
   width: 50rpx;
@@ -62,25 +55,58 @@
   margin: 0 5rpx;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
-  -webkit-transition: background-color 0.3s ease;
   transition: background-color 0.3s ease;
 }
 .wrapper .banner .custom-dots .dot.active {
   background-color: #fff;
 }
-.wrapper .clubInfo {
+.wrapper .container {
   position: absolute;
-  width: 90%;
-  height: 400rpx;
-  background: #FFFFFF;
-  border-radius: 20rpx;
+  width: 95%;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  transform: translateX(-50%);
   top: 300rpx;
 }
-.btn {
-  width: 150rpx;
+.wrapper .clubInfo {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+}
+.wrapper .clubInfo .club-desc {
+  padding: 10px;
+  font-size: 14px;
+  color: #484848;
+}
+.wrapper .menu-wrap {
+  height: 100px;
+  background: #fff;
+  border-radius: 10px;
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.wrapper .menu-wrap .menu-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper .menu-wrap .menu-item .menu-item-icon {
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  background: #f1f1f1;
+  border-radius: 40%;
+  text-align: center;
+}
+.wrapper .menu-wrap .menu-item .menu-item-name {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #3d3d3d;
+}
+button.btn {
+  all: unset;
+  width: 130rpx;
   height: 60rpx;
   background: pink;
   line-height: 60rpx;
@@ -90,5 +116,40 @@
   font-size: 16px;
   margin: 0;
   padding: 0;
+  background: #6be8f5;
+  font-weight: 700;
+  outline: none;
+  border: none;
+  box-shadow: none;
 }
-
+.tabContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.tabContainer .tabs {
+  display: flex;
+}
+.tabContainer .tabs .tab {
+  margin-right: 50px;
+  color: #878787;
+  font-size: 16px;
+  position: relative;
+}
+.tabContainer .tabs .tab.active {
+  color: #333;
+  font-weight: 700;
+}
+.tabContainer .tabs .tab.active::after {
+  position: absolute;
+  content: "";
+  display: inline-block;
+  width: 100%;
+  height: 10px;
+  background: #6be8f5;
+  bottom: -1px;
+  z-index: -1;
+}
+.tabContainer .tabs .tab:last-child {
+  margin-right: 0;
+}

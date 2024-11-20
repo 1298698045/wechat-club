@@ -6,7 +6,14 @@
     "pages/tabbar/tourism/index",
     "pages/tabbar/my/index"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "pages/activity",
+      "pages": [
+        "list/index"
+      ]
+    }
+  ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
@@ -14,8 +21,8 @@
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
+    "color": "#888888",
+    "selectedColor": "#6be8f5",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [

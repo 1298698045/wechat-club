@@ -41,8 +41,8 @@
 		]
 	},
 	"tabBar": {
-		"color": "#7A7E83",
-		"selectedColor": "#3cc51f",
+		"color": "#888888",
+		"selectedColor": "#6be8f5",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [
@@ -74,19 +74,25 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			// uni-ui 规则如下配置
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
+	},
 	"subPackages": [
-		// {
-		// 	"root": "pages/tabbar",
-		// 	"pages": [
-		// 		{
-		// 			"path": "index/index",
-		// 			"style": {
-		// 				"navigationBarTitleText": "",
-		// 				"enablePullDownRefresh": false,
-		// 				"navigationStyle": "custom"
-		// 			}
-		// 		}
-		// 	]
-		// }
+		{
+			"root": "pages/activity",
+			"pages": [
+				{
+					"path": "list/index",
+					"style": {
+						"navigationBarTitleText": "活动列表",
+						"enablePullDownRefresh": false
+					}
+				}
+			]
+		}
 	]
 }

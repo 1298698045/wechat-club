@@ -1,1 +1,1 @@
-<view class="_div"></view>
+<button open-type="chooseAvatar" size="mini">获取头像</button><button bindtap="{{a}}">授权登录2</button>
