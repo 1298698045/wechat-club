@@ -14,4 +14,8 @@
 
 <style>
 	/*每个页面公共css */
+	@import './static/style/public.css';
+	page{
+		background: #f4f4f4;
+	}
 </style>

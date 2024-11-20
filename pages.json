@@ -1,67 +1,72 @@
 {
 	"pages": [
 		{
-			"path": "pages/index/index",
+			"path": "pages/tabbar/index/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationStyle": "custom"
 			}
 		},
 		{
-			"path": "pages/activity/index",
+			"path": "pages/tabbar/activity/index",
 			"style": {
 				"navigationBarTitleText": "活动"
 			}
 		},
 		{
-			"path": "pages/course/index",
+			"path": "pages/tabbar/course/index",
 			"style": {
 				"navigationBarTitleText": "课程"
 			}
 		},
 		{
-			"path": "pages/tourism/index",
+			"path": "pages/tabbar/tourism/index",
 			"style": {
 				"navigationBarTitleText": "旅游"
 			}
 		},
 		{
-			"path": "pages/my/index",
+			"path": "pages/tabbar/my/index",
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
 		}
 	],
 	"condition": {
-	    "current": 0,
-	    "list": [
-	      {
-	        "name": "关于页",
-	        "path": "pages/index/index"
-	      }
-	    ]
+		"current": 0,
+		"list": [
+			{
+				"name": "关于页",
+				"path": "pages/tabbar/index/index"
+			}
+		]
 	},
 	"tabBar": {
 		"color": "#7A7E83",
 		"selectedColor": "#3cc51f",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
-		"fontSize": "20px",
-		"list": [{
-			"pagePath": "pages/index/index",
-			"text": "首页"
-		}, {
-			"pagePath": "pages/activity/index",
-			"text": "活动"
-		},{
-			"pagePath": "pages/course/index",
-			"text": "课程"
-		},{
-			"pagePath": "pages/tourism/index",
-			"text": "旅游"
-		},{
-			"pagePath": "pages/my/index",
-			"text": "我的"
-		}]
+		"list": [
+			{
+				"pagePath": "pages/tabbar/index/index",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/tabbar/activity/index",
+				"text": "活动"
+			},
+			{
+				"pagePath": "pages/tabbar/course/index",
+				"text": "课程"
+			},
+			{
+				"pagePath": "pages/tabbar/tourism/index",
+				"text": "旅游"
+			},
+			{
+				"pagePath": "pages/tabbar/my/index",
+				"text": "我的"
+			}
+		]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -69,6 +74,19 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"subPackages": [],
-	"uniIdRouter": {}
+	"subPackages": [
+		// {
+		// 	"root": "pages/tabbar",
+		// 	"pages": [
+		// 		{
+		// 			"path": "index/index",
+		// 			"style": {
+		// 				"navigationBarTitleText": "",
+		// 				"enablePullDownRefresh": false,
+		// 				"navigationStyle": "custom"
+		// 			}
+		// 		}
+		// 	]
+		// }
+	]
 }

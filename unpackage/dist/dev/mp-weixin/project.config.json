@@ -6,11 +6,7 @@
   },
   "setting": {
     "urlCheck": false,
-    "es6": true,
-    "postcss": false,
-    "minified": false,
-    "newFeature": true,
-    "bigPackageSizeSupport": true,
+    "ignoreUploadUnusedFiles": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -18,7 +14,7 @@
     }
   },
   "compileType": "miniprogram",
-  "libVersion": "3.6.5",
+  "libVersion": "",
   "appid": "wxe810d2693bf7bab6",
   "projectname": "wechat-club",
   "condition": {
@@ -26,7 +22,7 @@
       "list": [
         {
           "name": "关于页",
-          "pathName": "pages/about/about",
+          "pathName": "pages/tabbar/index/index",
           "query": ""
         }
       ]
