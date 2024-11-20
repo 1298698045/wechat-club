@@ -25,7 +25,7 @@
 				<view class="clubInfo-detail">
 					<view class="displayFlex" style="padding: 10px;">
 						<span>太友趣Club</span>
-						<button class="btn">加入</button>
+						<view class="btn">加入</view>
 					</view>
 					<view class="club-desc">
 						北京中年社交平台。我们定期组织各种丰富多彩的活动，在这里，可以结识志同道合的朋友，一起快乐享老，友趣的人生正精彩。<br/>
@@ -212,8 +212,7 @@
 		}
 	  }
 	}
-	button.btn{
-		all: unset;
+	.btn{
 		width: 130rpx;
 		height: 60rpx;
 		background: pink;
@@ -228,7 +227,6 @@
 		font-weight: 700;
 		outline: none;
 		border: none;
-		box-shadow: none;
 	}
 	.tabContainer{
 		display: flex;

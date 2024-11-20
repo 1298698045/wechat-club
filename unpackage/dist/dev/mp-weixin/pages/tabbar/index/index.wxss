@@ -104,8 +104,7 @@
   font-size: 14px;
   color: #3d3d3d;
 }
-button.btn {
-  all: unset;
+.btn {
   width: 130rpx;
   height: 60rpx;
   background: pink;
@@ -120,7 +119,6 @@ button.btn {
   font-weight: 700;
   outline: none;
   border: none;
-  box-shadow: none;
 }
 .tabContainer {
   display: flex;
