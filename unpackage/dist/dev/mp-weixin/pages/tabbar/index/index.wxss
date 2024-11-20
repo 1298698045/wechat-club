@@ -120,6 +120,10 @@
   outline: none;
   border: none;
 }
+.btn::after, .btn::before {
+  content: "";
+  display: none;
+}
 .tabContainer {
   display: flex;
   justify-content: center;
