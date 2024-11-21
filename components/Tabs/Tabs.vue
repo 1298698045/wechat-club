@@ -1,0 +1,64 @@
+<template>
+	<view class="tabContainer">
+		<view class="tabs">
+			<view class="tab" :class="{'active':currentTab==index}" v-for="(item,index) in tabs" :key="index" @click="handleTab(index, item)">
+				<view class="text">{{ item.name }}</view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script setup>
+	import { ref, reactive, toRefs, toRef } from "vue";
+	const props = defineProps({
+		tabs: {
+			type: Array,
+			default:()=>[]
+		}
+	});
+	const emit = defineEmits(['change']);
+	const data = reactive({
+		currentTab: 0
+	});
+	const { currentTab } = toRefs(data);
+	
+	const handleTab = (index, item) => {
+		data.currentTab = index;
+		emit("change", index);
+	}
+	
+</script>
+
+<style lang="scss" scoped>
+.tabContainer{
+		display: flex;
+		justify-content: center;
+		margin-top: 20px;
+		.tabs{
+			display: flex;
+			.tab{
+				margin-right: 50px;
+				color: #878787;
+				font-size: 16px;
+				position: relative;
+				&.active{
+					color: #333;
+					font-weight: 700;
+					&::after{
+						position: absolute;
+						content: "";
+						display: inline-block;
+						width: 100%;
+						height: 10px;
+						background: #6be8f5;
+						bottom: -1px;
+						z-index: -1;
+					}
+				}
+				&:last-child{
+					margin-right: 0;
+				}
+			}
+		}
+	}
+</style>

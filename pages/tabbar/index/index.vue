@@ -17,13 +17,27 @@
 				></view>
 			</view>
 		</view>
-		<div class="container">
+		<view class="container">
 			<view class="clubInfo">
 				<view class="header">
-					
+					<view class="logo">
+						<image class="logoImg" src="/static/img/logo2.jpg"  mode="aspectFill"></image>
+					</view>
+				</view>
+				<view class="peopleBox">
+					<view class="peopleHead">						
+						<view>
+							成员(2464)
+						</view>
+						<view class="avatarList">
+							<view class="avatarItem" v-for="item in 4">
+								
+							</view>
+						</view>
+					</view>
 				</view>
 				<view class="clubInfo-detail">
-					<view class="displayFlex" style="padding: 10px;">
+					<view class="displayFlex title">
 						<span>太友趣Club</span>
 						<button class="btn">加入</button>
 					</view>
@@ -60,15 +74,13 @@
 				</view>
 			</view>
 			
+			<Tabs :tabs="tabs" @change="handleTab"></Tabs>
 			
-			<view class="tabContainer">
-				<view class="tabs">
-					<view class="tab" :class="{'active':currentTab==index}" v-for="(item,index) in tabs" :key="index" @click="handleTab(index, item)">
-						<view class="text">{{ item.name }}</view>
-					</view>
-				</view>
+			<view style="margin-top: 20px;margin-bottom: 20px;">
+				<ActivityItem />
 			</view>
-		</div>
+			<BottomText />
+		</view>
 		
 	</view>
 </template>
@@ -77,6 +89,9 @@
 	import { ref, reactive, toRefs, toRef } from "vue";
 	import { onReady } from '@dcloudio/uni-app';
 	import { useCounterStore } from "@/stores/counter";
+	import Tabs from "@/components/Tabs/Tabs.vue";
+	import ActivityItem from "@/components/Activity/ActivityItem.vue";
+	import BottomText from "@/components/BottomText/BottomText.vue";
 	const store = useCounterStore();
 	console.log("count:", store.count)
 	const data = reactive({
@@ -112,22 +127,22 @@
 		data.current = e.detail.current;
 	};
 	
-	const handleTab = (index, item) => {
-		data.currentTab = index;
+	const handleTab = (e) => {
+		console.log("handleTab", e);
 	}
 	
 	const goto = () => {
 		uni.navigateTo({
 			url:"/pages/activity/list/index"
 		})
-	}	
+	}
 </script>
 
 <style lang="scss">
 	.wrapper {
 	  .banner {
 	    width: 100%;
-	    height: 400rpx;
+	    height: 260px;
 		position: relative;
 	    .swiper {
 	      width: 100%;
@@ -144,7 +159,7 @@
 	    }
 		.custom-dots {
 		  position: absolute;
-		  bottom: 120rpx;
+		  bottom: 140rpx;
 		  right: 20rpx;
 		  // transform: translateX(-50%);
 		  display: flex;
@@ -170,14 +185,81 @@
 		  width: 95%;
 		  left: 50%;
 		  transform: translateX(-50%);
-		  top: 300rpx;
+		  top: 230px;
 	  }
 	  .clubInfo{
 		  // height: 400rpx;
 		  background: #FFFFFF;
 		  border-radius: 20rpx;
+		  padding-top: 50px;
+		  padding-bottom: 15px;
+		  position: relative;
+		  border-top-left-radius: 0;
+		  .header{
+			  width: 130px;
+			  height: 80px;
+			  position: absolute;
+			  bottom: 80%;
+			  left: 0;
+			  background: #fff;
+			  border-radius: 20rpx 20rpx 0 0;
+			  z-index: 9;
+			  .logo{
+				  width: 90px;
+				  height: 90px;
+				  border-radius: 50%;
+				  margin-left: 15px;
+				  margin-top: -15px;
+				  background: #fff;
+				  padding: 5px;
+				  .logoImg{
+					  width: 100%;
+					  height: 100%;
+					  border-radius: 50%;
+				  }
+			  }
+		  }
+		  .peopleBox{
+			  position: absolute;
+			  bottom: 95%;
+			  left: 130px;
+			  width: calc(100% - 130px);
+			  height: 40px;
+			  background: #6be8f5;
+			  border-top-right-radius: 20rpx;
+			  color: #333;
+			  z-index: 1;
+			  .peopleHead{
+				line-height: 40px;
+				padding-left: 10px;
+				color: #333;
+				font-weight: 500;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-right: 10px;
+			  }
+			  .avatarList{
+				  display: flex;
+				  align-items: center;
+				  gap: -8px;
+				  .avatarItem{
+					  width: 28px;
+					  height: 28px;
+					  border-radius: 50%;
+					  background: #e2e3e5;
+					  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+					  margin-left: -5px;
+				  }
+			  }
+		  }
+		  .clubInfo-detail{
+			  padding: 0 15px;
+			  .title{
+				  padding-bottom: 10px;
+			  }
+		  }
 		  .club-desc{
-			  padding: 10px;
 			  font-size: 14px;
 			  color: #484848;
 		  }
@@ -232,35 +314,5 @@
 			display: none;
 		}
 	}
-	.tabContainer{
-		display: flex;
-		justify-content: center;
-		margin-top: 20px;
-		.tabs{
-			display: flex;
-			.tab{
-				margin-right: 50px;
-				color: #878787;
-				font-size: 16px;
-				position: relative;
-				&.active{
-					color: #333;
-					font-weight: 700;
-					&::after{
-						position: absolute;
-						content: "";
-						display: inline-block;
-						width: 100%;
-						height: 10px;
-						background: #6be8f5;
-						bottom: -1px;
-						z-index: -1;
-					}
-				}
-				&:last-child{
-					margin-right: 0;
-				}
-			}
-		}
-	}
+	
 </style>

@@ -25,7 +25,7 @@
 /* 文章场景相关 */
 .wrapper .banner {
   width: 100%;
-  height: 400rpx;
+  height: 260px;
   position: relative;
 }
 .wrapper .banner .swiper {
@@ -43,7 +43,7 @@
 }
 .wrapper .banner .custom-dots {
   position: absolute;
-  bottom: 120rpx;
+  bottom: 140rpx;
   right: 20rpx;
   display: flex;
   justify-content: center;
@@ -65,14 +65,81 @@
   width: 95%;
   left: 50%;
   transform: translateX(-50%);
-  top: 300rpx;
+  top: 230px;
 }
 .wrapper .clubInfo {
   background: #FFFFFF;
   border-radius: 20rpx;
+  padding-top: 50px;
+  padding-bottom: 15px;
+  position: relative;
+  border-top-left-radius: 0;
+}
+.wrapper .clubInfo .header {
+  width: 130px;
+  height: 80px;
+  position: absolute;
+  bottom: 80%;
+  left: 0;
+  background: #fff;
+  border-radius: 20rpx 20rpx 0 0;
+  z-index: 9;
+}
+.wrapper .clubInfo .header .logo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-left: 15px;
+  margin-top: -15px;
+  background: #fff;
+  padding: 5px;
+}
+.wrapper .clubInfo .header .logo .logoImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.wrapper .clubInfo .peopleBox {
+  position: absolute;
+  bottom: 95%;
+  left: 130px;
+  width: calc(100% - 130px);
+  height: 40px;
+  background: #6be8f5;
+  border-top-right-radius: 20rpx;
+  color: #333;
+  z-index: 1;
+}
+.wrapper .clubInfo .peopleBox .peopleHead {
+  line-height: 40px;
+  padding-left: 10px;
+  color: #333;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+}
+.wrapper .clubInfo .peopleBox .avatarList {
+  display: flex;
+  align-items: center;
+  gap: -8px;
+}
+.wrapper .clubInfo .peopleBox .avatarList .avatarItem {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e2e3e5;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  margin-left: -5px;
+}
+.wrapper .clubInfo .clubInfo-detail {
+  padding: 0 15px;
+}
+.wrapper .clubInfo .clubInfo-detail .title {
+  padding-bottom: 10px;
 }
 .wrapper .clubInfo .club-desc {
-  padding: 10px;
   font-size: 14px;
   color: #484848;
 }
@@ -123,35 +190,4 @@
 .btn::after, .btn::before {
   content: "";
   display: none;
-}
-.tabContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-.tabContainer .tabs {
-  display: flex;
-}
-.tabContainer .tabs .tab {
-  margin-right: 50px;
-  color: #878787;
-  font-size: 16px;
-  position: relative;
-}
-.tabContainer .tabs .tab.active {
-  color: #333;
-  font-weight: 700;
-}
-.tabContainer .tabs .tab.active::after {
-  position: absolute;
-  content: "";
-  display: inline-block;
-  width: 100%;
-  height: 10px;
-  background: #6be8f5;
-  bottom: -1px;
-  z-index: -1;
-}
-.tabContainer .tabs .tab:last-child {
-  margin-right: 0;
 }

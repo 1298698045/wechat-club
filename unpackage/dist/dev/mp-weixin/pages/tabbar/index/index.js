@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
+const common_assets = require("../../../common/assets.js");
 const stores_counter = require("../../../stores/counter.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
@@ -7,8 +8,11 @@ if (!Array) {
 }
 const _easycom_uni_icons = () => "../../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
 if (!Math) {
-  _easycom_uni_icons();
+  (_easycom_uni_icons + Tabs + ActivityItem + BottomText)();
 }
+const Tabs = () => "../../../components/Tabs/Tabs.js";
+const ActivityItem = () => "../../../components/Activity/ActivityItem.js";
+const BottomText = () => "../../../components/BottomText/BottomText.js";
 const _sfc_main = {
   __name: "index",
   setup(__props) {
@@ -54,8 +58,8 @@ const _sfc_main = {
       console.log("e", e, data.current);
       data.current = e.detail.current;
     };
-    const handleTab = (index, item) => {
-      data.currentTab = index;
+    const handleTab = (e) => {
+      console.log("handleTab", e);
     };
     const goto = () => {
       common_vendor.index.navigateTo({
@@ -81,34 +85,34 @@ const _sfc_main = {
             b: common_vendor.n(common_vendor.unref(current) == index ? "active" : "")
           };
         }),
-        h: common_vendor.p({
+        h: common_assets._imports_0,
+        i: common_vendor.f(4, (item, k0, i0) => {
+          return {};
+        }),
+        j: common_vendor.p({
           type: "calendar",
           size: "30",
           color: "#6be8f5"
         }),
-        i: common_vendor.p({
+        k: common_vendor.p({
           type: "image",
           size: "30",
           color: "#6be8f5"
         }),
-        j: common_vendor.p({
+        l: common_vendor.p({
           type: "list",
           size: "30",
           color: "#6be8f5"
         }),
-        k: common_vendor.o(goto),
-        l: common_vendor.p({
+        m: common_vendor.o(goto),
+        n: common_vendor.p({
           type: "wallet",
           size: "30",
           color: "#6be8f5"
         }),
-        m: common_vendor.f(common_vendor.unref(tabs), (item, index, i0) => {
-          return {
-            a: common_vendor.t(item.name),
-            b: common_vendor.unref(currentTab) == index ? 1 : "",
-            c: index,
-            d: common_vendor.o(($event) => handleTab(index), index)
-          };
+        o: common_vendor.o(handleTab),
+        p: common_vendor.p({
+          tabs: common_vendor.unref(tabs)
         })
       };
     };
