@@ -23,25 +23,35 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.wrapper .banner {
+.fixedBar.data-v-184b8d5d {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  background: transparent;
+  padding-top: 44px;
+}
+.fixedBar.active.data-v-184b8d5d {
+  background: #fff !important;
+}
+.wrapper .banner.data-v-184b8d5d {
   width: 100%;
   height: 260px;
   position: relative;
 }
-.wrapper .banner .swiper {
+.wrapper .banner .swiper.data-v-184b8d5d {
   width: 100%;
   height: 100%;
 }
-.wrapper .banner .swiper .swiper-item {
+.wrapper .banner .swiper .swiper-item.data-v-184b8d5d {
   width: 100%;
   height: 100%;
 }
-.wrapper .banner .swiper .swiper-item .img {
+.wrapper .banner .swiper .swiper-item .img.data-v-184b8d5d {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.wrapper .banner .custom-dots {
+.wrapper .banner .custom-dots.data-v-184b8d5d {
   position: absolute;
   bottom: 140rpx;
   right: 20rpx;
@@ -49,7 +59,7 @@
   justify-content: center;
   align-items: center;
 }
-.wrapper .banner .custom-dots .dot {
+.wrapper .banner .custom-dots .dot.data-v-184b8d5d {
   width: 50rpx;
   height: 10rpx;
   margin: 0 5rpx;
@@ -57,17 +67,17 @@
   background-color: rgba(255, 255, 255, 0.5);
   transition: background-color 0.3s ease;
 }
-.wrapper .banner .custom-dots .dot.active {
+.wrapper .banner .custom-dots .dot.active.data-v-184b8d5d {
   background-color: #fff;
 }
-.wrapper .container {
+.wrapper .container.data-v-184b8d5d {
   position: absolute;
   width: 95%;
   left: 50%;
   transform: translateX(-50%);
   top: 230px;
 }
-.wrapper .clubInfo {
+.wrapper .clubInfo.data-v-184b8d5d {
   background: #FFFFFF;
   border-radius: 20rpx;
   padding-top: 50px;
@@ -75,7 +85,7 @@
   position: relative;
   border-top-left-radius: 0;
 }
-.wrapper .clubInfo .header {
+.wrapper .clubInfo .header.data-v-184b8d5d {
   width: 130px;
   height: 80px;
   position: absolute;
@@ -85,7 +95,7 @@
   border-radius: 20rpx 20rpx 0 0;
   z-index: 9;
 }
-.wrapper .clubInfo .header .logo {
+.wrapper .clubInfo .header .logo.data-v-184b8d5d {
   width: 90px;
   height: 90px;
   border-radius: 50%;
@@ -94,12 +104,12 @@
   background: #fff;
   padding: 5px;
 }
-.wrapper .clubInfo .header .logo .logoImg {
+.wrapper .clubInfo .header .logo .logoImg.data-v-184b8d5d {
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
-.wrapper .clubInfo .peopleBox {
+.wrapper .clubInfo .peopleBox.data-v-184b8d5d {
   position: absolute;
   bottom: 95%;
   left: 130px;
@@ -110,7 +120,7 @@
   color: #333;
   z-index: 1;
 }
-.wrapper .clubInfo .peopleBox .peopleHead {
+.wrapper .clubInfo .peopleBox .peopleHead.data-v-184b8d5d {
   line-height: 40px;
   padding-left: 10px;
   color: #333;
@@ -120,12 +130,12 @@
   align-items: center;
   padding-right: 10px;
 }
-.wrapper .clubInfo .peopleBox .avatarList {
+.wrapper .clubInfo .peopleBox .avatarList.data-v-184b8d5d {
   display: flex;
   align-items: center;
   gap: -8px;
 }
-.wrapper .clubInfo .peopleBox .avatarList .avatarItem {
+.wrapper .clubInfo .peopleBox .avatarList .avatarItem.data-v-184b8d5d {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -133,17 +143,17 @@
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   margin-left: -5px;
 }
-.wrapper .clubInfo .clubInfo-detail {
+.wrapper .clubInfo .clubInfo-detail.data-v-184b8d5d {
   padding: 0 15px;
 }
-.wrapper .clubInfo .clubInfo-detail .title {
+.wrapper .clubInfo .clubInfo-detail .title.data-v-184b8d5d {
   padding-bottom: 10px;
 }
-.wrapper .clubInfo .club-desc {
+.wrapper .clubInfo .club-desc.data-v-184b8d5d {
   font-size: 14px;
   color: #484848;
 }
-.wrapper .menu-wrap {
+.wrapper .menu-wrap.data-v-184b8d5d {
   height: 100px;
   background: #fff;
   border-radius: 10px;
@@ -151,14 +161,14 @@
   display: flex;
   flex-wrap: wrap;
 }
-.wrapper .menu-wrap .menu-item {
+.wrapper .menu-wrap .menu-item.data-v-184b8d5d {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.wrapper .menu-wrap .menu-item .menu-item-icon {
+.wrapper .menu-wrap .menu-item .menu-item-icon.data-v-184b8d5d {
   width: 45px;
   height: 45px;
   line-height: 45px;
@@ -166,12 +176,12 @@
   border-radius: 40%;
   text-align: center;
 }
-.wrapper .menu-wrap .menu-item .menu-item-name {
+.wrapper .menu-wrap .menu-item .menu-item-name.data-v-184b8d5d {
   margin-top: 10px;
   font-size: 14px;
   color: #3d3d3d;
 }
-.btn {
+.btn.data-v-184b8d5d {
   width: 130rpx;
   height: 60rpx;
   background: pink;
@@ -187,7 +197,7 @@
   outline: none;
   border: none;
 }
-.btn::after, .btn::before {
+.btn.data-v-184b8d5d::after, .btn.data-v-184b8d5d::before {
   content: "";
   display: none;
 }

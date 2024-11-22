@@ -1,5 +1,8 @@
 <template>
 	<view class="wrapper">
+		<view :class="{'fixedBar':true, active:color=='black'}">
+			<uni-nav-bar :color="color" :backgroundColor="backColor" :border="false" title="太友趣"></uni-nav-bar>
+		</view>
 		<view class="banner">
 			<swiper class="swiper" indicator-active-color="#fff" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
 				:duration="duration" @change="onSwiperChange">
@@ -13,7 +16,7 @@
 				<view
 				  v-for="(item, index) in images"
 				  :key="index"
-				  :class="['dot', current == index ? 'active' : '']"
+				  :class="{ dot: true, active: current === index }"
 				></view>
 			</view>
 		</view>
@@ -30,7 +33,7 @@
 							成员(2464)
 						</view>
 						<view class="avatarList">
-							<view class="avatarItem" v-for="item in 4">
+							<view class="avatarItem" v-for="item in [1,2,3,4]" :key="item">
 								
 							</view>
 						</view>
@@ -87,7 +90,7 @@
 
 <script setup>
 	import { ref, reactive, toRefs, toRef } from "vue";
-	import { onReady } from '@dcloudio/uni-app';
+	import { onLoad, onReady, onPageScroll } from '@dcloudio/uni-app';
 	import { useCounterStore } from "@/stores/counter";
 	import Tabs from "@/components/Tabs/Tabs.vue";
 	import ActivityItem from "@/components/Activity/ActivityItem.vue";
@@ -117,13 +120,15 @@
 				name: "周期表"
 			}
 		],
-		currentTab: 0
+		currentTab: 0,
+		backColor: "transparent",
+		color: "#fff"
 	});
 	const { title, indicatorDots, autoplay, interval, 
-	duration, images, current, tabs, currentTab } = toRefs(data);
+	duration, images, current, tabs, currentTab, backColor, color } = toRefs(data);
 	
 	const onSwiperChange = (e) => {
-		console.log("e", e, data.current);
+		// console.log("e", e, data.current);
 		data.current = e.detail.current;
 	};
 	
@@ -136,9 +141,36 @@
 			url:"/pages/activity/list/index"
 		})
 	}
+	
+	onLoad(()=>{
+		const sys = uni.getSystemSetting();
+		console.log("sys", sys);
+	})
+	
+	onPageScroll((e)=>{
+		if(e.scrollTop>=100){
+			data.backColor = "#fff";
+			data.color = "black";
+		}else {
+			data.backColor = "transparent";
+			data.color = "#fff";
+		}
+	})
+	
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+	.fixedBar{
+		position: fixed;
+		width: 100%;
+		// top: 44px;
+		z-index: 999;
+		background: transparent;
+		padding-top: 44px;
+		&.active{
+			background: #fff !important;
+		}
+	}
 	.wrapper {
 	  .banner {
 	    width: 100%;

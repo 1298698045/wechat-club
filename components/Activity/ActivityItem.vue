@@ -1,5 +1,5 @@
 <template>
-	<view class="activityItem" v-for="item in 10">
+	<view class="activityItem" v-for="item in [1,2,3,4,5,6,7,8]" :key="item">
 		<view class="activityImg">
 			<image class="img" src="../../static/img/2.jpg" mode="aspectFill"></image>
 			<view class="priceBox">

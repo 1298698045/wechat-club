@@ -14,11 +14,12 @@ const _sfc_main = {
   setup(__props) {
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.f(10, (item, k0, i0) => {
+        a: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
           return {
             a: "f854d1e8-0-" + i0,
             b: "f854d1e8-1-" + i0,
-            c: "f854d1e8-2-" + i0
+            c: "f854d1e8-2-" + i0,
+            d: item
           };
         }),
         b: common_assets._imports_0$1,
