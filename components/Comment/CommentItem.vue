@@ -1,0 +1,94 @@
+<template>
+	<view class="commentItem" v-for="(item, index) in [1,2,3,4,5]" :key="index">
+		<view class="leftAvatar">
+			<image src="@/static/img/logo2.jpg" mode="aspectFill"></image>
+		</view>
+		<view class="rightContent">
+			<view class="user-name">陈丽平</view>
+			<view class="comment-desc">
+				撒发烧发烧的房间里撒开飞机卢卡斯都放假啦开始放假啊开发了三顿饭啦上课地方
+				撒费拉达斯放了假啊三顿饭阿萨德开飞机啊阿微卷发发丝的减肥啦顿饭啦上课地方
+				撒费拉达斯放了假啊三顿饭阿萨德开飞机啊阿微卷发发丝的减肥啦阿完全无气味撒放浓缩咖啡i去
+			</view>
+			<view class="comment-imgs">
+				<view class="comment-img-item" @click="previewImg">
+					<image src="@/static/img/1.jpg" mode="aspectFill"></image>
+				</view>
+				<view class="comment-img-item"></view>
+				<view class="comment-img-item"></view>
+				<view class="comment-img-item"></view>
+				<view class="comment-img-item"></view>
+			</view>
+		</view>
+	</view>
+</template>
+
+<script setup>
+	import { ref } from "vue";
+	import { onLoad } from "@dcloudio/uni-app";
+	
+	const previewImg = () => {
+		uni.previewImage({
+			urls: [],
+			current: "",
+			success: (res) => {
+				
+			}
+		})
+	}
+	
+</script>
+
+<style lang="scss" scoped>
+	.commentItem{
+		border-radius: 20rpx;
+		background: #fff;
+		padding: 30rpx 20rpx;
+		display: flex;
+		margin-bottom: 20rpx;
+		.leftAvatar{
+			width: 80rpx;
+			height: 80rpx;
+			border-radius: 50%;
+			image{
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+			}
+		}
+		.rightContent{
+			flex: 1;
+			font-size: 28rpx;
+			color: #333;
+			margin-left: 10rpx;
+			.user-name{
+				font-weight: 400;
+			}
+			.comment-desc{
+				line-height: 1.5;
+				font-weight: 500;
+			}
+			.comment-imgs{
+				display: flex;
+				flex-wrap: wrap;
+				margin-top: 10px;
+				.comment-img-item{
+					width: calc(33% - 10rpx);
+					height: 180rpx;
+					background: #f4f4f4;
+					border-radius: 10rpx;
+					margin-right: 10rpx;
+					margin-bottom: 10rpx;
+					overflow: hidden;
+					&:nth-child(3n){
+						margin-right: 0;
+					}
+					image{
+						width: 100%;
+						height: 100%;
+					}
+				}
+			}
+		}
+	}
+</style>

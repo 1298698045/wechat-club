@@ -1,5 +1,5 @@
 <template>
-	<view class="activityItem" v-for="item in [1,2,3,4,5,6,7,8]" :key="item">
+	<view class="activityItem" v-for="item in [1,2,3,4,5,6,7,8]" :key="item" @click="handleDetail(item)">
 		<view class="activityImg">
 			<image class="img" src="../../static/img/2.jpg" mode="aspectFill"></image>
 			<view class="priceBox">
@@ -34,18 +34,25 @@
 	import { ref } from "vue";
 	import { onLoad } from "@dcloudio/uni-app";
 	
+	
+	const handleDetail = (item) => {
+		uni.navigateTo({
+			url:"/pages/activity/detail/index?id="+item,
+		});
+	}
+	
 </script>
 
 <style lang="scss" scoped>
 	.activityItem{
 		// height: 300px;
 		background: #fff;
-		border-radius: 10px;
+		border-radius: 20rpx;
 		overflow: hidden;
-		padding-bottom: 10px;
-		margin-top: 15px;
+		padding-bottom: 20rpx;
+		margin-top: 30rpx;
 		.activityImg{
-			height: 190px;
+			height: 380rpx;
 			position: relative;
 			.img{
 				width: 100%;
@@ -53,46 +60,46 @@
 			}
 			.priceBox{
 				position: absolute;
-				bottom: 0;
-				width: 60px;
-				height: 40px;
+				bottom: -1rpx;
+				width: 120rpx;
+				height: 80rpx;
 				background: #fff;
-				border-top-right-radius: 10px;
+				border-top-right-radius: 20rpx;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				font-size: 12px;
+				font-size: 24rpx;
 				color: #ea3852;
 				font-weight: 500;
 				.price{
-					font-size: 20px;
+					font-size: 40rpx;
 				}
 				.symbol{
-					margin-top: 5px;
-					margin-right: 5px;
+					margin-top: 10rpx;
+					margin-right: 10rpx;
 				}
 			}
 		}
 		.activityBody{
-			padding: 10px;
+			padding: 20rpx;
 			.title{
 				display: flex;
 				.name{
-					font-size: 20px;
+					font-size: 40rpx;
 					color: #333;
 					font-weight: 400;
-					margin-left: 10px;
+					margin-left: 20rpx;
 				}
 			}
 			.row{
 				display: flex;
 				align-items: center;
 				.licon{
-					padding-right: 10px;
+					padding-right: 20rpx;
 				}
 				.text{
 					color: #666;
-					font-size: 14px;
+					font-size: 28rpx;
 				}
 			}
 		}

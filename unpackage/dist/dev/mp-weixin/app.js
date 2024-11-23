@@ -8,6 +8,7 @@ if (!Math) {
   "./pages/tabbar/tourism/index.js";
   "./pages/tabbar/my/index.js";
   "./pages/activity/list/index.js";
+  "./pages/activity/detail/index.js";
 }
 const _sfc_main = {
   onLaunch: function() {

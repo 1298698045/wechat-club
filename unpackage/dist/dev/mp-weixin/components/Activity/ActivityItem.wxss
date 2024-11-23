@@ -25,13 +25,13 @@
 /* 文章场景相关 */
 .activityItem.data-v-f854d1e8 {
   background: #fff;
-  border-radius: 10px;
+  border-radius: 20rpx;
   overflow: hidden;
-  padding-bottom: 10px;
-  margin-top: 15px;
+  padding-bottom: 20rpx;
+  margin-top: 30rpx;
 }
 .activityItem .activityImg.data-v-f854d1e8 {
-  height: 190px;
+  height: 380rpx;
   position: relative;
 }
 .activityItem .activityImg .img.data-v-f854d1e8 {
@@ -40,45 +40,45 @@
 }
 .activityItem .activityImg .priceBox.data-v-f854d1e8 {
   position: absolute;
-  bottom: 0;
-  width: 60px;
-  height: 40px;
+  bottom: -1rpx;
+  width: 120rpx;
+  height: 80rpx;
   background: #fff;
-  border-top-right-radius: 10px;
+  border-top-right-radius: 20rpx;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
+  font-size: 24rpx;
   color: #ea3852;
   font-weight: 500;
 }
 .activityItem .activityImg .priceBox .price.data-v-f854d1e8 {
-  font-size: 20px;
+  font-size: 40rpx;
 }
 .activityItem .activityImg .priceBox .symbol.data-v-f854d1e8 {
-  margin-top: 5px;
-  margin-right: 5px;
+  margin-top: 10rpx;
+  margin-right: 10rpx;
 }
 .activityItem .activityBody.data-v-f854d1e8 {
-  padding: 10px;
+  padding: 20rpx;
 }
 .activityItem .activityBody .title.data-v-f854d1e8 {
   display: flex;
 }
 .activityItem .activityBody .title .name.data-v-f854d1e8 {
-  font-size: 20px;
+  font-size: 40rpx;
   color: #333;
   font-weight: 400;
-  margin-left: 10px;
+  margin-left: 20rpx;
 }
 .activityItem .activityBody .row.data-v-f854d1e8 {
   display: flex;
   align-items: center;
 }
 .activityItem .activityBody .row .licon.data-v-f854d1e8 {
-  padding-right: 10px;
+  padding-right: 20rpx;
 }
 .activityItem .activityBody .row .text.data-v-f854d1e8 {
   color: #666;
-  font-size: 14px;
+  font-size: 28rpx;
 }

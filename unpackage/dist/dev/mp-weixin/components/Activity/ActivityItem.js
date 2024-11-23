@@ -12,6 +12,11 @@ if (!Math) {
 const _sfc_main = {
   __name: "ActivityItem",
   setup(__props) {
+    const handleDetail = (item) => {
+      common_vendor.index.navigateTo({
+        url: "/pages/activity/detail/index?id=" + item
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
@@ -19,7 +24,8 @@ const _sfc_main = {
             a: "f854d1e8-0-" + i0,
             b: "f854d1e8-1-" + i0,
             c: "f854d1e8-2-" + i0,
-            d: item
+            d: item,
+            e: common_vendor.o(($event) => handleDetail(item), item)
           };
         }),
         b: common_assets._imports_0$1,

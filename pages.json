@@ -3,7 +3,8 @@
 		{
 			"path": "pages/tabbar/index/index",
 			"style": {
-				"navigationStyle": "custom"
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -90,6 +91,13 @@
 					"style": {
 						"navigationBarTitleText": "活动记录",
 						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path" : "detail/index",
+					"style" : 
+					{
+						"navigationBarTitleText" : "活动详情"
 					}
 				}
 			]

@@ -7,8 +7,8 @@
 <style lang="scss">
 	.bottomText{
 		color: #666;
-		font-size: 14px;
-		padding-bottom: 10px;
+		font-size: 28rpx;
+		padding-bottom: 20rpx;
 		text-align: center;
 	}
 </style>

@@ -10,10 +10,11 @@ if (!Array) {
 const _easycom_uni_nav_bar = () => "../../../uni_modules/uni-nav-bar/components/uni-nav-bar/uni-nav-bar.js";
 const _easycom_uni_icons = () => "../../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
 if (!Math) {
-  (_easycom_uni_nav_bar + _easycom_uni_icons + Tabs + ActivityItem + BottomText)();
+  (_easycom_uni_nav_bar + _easycom_uni_icons + Tabs + ActivityItem + CommentItem + BottomText)();
 }
 const Tabs = () => "../../../components/Tabs/Tabs.js";
 const ActivityItem = () => "../../../components/Activity/ActivityItem.js";
+const CommentItem = () => "../../../components/Comment/CommentItem.js";
 const BottomText = () => "../../../components/BottomText/BottomText.js";
 const _sfc_main = {
   __name: "index",
@@ -45,7 +46,10 @@ const _sfc_main = {
       ],
       currentTab: 0,
       backColor: "transparent",
-      color: "#fff"
+      color: "#fff",
+      statusBarHeight: 0,
+      isTabsFixed: false,
+      top: 0
     });
     const {
       title,
@@ -58,13 +62,25 @@ const _sfc_main = {
       tabs,
       currentTab,
       backColor,
-      color
+      color,
+      statusBarHeight,
+      isTabsFixed,
+      top
     } = common_vendor.toRefs(data);
     const onSwiperChange = (e) => {
       data.current = e.detail.current;
     };
     const handleTab = (e) => {
-      console.log("handleTab", e);
+      data.currentTab = e;
+      common_vendor.index.showLoading({
+        title: "加载中",
+        duration: 2e3,
+        success() {
+          setTimeout(() => {
+            common_vendor.index.hideLoading();
+          }, 1e3);
+        }
+      });
     };
     const goto = () => {
       common_vendor.index.navigateTo({
@@ -72,8 +88,10 @@ const _sfc_main = {
       });
     };
     common_vendor.onLoad(() => {
-      const sys = common_vendor.index.getSystemSetting();
-      console.log("sys", sys);
+      const windowInfo = common_vendor.index.getWindowInfo();
+      console.log("windowInfo", windowInfo);
+      data.statusBarHeight = windowInfo.statusBarHeight;
+      data.top = windowInfo.statusBarHeight + 44;
     });
     common_vendor.onPageScroll((e) => {
       if (e.scrollTop >= 100) {
@@ -83,9 +101,18 @@ const _sfc_main = {
         data.backColor = "transparent";
         data.color = "#fff";
       }
+      if (e.scrollTop >= 460) {
+        data.isTabsFixed = true;
+      } else {
+        data.isTabsFixed = false;
+      }
+    });
+    common_vendor.onPullDownRefresh(() => {
+      console.log("12123");
+      common_vendor.index.stopPullDownRefresh();
     });
     return (_ctx, _cache) => {
-      return {
+      return common_vendor.e({
         a: common_vendor.p({
           color: common_vendor.unref(color),
           backgroundColor: common_vendor.unref(backColor),
@@ -93,55 +120,61 @@ const _sfc_main = {
           title: "太友趣"
         }),
         b: common_vendor.unref(color) == "black" ? 1 : "",
-        c: common_vendor.f(common_vendor.unref(images), (item, index, i0) => {
+        c: common_vendor.unref(statusBarHeight) + "px",
+        d: common_vendor.f(common_vendor.unref(images), (item, index, i0) => {
           return {
             a: item,
             b: index
           };
         }),
-        d: common_vendor.unref(indicatorDots),
-        e: common_vendor.unref(autoplay),
-        f: common_vendor.unref(interval),
-        g: common_vendor.unref(duration),
-        h: common_vendor.o(onSwiperChange),
-        i: common_vendor.f(common_vendor.unref(images), (item, index, i0) => {
+        e: common_vendor.unref(indicatorDots),
+        f: common_vendor.unref(autoplay),
+        g: common_vendor.unref(interval),
+        h: common_vendor.unref(duration),
+        i: common_vendor.o(onSwiperChange),
+        j: common_vendor.f(common_vendor.unref(images), (item, index, i0) => {
           return {
             a: index,
             b: common_vendor.unref(current) === index ? 1 : ""
           };
         }),
-        j: common_assets._imports_0,
-        k: common_vendor.f([1, 2, 3, 4], (item, k0, i0) => {
+        k: common_assets._imports_0,
+        l: common_vendor.f([1, 2, 3, 4], (item, k0, i0) => {
           return {
             a: item
           };
         }),
-        l: common_vendor.p({
+        m: common_vendor.p({
           type: "calendar",
           size: "30",
           color: "#6be8f5"
         }),
-        m: common_vendor.p({
+        n: common_vendor.p({
           type: "image",
           size: "30",
           color: "#6be8f5"
         }),
-        n: common_vendor.p({
+        o: common_vendor.p({
           type: "list",
           size: "30",
           color: "#6be8f5"
         }),
-        o: common_vendor.o(goto),
-        p: common_vendor.p({
+        p: common_vendor.o(goto),
+        q: common_vendor.p({
           type: "wallet",
           size: "30",
           color: "#6be8f5"
         }),
-        q: common_vendor.o(handleTab),
-        r: common_vendor.p({
+        r: common_vendor.o(handleTab),
+        s: common_vendor.p({
           tabs: common_vendor.unref(tabs)
-        })
-      };
+        }),
+        t: common_vendor.unref(isTabsFixed) ? 1 : "",
+        v: common_vendor.unref(top) + "px",
+        w: common_vendor.unref(currentTab) == 0
+      }, common_vendor.unref(currentTab) == 0 ? {} : common_vendor.unref(currentTab) == 1 ? {} : {}, {
+        x: common_vendor.unref(currentTab) == 1
+      });
     };
   }
 };

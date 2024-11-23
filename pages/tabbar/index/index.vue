@@ -1,6 +1,6 @@
 <template>
 	<view class="wrapper">
-		<view :class="{'fixedBar':true, active:color=='black'}">
+		<view :class="{'fixedBar':true, active:color=='black'}" :style="{paddingTop: statusBarHeight+'px'}">
 			<uni-nav-bar :color="color" :backgroundColor="backColor" :border="false" title="太友趣"></uni-nav-bar>
 		</view>
 		<view class="banner">
@@ -41,7 +41,7 @@
 				</view>
 				<view class="clubInfo-detail">
 					<view class="displayFlex title">
-						<span>太友趣Club</span>
+						<view style="font-weight: 500;font-size: 36rpx;">太友趣Club</view>
 						<button class="btn">加入</button>
 					</view>
 					<view class="club-desc">
@@ -76,11 +76,13 @@
 					<view class="menu-item-name">优惠规则</view>
 				</view>
 			</view>
-			
-			<Tabs :tabs="tabs" @change="handleTab"></Tabs>
+			<view :class="{'tabWrap': true, active:isTabsFixed}" :style="{top:top+'px'}">
+				<Tabs :tabs="tabs" @change="handleTab"></Tabs>
+			</view>
 			
 			<view style="margin-top: 20px;margin-bottom: 20px;">
-				<ActivityItem />
+				<ActivityItem v-if="currentTab==0" />
+				<CommentItem v-else-if="currentTab==1" />
 			</view>
 			<BottomText />
 		</view>
@@ -90,10 +92,11 @@
 
 <script setup>
 	import { ref, reactive, toRefs, toRef } from "vue";
-	import { onLoad, onReady, onPageScroll } from '@dcloudio/uni-app';
+	import { onLoad, onReady, onPageScroll, onPullDownRefresh } from '@dcloudio/uni-app';
 	import { useCounterStore } from "@/stores/counter";
 	import Tabs from "@/components/Tabs/Tabs.vue";
 	import ActivityItem from "@/components/Activity/ActivityItem.vue";
+	import CommentItem from "@/components/Comment/CommentItem.vue";
 	import BottomText from "@/components/BottomText/BottomText.vue";
 	const store = useCounterStore();
 	console.log("count:", store.count)
@@ -122,10 +125,13 @@
 		],
 		currentTab: 0,
 		backColor: "transparent",
-		color: "#fff"
+		color: "#fff",
+		statusBarHeight: 0,
+		isTabsFixed: false,
+		top: 0
 	});
 	const { title, indicatorDots, autoplay, interval, 
-	duration, images, current, tabs, currentTab, backColor, color } = toRefs(data);
+	duration, images, current, tabs, currentTab, backColor, color, statusBarHeight, isTabsFixed, top } = toRefs(data);
 	
 	const onSwiperChange = (e) => {
 		// console.log("e", e, data.current);
@@ -133,7 +139,16 @@
 	};
 	
 	const handleTab = (e) => {
-		console.log("handleTab", e);
+		data.currentTab = e;
+		uni.showLoading({
+			title: '加载中',
+			duration: 2000,
+			success() {
+				setTimeout(()=>{
+					uni.hideLoading();
+				},1000)
+			}
+		})
 	}
 	
 	const goto = () => {
@@ -143,11 +158,14 @@
 	}
 	
 	onLoad(()=>{
-		const sys = uni.getSystemSetting();
-		console.log("sys", sys);
+		const windowInfo = uni.getWindowInfo();
+		console.log("windowInfo", windowInfo);
+		data.statusBarHeight = windowInfo.statusBarHeight;
+		data.top = windowInfo.statusBarHeight + 44;
 	})
 	
 	onPageScroll((e)=>{
+		// console.log("onPageScroll", e);
 		if(e.scrollTop>=100){
 			data.backColor = "#fff";
 			data.color = "black";
@@ -155,6 +173,16 @@
 			data.backColor = "transparent";
 			data.color = "#fff";
 		}
+		if(e.scrollTop>=460){
+			data.isTabsFixed = true;
+		}else {
+			data.isTabsFixed = false;
+		}
+	});
+	
+	onPullDownRefresh(()=>{
+		console.log("12123");
+		uni.stopPullDownRefresh();
 	})
 	
 </script>
@@ -163,12 +191,11 @@
 	.fixedBar{
 		position: fixed;
 		width: 100%;
-		// top: 44px;
 		z-index: 999;
 		background: transparent;
-		padding-top: 44px;
 		&.active{
 			background: #fff !important;
+			box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.1);
 		}
 	}
 	.wrapper {
@@ -223,13 +250,13 @@
 		  // height: 400rpx;
 		  background: #FFFFFF;
 		  border-radius: 20rpx;
-		  padding-top: 50px;
-		  padding-bottom: 15px;
+		  padding-top: 100rpx;
+		  padding-bottom: 30rpx;
 		  position: relative;
 		  border-top-left-radius: 0;
 		  .header{
-			  width: 130px;
-			  height: 80px;
+			  width: 260rpx;
+			  height: 170rpx;
 			  position: absolute;
 			  bottom: 80%;
 			  left: 0;
@@ -237,13 +264,13 @@
 			  border-radius: 20rpx 20rpx 0 0;
 			  z-index: 9;
 			  .logo{
-				  width: 90px;
-				  height: 90px;
+				  width: 180rpx;
+				  height: 180rpx;
 				  border-radius: 50%;
-				  margin-left: 15px;
-				  margin-top: -15px;
+				  margin-left: 30rpx;
+				  margin-top: -30rpx;
 				  background: #fff;
-				  padding: 5px;
+				  padding: 10rpx;
 				  .logoImg{
 					  width: 100%;
 					  height: 100%;
@@ -254,53 +281,53 @@
 		  .peopleBox{
 			  position: absolute;
 			  bottom: 95%;
-			  left: 130px;
-			  width: calc(100% - 130px);
-			  height: 40px;
+			  left: 260rpx;
+			  width: calc(100% - 260rpx);
+			  height: 80rpx;
 			  background: #6be8f5;
 			  border-top-right-radius: 20rpx;
 			  color: #333;
 			  z-index: 1;
 			  .peopleHead{
-				line-height: 40px;
-				padding-left: 10px;
+				line-height: 80rpx;
+				padding-left: 20rpx;
 				color: #333;
 				font-weight: 500;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				padding-right: 10px;
+				padding-right: 20rpx;
 			  }
 			  .avatarList{
 				  display: flex;
 				  align-items: center;
-				  gap: -8px;
+				  gap: -16rpx;
 				  .avatarItem{
-					  width: 28px;
-					  height: 28px;
+					  width: 56rpx;
+					  height: 56rpx;
 					  border-radius: 50%;
 					  background: #e2e3e5;
-					  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-					  margin-left: -5px;
+					  box-shadow: 0 0 8rpx rgba(0, 0, 0, 0.2);
+					  margin-left: -10rpx;
 				  }
 			  }
 		  }
 		  .clubInfo-detail{
-			  padding: 0 15px;
+			  padding: 0 30rpx;
 			  .title{
-				  padding-bottom: 10px;
+				  padding-bottom: 20rpx;
 			  }
 		  }
 		  .club-desc{
-			  font-size: 14px;
+			  font-size: 28rpx;
 			  color: #484848;
 		  }
 	  }
 	  .menu-wrap{
-		height: 100px;
+		height: 200rpx;
 		background: #fff;
-		border-radius: 10px;
-		margin: 10px 0;
+		border-radius: 20rpx;
+		margin: 20rpx 0;
 		display: flex;
 		flex-wrap: wrap;
 		// flex-direction: column;
@@ -311,16 +338,16 @@
 			justify-content: center;
 			align-items: center;
 			.menu-item-icon{
-				width: 45px;
-				height: 45px;
-				line-height: 45px;
+				width: 90rpx;
+				height: 90rpx;
+				line-height: 90rpx;
 				background: #f1f1f1;
 				border-radius: 40%;
 				text-align: center;
 			}
 			.menu-item-name{
-				margin-top: 10px;
-				font-size: 14px;
+				margin-top: 20rpx;
+				font-size: 28rpx;
 				color: #3d3d3d;
 			}
 		}
@@ -334,7 +361,7 @@
 		text-align: center;
 		display: inline-block;
 		border-radius: 30rpx;
-		font-size: 16px;
+		font-size: 32rpx;
 		margin: 0;
 		padding: 0;
 		background: #6be8f5;
@@ -346,5 +373,16 @@
 			display: none;
 		}
 	}
-	
+	.tabWrap{
+		&.active{
+			position: sticky;
+			z-index: 9999;
+		}
+	}
+</style>
+<style scoped>
+	/deep/ .uni-navbar__header .uni-nav-bar-text{
+		font-size: 36rpx !important;
+		font-weight: 500;
+	}
 </style>

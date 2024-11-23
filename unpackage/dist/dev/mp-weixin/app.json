@@ -10,7 +10,8 @@
     {
       "root": "pages/activity",
       "pages": [
-        "list/index"
+        "list/index",
+        "detail/index"
       ]
     }
   ],

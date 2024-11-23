@@ -28,10 +28,10 @@
   width: 100%;
   z-index: 999;
   background: transparent;
-  padding-top: 44px;
 }
 .fixedBar.active.data-v-184b8d5d {
   background: #fff !important;
+  box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.1);
 }
 .wrapper .banner.data-v-184b8d5d {
   width: 100%;
@@ -80,14 +80,14 @@
 .wrapper .clubInfo.data-v-184b8d5d {
   background: #FFFFFF;
   border-radius: 20rpx;
-  padding-top: 50px;
-  padding-bottom: 15px;
+  padding-top: 100rpx;
+  padding-bottom: 30rpx;
   position: relative;
   border-top-left-radius: 0;
 }
 .wrapper .clubInfo .header.data-v-184b8d5d {
-  width: 130px;
-  height: 80px;
+  width: 260rpx;
+  height: 170rpx;
   position: absolute;
   bottom: 80%;
   left: 0;
@@ -96,13 +96,13 @@
   z-index: 9;
 }
 .wrapper .clubInfo .header .logo.data-v-184b8d5d {
-  width: 90px;
-  height: 90px;
+  width: 180rpx;
+  height: 180rpx;
   border-radius: 50%;
-  margin-left: 15px;
-  margin-top: -15px;
+  margin-left: 30rpx;
+  margin-top: -30rpx;
   background: #fff;
-  padding: 5px;
+  padding: 10rpx;
 }
 .wrapper .clubInfo .header .logo .logoImg.data-v-184b8d5d {
   width: 100%;
@@ -112,52 +112,52 @@
 .wrapper .clubInfo .peopleBox.data-v-184b8d5d {
   position: absolute;
   bottom: 95%;
-  left: 130px;
-  width: calc(100% - 130px);
-  height: 40px;
+  left: 260rpx;
+  width: calc(100% - 260rpx);
+  height: 80rpx;
   background: #6be8f5;
   border-top-right-radius: 20rpx;
   color: #333;
   z-index: 1;
 }
 .wrapper .clubInfo .peopleBox .peopleHead.data-v-184b8d5d {
-  line-height: 40px;
-  padding-left: 10px;
+  line-height: 80rpx;
+  padding-left: 20rpx;
   color: #333;
   font-weight: 500;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 10px;
+  padding-right: 20rpx;
 }
 .wrapper .clubInfo .peopleBox .avatarList.data-v-184b8d5d {
   display: flex;
   align-items: center;
-  gap: -8px;
+  gap: -16rpx;
 }
 .wrapper .clubInfo .peopleBox .avatarList .avatarItem.data-v-184b8d5d {
-  width: 28px;
-  height: 28px;
+  width: 56rpx;
+  height: 56rpx;
   border-radius: 50%;
   background: #e2e3e5;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  margin-left: -5px;
+  box-shadow: 0 0 8rpx rgba(0, 0, 0, 0.2);
+  margin-left: -10rpx;
 }
 .wrapper .clubInfo .clubInfo-detail.data-v-184b8d5d {
-  padding: 0 15px;
+  padding: 0 30rpx;
 }
 .wrapper .clubInfo .clubInfo-detail .title.data-v-184b8d5d {
-  padding-bottom: 10px;
+  padding-bottom: 20rpx;
 }
 .wrapper .clubInfo .club-desc.data-v-184b8d5d {
-  font-size: 14px;
+  font-size: 28rpx;
   color: #484848;
 }
 .wrapper .menu-wrap.data-v-184b8d5d {
-  height: 100px;
+  height: 200rpx;
   background: #fff;
-  border-radius: 10px;
-  margin: 10px 0;
+  border-radius: 20rpx;
+  margin: 20rpx 0;
   display: flex;
   flex-wrap: wrap;
 }
@@ -169,16 +169,16 @@
   align-items: center;
 }
 .wrapper .menu-wrap .menu-item .menu-item-icon.data-v-184b8d5d {
-  width: 45px;
-  height: 45px;
-  line-height: 45px;
+  width: 90rpx;
+  height: 90rpx;
+  line-height: 90rpx;
   background: #f1f1f1;
   border-radius: 40%;
   text-align: center;
 }
 .wrapper .menu-wrap .menu-item .menu-item-name.data-v-184b8d5d {
-  margin-top: 10px;
-  font-size: 14px;
+  margin-top: 20rpx;
+  font-size: 28rpx;
   color: #3d3d3d;
 }
 .btn.data-v-184b8d5d {
@@ -189,7 +189,7 @@
   text-align: center;
   display: inline-block;
   border-radius: 30rpx;
-  font-size: 16px;
+  font-size: 32rpx;
   margin: 0;
   padding: 0;
   background: #6be8f5;
@@ -200,4 +200,14 @@
 .btn.data-v-184b8d5d::after, .btn.data-v-184b8d5d::before {
   content: "";
   display: none;
+}
+.tabWrap.active.data-v-184b8d5d {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 9999;
+}
+
+.data-v-184b8d5d .uni-navbar__header .uni-nav-bar-text{
+		font-size: 36rpx !important;
+		font-weight: 500;
 }

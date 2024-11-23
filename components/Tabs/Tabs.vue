@@ -33,14 +33,17 @@
 .tabContainer{
 		display: flex;
 		justify-content: center;
-		margin-top: 20px;
+		align-items: center;
+		height: 100rpx;
+		background: #f4f4f4;
 		.tabs{
 			display: flex;
 			.tab{
-				margin-right: 50px;
+				margin-right: 100rpx;
 				color: #878787;
 				font-size: 16px;
 				position: relative;
+				z-index: 2;
 				&.active{
 					color: #333;
 					font-weight: 700;
@@ -49,9 +52,9 @@
 						content: "";
 						display: inline-block;
 						width: 100%;
-						height: 10px;
+						height: 20rpx;
 						background: #6be8f5;
-						bottom: -1px;
+						bottom: -2rpx;
 						z-index: -1;
 					}
 				}
