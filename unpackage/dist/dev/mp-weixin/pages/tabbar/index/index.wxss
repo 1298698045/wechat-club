@@ -115,7 +115,7 @@
   left: 260rpx;
   width: calc(100% - 260rpx);
   height: 80rpx;
-  background: #6be8f5;
+  background: linear-gradient(to right, #e1bbec, #bbc4ed 30%, #99cbee 50%, #68e3f5 70%, #68e3f5);
   border-top-right-radius: 20rpx;
   color: #333;
   z-index: 1;
@@ -171,10 +171,12 @@
 .wrapper .menu-wrap .menu-item .menu-item-icon.data-v-184b8d5d {
   width: 90rpx;
   height: 90rpx;
-  line-height: 90rpx;
   background: #f1f1f1;
   border-radius: 40%;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .wrapper .menu-wrap .menu-item .menu-item-name.data-v-184b8d5d {
   margin-top: 20rpx;

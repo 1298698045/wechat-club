@@ -65,7 +65,8 @@
 				</view>
 				<view class="menu-item" @click="goto">
 					<view class="menu-item-icon">
-						<uni-icons type="list" size="30" color="#6be8f5"></uni-icons>
+						<image style="width: 48rpx;height: 48rpx;" src="../../../static/img/icon.png" mode="aspectFill"></image>
+						<!-- <uni-icons type="list" size="30" color="#6be8f5"></uni-icons> -->
 					</view>
 					<view class="menu-item-name">活动记录</view>
 				</view>
@@ -284,7 +285,8 @@
 			  left: 260rpx;
 			  width: calc(100% - 260rpx);
 			  height: 80rpx;
-			  background: #6be8f5;
+			  // background: #6be8f5;
+			  background: linear-gradient(to right, #e1bbec, #bbc4ed 30%, #99cbee 50%, #68e3f5 70%, #68e3f5);
 			  border-top-right-radius: 20rpx;
 			  color: #333;
 			  z-index: 1;
@@ -340,10 +342,13 @@
 			.menu-item-icon{
 				width: 90rpx;
 				height: 90rpx;
-				line-height: 90rpx;
+				// line-height: 90rpx;
 				background: #f1f1f1;
 				border-radius: 40%;
 				text-align: center;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 			}
 			.menu-item-name{
 				margin-top: 20rpx;

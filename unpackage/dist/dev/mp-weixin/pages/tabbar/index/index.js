@@ -154,11 +154,7 @@ const _sfc_main = {
           size: "30",
           color: "#6be8f5"
         }),
-        o: common_vendor.p({
-          type: "list",
-          size: "30",
-          color: "#6be8f5"
-        }),
+        o: common_assets._imports_1,
         p: common_vendor.o(goto),
         q: common_vendor.p({
           type: "wallet",

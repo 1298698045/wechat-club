@@ -21,7 +21,7 @@ const _sfc_main = {
           };
         }),
         b: common_assets._imports_0,
-        c: common_assets._imports_1
+        c: common_assets._imports_1$1
       };
     };
   }
