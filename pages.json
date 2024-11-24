@@ -28,7 +28,7 @@
 		{
 			"path": "pages/tabbar/my/index",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationStyle": "custom"
 			}
 		}
 	],

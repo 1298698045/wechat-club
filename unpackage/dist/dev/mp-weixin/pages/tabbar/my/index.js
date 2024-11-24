@@ -1,39 +1,30 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
-const _sfc_main = {
-  __name: "index",
-  setup(__props) {
-    const handleLogin = () => {
-      common_vendor.index.login({
-        provider: "weixin",
-        success: (res) => {
-          console.log("res", res);
-          common_vendor.index.showToast({
-            title: "请完善用户信息！",
-            duration: 2e3,
-            success() {
-              setTimeout(() => {
-                common_vendor.index.switchTab({
-                  url: "/pages/tabbar/index/index"
-                });
-              }, 2e3);
-            }
-          });
-          common_vendor.index.getUserProfile({
-            provider: "weixin",
-            desc: "用于完善会员资料",
-            success: function(infoRes) {
-              console.log("用户昵称为：" + infoRes);
-            }
-          });
-        }
-      });
-    };
-    return (_ctx, _cache) => {
-      return {
-        a: common_vendor.o(handleLogin)
-      };
-    };
-  }
-};
-wx.createPage(_sfc_main);
+const common_assets = require("../../../common/assets.js");
+const _sfc_main = {};
+if (!Array) {
+  const _component_u_icon = common_vendor.resolveComponent("u-icon");
+  _component_u_icon();
+}
+function _sfc_render(_ctx, _cache) {
+  return {
+    a: common_assets._imports_0,
+    b: common_vendor.p({
+      name: "arrow-right"
+    }),
+    c: common_assets._imports_1$1,
+    d: common_vendor.p({
+      name: "arrow-right"
+    }),
+    e: common_assets._imports_2,
+    f: common_vendor.p({
+      name: "arrow-right"
+    }),
+    g: common_assets._imports_3,
+    h: common_vendor.p({
+      name: "arrow-right"
+    })
+  };
+}
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-25e2cca3"]]);
+wx.createPage(MiniProgramPage);
