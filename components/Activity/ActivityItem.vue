@@ -38,7 +38,7 @@
 	const handleDetail = (item) => {
 		uni.navigateTo({
 			url:"/pages/activity/detail/index?id="+item,
-		});
+		})
 	}
 	
 </script>

@@ -1,4 +1,4 @@
-const BASE_URL = "";
+const BASE_URL = "http://47.96.15.8:9006";
 const TIMEOUT = 5000;
 const request = (method, url, data) => {
 	return new Promise((resolve, reject)=>{		

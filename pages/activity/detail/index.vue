@@ -1,6 +1,9 @@
 <template>
-	<view>
+	<view class="detailWrap">
 		活动ID：{{id}}
+		<div class="banner">
+			
+		</div>
 	</view>
 </template>
 
@@ -14,6 +17,11 @@
 	})
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+	.detailWrap{
+		.banner{
+			height: 300rpx;
+			background: #3399ff;
+		}
+	}
 </style>

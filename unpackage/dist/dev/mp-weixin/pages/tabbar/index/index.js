@@ -2,6 +2,8 @@
 const common_vendor = require("../../../common/vendor.js");
 const common_assets = require("../../../common/assets.js");
 const stores_counter = require("../../../stores/counter.js");
+const utils_Interface = require("../../../utils/Interface.js");
+const utils_request = require("../../../utils/request.js");
 if (!Array) {
   const _easycom_uni_nav_bar2 = common_vendor.resolveComponent("uni-nav-bar");
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
@@ -70,6 +72,12 @@ const _sfc_main = {
     const onSwiperChange = (e) => {
       data.current = e.detail.current;
     };
+    const getActivityList = () => {
+      utils_request.get(utils_Interface.Interface.activity.list, {}).then((res) => {
+        console.log("res", res);
+      });
+    };
+    getActivityList();
     const handleTab = (e) => {
       data.currentTab = e;
       common_vendor.index.showLoading({
@@ -154,7 +162,11 @@ const _sfc_main = {
           size: "30",
           color: "#6be8f5"
         }),
-        o: common_assets._imports_1,
+        o: common_vendor.p({
+          type: "list",
+          size: "30",
+          color: "#6be8f5"
+        }),
         p: common_vendor.o(goto),
         q: common_vendor.p({
           type: "wallet",

@@ -26,8 +26,13 @@
     "miniprogram": {
       "list": [
         {
-          "name": "关于页",
+          "name": "首页",
           "pathName": "pages/tabbar/index/index",
+          "query": ""
+        },
+        {
+          "name": "活动详情页",
+          "pathName": "pages/activity/detail/index",
           "query": ""
         }
       ]

@@ -1,1 +1,1 @@
-<view> 活动ID：{{a}}</view>
+<view class="detailWrap data-v-f6d487c6"> 活动ID：{{a}} <view class="banner data-v-f6d487c6"></view></view>

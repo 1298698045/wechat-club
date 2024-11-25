@@ -36,8 +36,12 @@
 		"current": 0,
 		"list": [
 			{
-				"name": "关于页",
+				"name": "首页",
 				"path": "pages/tabbar/index/index"
+			},
+			{
+				"name": "活动详情页",
+				"path": "pages/activity/detail/index"
 			}
 		]
 	},

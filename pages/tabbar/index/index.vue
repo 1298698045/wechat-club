@@ -65,8 +65,8 @@
 				</view>
 				<view class="menu-item" @click="goto">
 					<view class="menu-item-icon">
-						<image style="width: 48rpx;height: 48rpx;" src="../../../static/img/icon.png" mode="aspectFill"></image>
-						<!-- <uni-icons type="list" size="30" color="#6be8f5"></uni-icons> -->
+						<!-- <image style="width: 48rpx;height: 48rpx;" src="../../../static/img/icon.png" mode="aspectFill"></image> -->
+						<uni-icons type="list" size="30" color="#6be8f5"></uni-icons>
 					</view>
 					<view class="menu-item-name">活动记录</view>
 				</view>
@@ -99,6 +99,8 @@
 	import ActivityItem from "@/components/Activity/ActivityItem.vue";
 	import CommentItem from "@/components/Comment/CommentItem.vue";
 	import BottomText from "@/components/BottomText/BottomText.vue";
+	import Interface from "../../../utils/Interface";
+	import { get } from "@/utils/request.js";
 	const store = useCounterStore();
 	console.log("count:", store.count)
 	const data = reactive({
@@ -138,6 +140,13 @@
 		// console.log("e", e, data.current);
 		data.current = e.detail.current;
 	};
+	
+	const getActivityList = () => {
+		get(Interface.activity.list, {}).then(res=>{
+			console.log("res", res);
+		})
+	};
+	getActivityList();
 	
 	const handleTab = (e) => {
 		data.currentTab = e;
