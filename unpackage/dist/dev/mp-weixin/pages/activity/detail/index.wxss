@@ -27,3 +27,82 @@
   height: 300rpx;
   background: #3399ff;
 }
+.detailWrap .detail-content.data-v-f6d487c6 {
+  width: 100%;
+  position: relative;
+}
+.detailWrap .detail-content .activity-info.data-v-f6d487c6 {
+  width: 100%;
+  position: absolute;
+  top: -30rpx;
+  height: 500rpx;
+  background: #38404b;
+  border-radius: 0 30rpx 0 0;
+  z-index: 1;
+}
+.detailWrap .detail-content .activity-info .top-radius.data-v-f6d487c6 {
+  width: 200rpx;
+  height: 60rpx;
+  position: absolute;
+  top: -40rpx;
+  background: #38404b;
+  border-radius: 0 200rpx 0 0;
+}
+.detailWrap .detail-content .activity-info .activity-info-bd.data-v-f6d487c6 {
+  position: relative;
+  z-index: 9;
+  padding: 0 30rpx 30rpx;
+}
+.detailWrap .detail-content .activity-info .activity-info-bd .price.data-v-f6d487c6 {
+  display: flex;
+  font-size: 30rpx;
+  color: #fae79b;
+  font-weight: 400;
+  align-items: flex-end;
+}
+.detailWrap .detail-content .activity-info .activity-info-bd .price .symbol.data-v-f6d487c6 {
+  padding-bottom: 10rpx;
+}
+.detailWrap .detail-content .activity-info .activity-info-bd .price .priceNum.data-v-f6d487c6 {
+  font-size: 62rpx;
+  padding-left: 20rpx;
+  margin-top: -20rpx;
+}
+.detailWrap .footer.data-v-f6d487c6 {
+  width: 100%;
+  height: 190rpx;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+}
+.detailWrap .footer .footer-content.data-v-f6d487c6 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.detailWrap .footer .footer-content .footer-tips.data-v-f6d487c6 {
+  color: #868789;
+  font-size: 24rpx;
+  background: #f9ffff;
+  line-height: 60rpx;
+}
+.detailWrap .footer .footer-content .btn.data-v-f6d487c6 {
+  width: calc(100% - 80rpx);
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 50rpx;
+  background: #98f2fb;
+  margin: 0;
+  padding: 0;
+  color: #333333;
+  font-weight: 500;
+  margin: 0 auto;
+}
+.detailWrap .footer .footer-content .btn.data-v-f6d487c6::after, .detailWrap .footer .footer-content .btn.data-v-f6d487c6::before {
+  content: "";
+  display: none;
+}
+.detailWrap .footer .footer-content .btnHover.data-v-f6d487c6 {
+  background: #98f2f1;
+}
