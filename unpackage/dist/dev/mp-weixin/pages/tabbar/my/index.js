@@ -41,6 +41,21 @@ const _sfc_main = {
         text: "优惠券"
       }
     ]);
+    const handleLogin = () => {
+      common_vendor.index.login({
+        provider: "weixin",
+        success: function(code) {
+          console.log("code", code);
+          common_vendor.index.getUserProfile({
+            provider: "weixin",
+            desc: "用于完善会员资料",
+            success: function(infoRes) {
+              console.log("用户昵称为：" + infoRes);
+            }
+          });
+        }
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: common_assets._imports_0,
@@ -51,7 +66,7 @@ const _sfc_main = {
             c: index
           };
         }),
-        c: common_vendor.o((...args) => _ctx.goLogin && _ctx.goLogin(...args)),
+        c: common_vendor.o(handleLogin),
         d: !_ctx.login ? "logo-hover" : "",
         e: common_vendor.f(navs.value, (nav, index, i0) => {
           return {

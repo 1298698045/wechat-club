@@ -8494,6 +8494,7 @@ const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
 const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
 const onPageScroll = /* @__PURE__ */ createHook(ON_PAGE_SCROLL);
 const onPullDownRefresh = /* @__PURE__ */ createHook(ON_PULL_DOWN_REFRESH);
+const onShareAppMessage = /* @__PURE__ */ createHook(ON_SHARE_APP_MESSAGE);
 exports.Pinia = Pinia;
 exports._export_sfc = _export_sfc;
 exports.createPinia = createPinia;
@@ -8507,6 +8508,7 @@ exports.o = o;
 exports.onLoad = onLoad;
 exports.onPageScroll = onPageScroll;
 exports.onPullDownRefresh = onPullDownRefresh;
+exports.onShareAppMessage = onShareAppMessage;
 exports.p = p;
 exports.reactive = reactive;
 exports.ref = ref;

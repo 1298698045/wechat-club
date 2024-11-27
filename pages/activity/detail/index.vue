@@ -12,6 +12,28 @@
 						<view class="symbol">¥</view>
 						<view class="priceNum">79</view>
 					</view>
+					<view class="info-head">
+						<view class="name">
+							攀岩🧗‍♀️体验新项目
+						</view>
+						<button open-type="share" class="shareBtn" @click="handleShare">
+							<uni-icons type="redo" color="#fff"></uni-icons>
+							分享
+						</button>
+					</view>
+					<view class="location-desc">北京朝阳区优士阁A座</view>
+					<view class="location">
+						<uni-icons type="location" color="#fff"></uni-icons>
+						<view class="location-text">北京朝阳区优士阁</view>
+					</view>
+					<view class="split"></view>
+					<view class="row">
+						<view class="label">活动时间</view>
+						<view class="value">2024-11-27</view>
+					</view>
+					<view class="row">
+						<view class="label">级别</view>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -28,15 +50,50 @@
 
 <script setup>
 	import { ref } from "vue";
-	import { onLoad } from "@dcloudio/uni-app";
+	import { onLoad, onShareAppMessage } from "@dcloudio/uni-app";
 	const id = ref('');
 	onLoad((options)=>{
 		console.log("options", options);
 		id.value = options.id;
 	})
+	
+	const handleShare = () => {
+		console.log('123123');
+		uni.showShareMenu({
+		  withShareTicket: true,
+		  menus: ['shareAppMessage', 'shareTimeline']
+		})
+	}
+	onShareAppMessage(()=>{
+		const promise = new Promise(resolve => {
+		  setTimeout(() => {
+		    resolve({
+		      title: '自定义转发标题123'
+		    })
+		  }, 2000)
+		})
+		return {
+		  title: '自定义转发标题123',
+		  path: '/pages/activity/detail/index?id=123',
+		  promise 
+		}
+	})
 </script>
 
 <style lang="scss" scoped>
+	.shareBtn{
+		border: none;
+		margin: 0;
+		padding: 0;
+		outline: 0;
+		background: transparent;
+		color: #fff;
+		font-size: 28rpx;
+		&::after,&::before{
+			content: '';
+			display: none;
+		}
+	}
 	.detailWrap{
 		.banner{
 			height: 300rpx;
@@ -78,6 +135,44 @@
 							font-size: 62rpx;
 							padding-left: 20rpx;
 							margin-top: -20rpx;
+						}
+					}
+					.info-head{
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						font-size: 28rpx;
+						color: #fff;
+						.name{
+							font-size: 34rpx;
+						}
+					}
+					.location-desc{
+						font-size: 32rpx;
+						color: #999da6;
+					}
+					.location{
+						font-size: 28rpx;
+						color: #fff;
+						display: flex;
+						align-items: center;
+						margin-top: 10rpx;
+						.location-text{
+							margin-left: 20rpx;
+						}
+					}
+					.split{
+						margin: 32rpx 0;
+						border-bottom: 2rpx dashed #fff;
+					}
+					.row{
+						color: #fff;
+						font-size: 28rpx;
+						margin-bottom: 20rpx;
+						display: flex;
+						.label{
+							color: #999da6;
+							margin-right: 20rpx;
 						}
 					}
 				}

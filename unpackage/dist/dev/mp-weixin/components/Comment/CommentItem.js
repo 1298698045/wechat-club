@@ -6,8 +6,8 @@ const _sfc_main = {
   setup(__props) {
     const previewImg = () => {
       common_vendor.index.previewImage({
-        urls: [],
-        current: "",
+        urls: ["http://47.96.15.8:9006/images/1.jpg", "http://47.96.15.8:9006/images/2.jpg", "http://47.96.15.8:9006/images/3.jpg"],
+        current: "http://47.96.15.8:9006/images/1.jpg",
         success: (res) => {
         }
       });

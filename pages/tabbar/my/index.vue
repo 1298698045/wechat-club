@@ -2,7 +2,7 @@
 	<view class="center">
 		<view class="bg center">
 			<view class="bg-radius"></view>
-			<view class="logo" @click="goLogin" :hover-class="!login ? 'logo-hover' : ''">
+			<view class="logo" @click="handleLogin" :hover-class="!login ? 'logo-hover' : ''">
 				<image class="logo-img" src="@/static/img/logo2.jpg"></image>
 				<view class="logo-title">
 					<text class="uer-name">Lisa</text>
@@ -99,6 +99,23 @@
 			text:'优惠券'
 		}
 	]);
+	
+	const handleLogin = () => {
+		uni.login({
+			provider: 'weixin',
+			success: function (code) {
+				console.log("code", code);
+				uni.getUserProfile({
+				  provider: 'weixin',
+				  desc: '用于完善会员资料',
+				  success: function (infoRes) {
+					console.log('用户昵称为：' + infoRes);
+					
+				  }
+				});
+			}
+		})
+	}
 </script>
 <style>
 	@font-face {
