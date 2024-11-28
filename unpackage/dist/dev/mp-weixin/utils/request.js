@@ -9,11 +9,12 @@ const request = (method, url, data) => {
       data,
       method,
       header: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/json"
+        // 'Content-Type': 'application/x-www-form-urlencoded'
       },
       timeout: TIMEOUT,
       success(res) {
-        resolve(res);
+        resolve(res.data);
       },
       fail(error) {
         console.log("error", error);
@@ -24,4 +25,8 @@ const request = (method, url, data) => {
 const get = (url, data) => {
   return request("GET", url, data);
 };
+const post = (url, data) => {
+  return request("POST", url, data);
+};
 exports.get = get;
+exports.post = post;

@@ -1,38 +1,70 @@
 <template>
 	<view class="detailWrap">
-		活动ID：{{id}}
 		<view class="banner">
 			
 		</view>
 		<view class="detail-content">
-			<view class="activity-info">
-				<view class="top-radius"></view>
-				<view class="activity-info-bd">					
-					<view class="price">
-						<view class="symbol">¥</view>
-						<view class="priceNum">79</view>
-					</view>
-					<view class="info-head">
-						<view class="name">
-							攀岩🧗‍♀️体验新项目
+			<view style="height: 470rpx;">
+				<view class="activity-info">
+					<view class="top-radius"></view>
+					<view class="activity-info-bd">					
+						<view class="price">
+							<view class="symbol">¥</view>
+							<view class="priceNum">79</view>
 						</view>
-						<button open-type="share" class="shareBtn" @click="handleShare">
-							<uni-icons type="redo" color="#fff"></uni-icons>
-							分享
-						</button>
+						<view class="info-head">
+							<view class="name">
+								攀岩🧗‍♀️体验新项目
+							</view>
+							<button open-type="share" class="shareBtn" @click="handleShare">
+								<uni-icons type="redo" color="#fff"></uni-icons>
+								分享
+							</button>
+						</view>
+						<view class="location-desc">北京朝阳区优士阁A座</view>
+						<view class="location" @click="handleLocation">
+							<uni-icons type="location" color="#fff"></uni-icons>
+							<view class="location-text">北京朝阳区优士阁</view>
+						</view>
+						<view class="split"></view>
+						<view class="row">
+							<view class="label">活动时间</view>
+							<view class="value">2024-11-27</view>
+						</view>
+						<view class="row">
+							<view class="label">级别</view>
+						</view>
 					</view>
-					<view class="location-desc">北京朝阳区优士阁A座</view>
-					<view class="location">
-						<uni-icons type="location" color="#fff"></uni-icons>
-						<view class="location-text">北京朝阳区优士阁</view>
+				</view>
+			</view>
+			<view class="detail-container">
+				<view class="signup-wrap">
+					<view class="signHead">
+						<view>已报名（9/20）</view>
+						<view>
+							默认
+							<uni-icons type="down"></uni-icons>
+							展开
+							<uni-icons type="down"></uni-icons>
+						</view>
 					</view>
-					<view class="split"></view>
-					<view class="row">
-						<view class="label">活动时间</view>
-						<view class="value">2024-11-27</view>
+					<view class="signBody">
+						<view class="avatarList">
+							<view class="avatarItem" v-for="item in [1,2,3,4,5,6,7,8]" :key="item">
+								
+							</view>
+						</view>
+						<view class="user-list">
+							<view class="user-item"></view>
+						</view>
 					</view>
-					<view class="row">
-						<view class="label">级别</view>
+				</view>
+				<view class="desc-wrap">
+					<view class="label">活动描述</view>
+					<view class="desc-body">
+						<rich-text>
+							12312
+						</rich-text>
 					</view>
 				</view>
 			</view>
@@ -64,6 +96,37 @@
 		  menus: ['shareAppMessage', 'shareTimeline']
 		})
 	}
+	
+	const handleLocation = () => {
+	  console.log("获取位置信息");
+	  uni.getLocation({
+	    type: 'gcj02', // 使用GCJ-02坐标系，适配腾讯地图和微信内置地图
+	    success: function (res) {
+	      console.log("定位成功", res);
+	      const { latitude, longitude } = res;
+	
+	      // 打开地图并显示当前位置
+	      uni.openLocation({
+	        latitude,
+	        longitude,
+	        scale: 18, // 缩放级别，范围为5-18，默认值为18
+	        name: "当前位置", // 地点名称，可选
+	        address: "你所在的位置", // 地址描述，可选
+	        success: function () {
+	          console.log('打开地图成功');
+	        },
+	        fail: function (err) {
+	          console.error('打开地图失败', err);
+	        }
+	      });
+	    },
+	    fail: function (err) {
+	      console.error("定位失败", err);
+	    }
+	  });
+	};
+	
+	
 	onShareAppMessage(()=>{
 		const promise = new Promise(resolve => {
 		  setTimeout(() => {
@@ -95,8 +158,9 @@
 		}
 	}
 	.detailWrap{
+		padding-bottom: 200rpx;
 		.banner{
-			height: 300rpx;
+			height: 500rpx;
 			background: #3399ff;
 		}
 		.detail-content{
@@ -177,6 +241,56 @@
 					}
 				}
 			}
+			.detail-container{
+				position: relative;
+				padding: 0 20rpx;
+				.signup-wrap{
+					background: #fff;
+					position: relative;
+					top: -40rpx;
+					z-index: 9999;
+					border-radius: 10rpx;
+					padding: 20rpx 30rpx;
+					.signHead{
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						margin-bottom: 20rpx;
+					}
+					.signBody{
+						.avatarList{
+						  display: flex;
+						  align-items: center;
+						  gap: -16rpx;
+						  .avatarItem{
+							  width: 56rpx;
+							  height: 56rpx;
+							  border-radius: 50%;
+							  background: #e2e3e5;
+							  box-shadow: 0 0 8rpx rgba(0, 0, 0, 0.2);
+							  margin-left: -10rpx;
+						  }
+						}
+						.user-list{
+							.user-item{
+								display: flex;
+								justify-content: space-between;
+								align-items: center;
+							}
+						}
+					}
+				}
+				.desc-wrap{
+					margin-top: -10rpx;
+					min-height: 1000rpx;
+					background: #fff;
+					padding: 20rpx;
+					border-radius: 10rpx;
+					.desc-body{
+						margin-top: 20rpx;
+					}
+				}
+			}
 		}
 		.footer{
 			width: 100%;
@@ -196,11 +310,11 @@
 				}
 				.btn{
 					width: calc(100% - 80rpx);
-					height: 80rpx;
-					line-height: 80rpx;
+					height: 100rpx;
+					line-height: 100rpx;
 					text-align: center;
 					border-radius: 50rpx;
-					background: #98f2fb;
+					background: #6be8f5;
 					margin: 0;
 					padding: 0;
 					color: #333333;

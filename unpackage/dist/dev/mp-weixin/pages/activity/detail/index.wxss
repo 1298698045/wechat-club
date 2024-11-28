@@ -36,8 +36,11 @@
   content: "";
   display: none;
 }
+.detailWrap.data-v-f6d487c6 {
+  padding-bottom: 200rpx;
+}
 .detailWrap .banner.data-v-f6d487c6 {
-  height: 300rpx;
+  height: 500rpx;
   background: #3399ff;
 }
 .detailWrap .detail-content.data-v-f6d487c6 {
@@ -119,6 +122,52 @@
   color: #999da6;
   margin-right: 20rpx;
 }
+.detailWrap .detail-content .detail-container.data-v-f6d487c6 {
+  position: relative;
+  padding: 0 20rpx;
+}
+.detailWrap .detail-content .detail-container .signup-wrap.data-v-f6d487c6 {
+  background: #fff;
+  position: relative;
+  top: -40rpx;
+  z-index: 9999;
+  border-radius: 10rpx;
+  padding: 20rpx 30rpx;
+}
+.detailWrap .detail-content .detail-container .signup-wrap .signHead.data-v-f6d487c6 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.detailWrap .detail-content .detail-container .signup-wrap .signBody .avatarList.data-v-f6d487c6 {
+  display: flex;
+  align-items: center;
+  gap: -16rpx;
+}
+.detailWrap .detail-content .detail-container .signup-wrap .signBody .avatarList .avatarItem.data-v-f6d487c6 {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background: #e2e3e5;
+  box-shadow: 0 0 8rpx rgba(0, 0, 0, 0.2);
+  margin-left: -10rpx;
+}
+.detailWrap .detail-content .detail-container .signup-wrap .signBody .user-list .user-item.data-v-f6d487c6 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.detailWrap .detail-content .detail-container .desc-wrap.data-v-f6d487c6 {
+  margin-top: -10rpx;
+  min-height: 1000rpx;
+  background: #fff;
+  padding: 20rpx;
+  border-radius: 10rpx;
+}
+.detailWrap .detail-content .detail-container .desc-wrap .desc-body.data-v-f6d487c6 {
+  margin-top: 20rpx;
+}
 .detailWrap .footer.data-v-f6d487c6 {
   width: 100%;
   height: 190rpx;
@@ -139,11 +188,11 @@
 }
 .detailWrap .footer .footer-content .btn.data-v-f6d487c6 {
   width: calc(100% - 80rpx);
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 100rpx;
+  line-height: 100rpx;
   text-align: center;
   border-radius: 50rpx;
-  background: #98f2fb;
+  background: #6be8f5;
   margin: 0;
   padding: 0;
   color: #333333;

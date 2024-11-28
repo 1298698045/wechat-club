@@ -1,6 +1,8 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
 const common_assets = require("../../../common/assets.js");
+const utils_Interface = require("../../../utils/Interface.js");
+const utils_request = require("../../../utils/request.js");
 const _sfc_main = {
   __name: "index",
   setup(__props) {
@@ -41,33 +43,44 @@ const _sfc_main = {
         text: "优惠券"
       }
     ]);
-    const handleLogin = () => {
-      common_vendor.index.login({
-        provider: "weixin",
-        success: function(code) {
-          console.log("code", code);
-          common_vendor.index.getUserProfile({
-            provider: "weixin",
-            desc: "用于完善会员资料",
-            success: function(infoRes) {
-              console.log("用户昵称为：" + infoRes);
-            }
-          });
-        }
-      });
+    const login = common_vendor.ref(false);
+    const code = common_vendor.ref();
+    const handleLogin = async () => {
+      try {
+        const profileRes = await common_vendor.index.getUserProfile({
+          provider: "weixin",
+          desc: "太友趣小程序隐私保护指引"
+        });
+        console.log("用户信息获取成功:", profileRes);
+        let userInfo = JSON.parse(profileRes.rawData);
+        console.log("user", userInfo);
+        const loginRes = await common_vendor.index.login({ provider: "weixin" });
+        console.log("登录成功，code:", loginRes.code);
+        code.value = loginRes.code;
+        console.log("code.value", code.value);
+        utils_request.post(utils_Interface.Interface.login, {
+          code: code.value,
+          nickName: userInfo.nickName,
+          avatarUrl: userInfo.avatarUrl
+        }).then((res) => {
+          console.log("res", res);
+        });
+      } catch (err) {
+        console.log("err", err);
+      }
     };
     return (_ctx, _cache) => {
       return {
         a: common_assets._imports_0,
-        b: common_vendor.f(count.value, (c, index, i0) => {
+        b: common_vendor.o(handleLogin),
+        c: common_vendor.f(count.value, (c, index, i0) => {
           return {
             a: common_vendor.t(c.num),
             b: common_vendor.t(c.text),
             c: index
           };
         }),
-        c: common_vendor.o(handleLogin),
-        d: !_ctx.login ? "logo-hover" : "",
+        d: !login.value ? "logo-hover" : "",
         e: common_vendor.f(navs.value, (nav, index, i0) => {
           return {
             a: common_vendor.t(nav.icon),

@@ -2,8 +2,10 @@
 	<view class="center">
 		<view class="bg center">
 			<view class="bg-radius"></view>
-			<view class="logo" @click="handleLogin" :hover-class="!login ? 'logo-hover' : ''">
-				<image class="logo-img" src="@/static/img/logo2.jpg"></image>
+			<view class="logo" :hover-class="!login ? 'logo-hover' : ''">
+				<button class="btn" @tap="handleLogin">
+					<image class="logo-img" src="@/static/img/logo2.jpg"></image>
+				</button>
 				<view class="logo-title">
 					<text class="uer-name">Lisa</text>
 				</view>
@@ -63,6 +65,8 @@
 </template>
 <script setup>
 	import { ref } from "vue";
+	import Interface from "@/utils/Interface";
+	import { get, post } from "@/utils/request.js";
 	const navs = ref([
 		{
 			icon:"\u{e602}",
@@ -99,22 +103,34 @@
 			text:'优惠券'
 		}
 	]);
+	const login = ref(!true);
+	const code = ref();
 	
-	const handleLogin = () => {
-		uni.login({
-			provider: 'weixin',
-			success: function (code) {
-				console.log("code", code);
-				uni.getUserProfile({
-				  provider: 'weixin',
-				  desc: '用于完善会员资料',
-				  success: function (infoRes) {
-					console.log('用户昵称为：' + infoRes);
-					
-				  }
-				});
-			}
-		})
+	const handleLogin = async () => {
+		try {
+			const profileRes = await uni.getUserProfile({
+			  provider: "weixin",
+			  desc: "太友趣小程序隐私保护指引",
+			});
+			console.log("用户信息获取成功:", profileRes);
+			let userInfo = JSON.parse(profileRes.rawData);
+			console.log("user", userInfo)
+			
+			const loginRes = await uni.login({ provider: "weixin" });
+			console.log("登录成功，code:", loginRes.code);
+			code.value = loginRes.code;
+			console.log("code.value", code.value);
+			
+			post(Interface.login,{
+				code: code.value,
+				nickName: userInfo.nickName,
+				avatarUrl: userInfo.avatarUrl
+			}).then(res=>{
+				console.log('res', res);
+			})
+		}catch(err){
+			console.log("err", err);
+		}	
 	}
 </script>
 <style>
@@ -333,5 +349,18 @@
 	.bg-gray{
 		background:#f4f4f4;
 		height:calc(100vh - 435rpx);
+	}
+	.btn{
+		border: none;
+		padding: 0;
+		margin: 0;
+		outline: 0;
+		background: transparent;
+		display: inline-block;
+		height: 160rpx;
+		&::after,&::before{
+			content: '';
+			display: none;
+		}
 	}
 </style>

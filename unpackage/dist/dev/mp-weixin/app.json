@@ -59,5 +59,10 @@
       }
     ]
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "查看地图"
+    }
+  },
   "usingComponents": {}
 }
