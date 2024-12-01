@@ -35,11 +35,11 @@
 				<text class="list-text">帐号管理</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
-			<view class="center-list-item">
+<!-- 			<view class="center-list-item">
 				<text class="list-icon color-2">&#xe60b;</text>
 				<text class="list-text">新消息通知</text>
 				<text class="navigat-arrow">&#xe65e;</text>
-			</view>
+			</view> -->
 		</view>
 		<view class="center-list">
 			<view class="center-list-item border-bottom">
@@ -56,7 +56,7 @@
 		<view class="center-list">
 			<view class="center-list-item">
 				<text class="list-icon color-1">&#xe60d;</text>
-				<text class="list-text">关于应用</text>
+				<text class="list-text">关于</text>
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>
@@ -70,37 +70,37 @@
 	const navs = ref([
 		{
 			icon:"\u{e602}",
-			text:'待付款'
+			text:'我的订单'
 		},
 		{
-			icon:"\u{e601}",
-			text:'待发货'
+			icon:"\u{e602}",
+			text:'我的钱包'
 		},
 		{
-			icon:"\u{e603}",
-			text:'待收货'
+			icon:"\u{e602}",
+			text:'我的卡券'
 		},
 		{
-			icon:"\u{e604}",
-			text:'待评价'
+			icon:"\u{e602}",
+			text:'工具箱'
 		},
 		{
-			icon:'\u{e60a}',  //原代码：&#xe60a;
-			text:'退款'
+			icon:'\u{e602}',  //原代码：&#xe60a;
+			text:'我的活动'
 		}
 	]);
 	const count = ref([
 		{
 			num:5,
-			text:'我的收藏'
+			text:'我的活动'
 		},
 		{
 			num:7,
-			text:'我的足迹'
+			text:'会员等级'
 		},
 		{
-			num:1,
-			text:'优惠券'
+			num:100,
+			text:'我的积分'
 		}
 	]);
 	const login = ref(!true);

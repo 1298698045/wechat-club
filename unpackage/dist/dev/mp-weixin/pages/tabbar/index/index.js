@@ -92,7 +92,7 @@ const _sfc_main = {
     };
     const goto = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/activity/list/index"
+        url: "/pages/activity/recordList/index"
       });
     };
     common_vendor.onLoad(() => {

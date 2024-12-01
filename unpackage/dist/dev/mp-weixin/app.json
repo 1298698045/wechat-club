@@ -11,14 +11,15 @@
       "root": "pages/activity",
       "pages": [
         "list/index",
-        "detail/index"
+        "detail/index",
+        "recordList/index"
       ]
     }
   ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarBackgroundColor": "#fff",
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {

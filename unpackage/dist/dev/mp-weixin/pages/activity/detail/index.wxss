@@ -144,6 +144,7 @@
   display: flex;
   align-items: center;
   gap: -16rpx;
+  margin-left: 10rpx;
 }
 .detailWrap .detail-content .detail-container .signup-wrap .signBody .avatarList .avatarItem.data-v-f6d487c6 {
   width: 56rpx;
@@ -157,6 +158,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 30rpx;
+}
+.detailWrap .detail-content .detail-container .signup-wrap .signBody .user-list .user-item.data-v-f6d487c6:last-child {
+  margin-bottom: 0;
+}
+.detailWrap .detail-content .detail-container .signup-wrap .signBody .user-list .user-item .user-item-left.data-v-f6d487c6 {
+  display: flex;
+  align-items: center;
+}
+.detailWrap .detail-content .detail-container .signup-wrap .signBody .user-list .user-item .user-item-left .avatar.data-v-f6d487c6 {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background: #e2e3e5;
+  margin-right: 20rpx;
+}
+.detailWrap .detail-content .detail-container .signup-wrap .signBody .user-list .user-item .user-item-left .name.data-v-f6d487c6 {
+  margin-right: 10rpx;
+}
+.detailWrap .detail-content .detail-container .signup-wrap .signBody .user-list .user-item .user-item-right.data-v-f6d487c6 {
+  color: #333333;
 }
 .detailWrap .detail-content .detail-container .desc-wrap.data-v-f6d487c6 {
   margin-top: -10rpx;

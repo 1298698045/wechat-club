@@ -86,7 +86,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarBackgroundColor": "#fff",
 		"backgroundColor": "#F8F8F8"
 	},
 	"easycom": {
@@ -112,6 +112,13 @@
 					"style" : 
 					{
 						"navigationBarTitleText" : "活动详情"
+					}
+				},
+				{
+					"path" : "recordList/index",
+					"style" : 
+					{
+						"navigationBarTitleText" : "活动记录"
 					}
 				}
 			]

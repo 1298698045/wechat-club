@@ -9,6 +9,7 @@ if (!Math) {
   "./pages/tabbar/my/index.js";
   "./pages/activity/list/index.js";
   "./pages/activity/detail/index.js";
+  "./pages/activity/recordList/index.js";
 }
 const _sfc_main = {
   onLaunch: function() {

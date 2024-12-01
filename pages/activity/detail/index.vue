@@ -21,10 +21,10 @@
 								分享
 							</button>
 						</view>
-						<view class="location-desc">北京朝阳区优士阁A座</view>
+						<view class="location-desc">北京朝阳区</view>
 						<view class="location" @click="handleLocation">
 							<uni-icons type="location" color="#fff"></uni-icons>
-							<view class="location-text">北京朝阳区优士阁</view>
+							<view class="location-text">北京朝阳区</view>
 						</view>
 						<view class="split"></view>
 						<view class="row">
@@ -41,21 +41,33 @@
 				<view class="signup-wrap">
 					<view class="signHead">
 						<view>已报名（9/20）</view>
-						<view>
+						<view @click="handleExpand">
 							默认
 							<uni-icons type="down"></uni-icons>
 							展开
-							<uni-icons type="down"></uni-icons>
+							<uni-icons type="down" v-if="!isExpand"></uni-icons>
+							<uni-icons type="up" v-else></uni-icons>
 						</view>
 					</view>
 					<view class="signBody">
-						<view class="avatarList">
+						<view class="avatarList" v-if="!isExpand">
 							<view class="avatarItem" v-for="item in [1,2,3,4,5,6,7,8]" :key="item">
 								
 							</view>
 						</view>
-						<view class="user-list">
-							<view class="user-item"></view>
+						<view class="user-list" v-else>
+							<view class="user-item" v-for="item in [1,2,3,4,5,6,7,8]" :key="item">
+								<view class="user-item-left">
+									<view class="avatar"></view>
+									<view class="name">真真</view>
+									<view class="sex">
+										<uni-icons type="person" color="#db7e9e"></uni-icons>
+									</view>
+								</view>
+								<view class="user-item-right">
+									萌新
+								</view>
+							</view>
 						</view>
 					</view>
 				</view>
@@ -81,9 +93,20 @@
 </template>
 
 <script setup>
-	import { ref } from "vue";
+	import { reactive, ref, toRef, toRefs } from "vue";
 	import { onLoad, onShareAppMessage } from "@dcloudio/uni-app";
 	const id = ref('');
+	
+	const data = reactive({
+		isExpand: false
+	});
+	
+	const { isExpand } = toRefs(data);
+	
+	const handleExpand = () => {
+		data.isExpand = !data.isExpand;
+	}
+	
 	onLoad((options)=>{
 		console.log("options", options);
 		id.value = options.id;
@@ -262,6 +285,7 @@
 						  display: flex;
 						  align-items: center;
 						  gap: -16rpx;
+						  margin-left: 10rpx;
 						  .avatarItem{
 							  width: 56rpx;
 							  height: 56rpx;
@@ -276,6 +300,27 @@
 								display: flex;
 								justify-content: space-between;
 								align-items: center;
+								margin-bottom: 30rpx;
+								&:last-child{
+									margin-bottom: 0;
+								}
+								.user-item-left{
+									display: flex;
+									align-items: center;
+									.avatar{
+										width: 56rpx;
+										height: 56rpx;
+										border-radius: 50%;
+										background: #e2e3e5;
+										margin-right: 20rpx;
+									}
+									.name{
+										margin-right: 10rpx;
+									}
+								}
+								.user-item-right{
+									color: #333333;
+								}
 							}
 						}
 					}

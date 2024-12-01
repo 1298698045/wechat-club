@@ -163,7 +163,7 @@
 	
 	const goto = () => {
 		uni.navigateTo({
-			url:"/pages/activity/list/index"
+			url:"/pages/activity/recordList/index"
 		})
 	}
 	

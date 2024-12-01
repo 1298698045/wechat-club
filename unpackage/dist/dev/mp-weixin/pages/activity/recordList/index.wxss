@@ -1,0 +1,198 @@
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.is-input-border {
+  border-radius: 30rpx !important;
+}
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.record-wrap.hidden.data-v-c00f9596 {
+  height: 100vh;
+  overflow: hidden;
+}
+.record-wrap .header.data-v-c00f9596 {
+  background: #fff;
+  padding: 20rpx 32rpx;
+}
+.record-wrap .category.data-v-c00f9596 {
+  display: flex;
+  margin-top: 40rpx;
+  margin-bottom: 10rpx;
+  font-size: 36rpx;
+}
+.record-wrap .category .tabContainer.data-v-c00f9596 {
+  flex: 1;
+}
+.record-wrap .category .tabContainer .tabs.data-v-c00f9596 {
+  display: flex;
+  font-size: 36rpx;
+}
+.record-wrap .category .tabContainer .tabs .tab.data-v-c00f9596 {
+  margin-right: 40rpx;
+  color: #848484;
+  padding-bottom: 16rpx;
+  border-bottom: 5rpx solid transparent;
+}
+.record-wrap .category .tabContainer .tabs .tab.active.data-v-c00f9596 {
+  color: #6be8f5;
+  border-color: #6be8f5;
+  font-weight: 500;
+}
+.record-wrap .category .filter.data-v-c00f9596 {
+  color: #848484;
+}
+.record-wrap .center.data-v-c00f9596 {
+  position: relative;
+}
+.record-wrap .center .record-list.data-v-c00f9596 {
+  padding-top: 1rpx;
+}
+.record-wrap .center .record-list .record-item.data-v-c00f9596 {
+  margin-top: 16rpx;
+  background: #fff;
+  padding: 32rpx;
+}
+.record-wrap .center .record-list .record-item .row.data-v-c00f9596 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.record-wrap .center .record-list .record-item .row.data-v-c00f9596:last-child {
+  margin-bottom: 0;
+}
+.record-wrap .center .record-list .record-item .row .title.data-v-c00f9596 {
+  font-size: 34rpx;
+}
+.record-wrap .center .record-list .record-item .row .name.data-v-c00f9596 {
+  font-size: 28rpx;
+  color: #848484;
+}
+.record-wrap .center .record-list .record-item .row .price.data-v-c00f9596 {
+  font-size: 28rpx;
+}
+.record-wrap .center .record-list .record-item .row .status.data-v-c00f9596 {
+  color: #f3ad3d;
+}
+.record-wrap .center .popup .mask.data-v-c00f9596 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+.record-wrap .center .popup .filter-wrap.data-v-c00f9596 {
+  background: #fff;
+}
+.record-wrap .center .popup .filter-wrap .filter-content.data-v-c00f9596 {
+  height: 500rpx;
+  border-top: 1rpx solid #e2e3e5;
+  border-bottom: 1rpx solid #e2e3e5;
+}
+.record-wrap .center .popup .filter-wrap .filter-content .filter-category.data-v-c00f9596 {
+  padding: 0 30rpx;
+}
+.record-wrap .center .popup .filter-wrap .filter-content .filter-category .filter-item.data-v-c00f9596 {
+  display: flex;
+  flex-direction: column;
+}
+.record-wrap .center .popup .filter-wrap .filter-content .filter-category .filter-item .filter-label.data-v-c00f9596 {
+  margin: 20rpx 0;
+}
+.record-wrap .center .popup .filter-wrap .filter-content .filter-category .filter-item .filter-options.data-v-c00f9596 {
+  display: flex;
+  flex-wrap: wrap;
+}
+.record-wrap .center .popup .filter-wrap .filter-content .filter-category .filter-item .filter-options .tag-option.data-v-c00f9596 {
+  width: calc(25% - 20rpx);
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 30rpx;
+  text-align: center;
+  background: #e7e7e7;
+  color: #848484;
+  margin-right: 26rpx;
+  margin-bottom: 20rpx;
+}
+.record-wrap .center .popup .filter-wrap .filter-content .filter-category .filter-item .filter-options .tag-option.data-v-c00f9596:last-child {
+  margin-right: 0;
+}
+.record-wrap .center .popup .filter-wrap .filter-content .filter-category .filter-item .filter-options .tag-option.active.data-v-c00f9596 {
+  color: #fff;
+  background: #6be8f5;
+}
+.record-wrap .center .popup .filter-wrap .filter-footer.data-v-c00f9596 {
+  padding: 16rpx 32rpx;
+  background: #fff;
+}
+.record-wrap .center .popup .filter-wrap .filter-footer .btn-group.data-v-c00f9596 {
+  display: flex;
+}
+.record-wrap .center .popup .filter-wrap .filter-footer .btn-group .btn.data-v-c00f9596 {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: 0;
+  background: transparent;
+  flex: 1;
+  background: #e7e7e7;
+  margin-right: 30rpx;
+  border-radius: 50rpx;
+}
+.record-wrap .center .popup .filter-wrap .filter-footer .btn-group .btn.data-v-c00f9596:last-child {
+  margin-right: 0;
+}
+.record-wrap .center .popup .filter-wrap .filter-footer .btn-group .btn.data-v-c00f9596::after, .record-wrap .center .popup .filter-wrap .filter-footer .btn-group .btn.data-v-c00f9596::before {
+  content: "";
+  display: none;
+}
+.record-wrap .center .popup .filter-wrap .filter-footer .btn-group .btn.primary.data-v-c00f9596 {
+  color: #fff;
+  background: #6be8f5;
+}

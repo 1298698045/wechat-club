@@ -9,38 +9,38 @@ const _sfc_main = {
     const navs = common_vendor.ref([
       {
         icon: "",
-        text: "待付款"
+        text: "我的订单"
       },
       {
-        icon: "",
-        text: "待发货"
+        icon: "",
+        text: "我的钱包"
       },
       {
-        icon: "",
-        text: "待收货"
+        icon: "",
+        text: "我的卡券"
       },
       {
-        icon: "",
-        text: "待评价"
+        icon: "",
+        text: "工具箱"
       },
       {
-        icon: "",
+        icon: "",
         //原代码：&#xe60a;
-        text: "退款"
+        text: "我的活动"
       }
     ]);
     const count = common_vendor.ref([
       {
         num: 5,
-        text: "我的收藏"
+        text: "我的活动"
       },
       {
         num: 7,
-        text: "我的足迹"
+        text: "会员等级"
       },
       {
-        num: 1,
-        text: "优惠券"
+        num: 100,
+        text: "我的积分"
       }
     ]);
     const login = common_vendor.ref(false);

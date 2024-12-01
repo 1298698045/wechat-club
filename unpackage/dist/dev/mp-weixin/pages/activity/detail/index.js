@@ -12,6 +12,13 @@ const _sfc_main = {
   __name: "index",
   setup(__props) {
     const id = common_vendor.ref("");
+    const data = common_vendor.reactive({
+      isExpand: false
+    });
+    const { isExpand } = common_vendor.toRefs(data);
+    const handleExpand = () => {
+      data.isExpand = !data.isExpand;
+    };
     common_vendor.onLoad((options) => {
       console.log("options", options);
       id.value = options.id;
@@ -68,7 +75,7 @@ const _sfc_main = {
       };
     });
     return (_ctx, _cache) => {
-      return {
+      return common_vendor.e({
         a: common_vendor.p({
           type: "redo",
           color: "#fff"
@@ -82,15 +89,36 @@ const _sfc_main = {
         e: common_vendor.p({
           type: "down"
         }),
-        f: common_vendor.p({
+        f: !common_vendor.unref(isExpand)
+      }, !common_vendor.unref(isExpand) ? {
+        g: common_vendor.p({
           type: "down"
-        }),
-        g: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
+        })
+      } : {
+        h: common_vendor.p({
+          type: "up"
+        })
+      }, {
+        i: common_vendor.o(handleExpand),
+        j: !common_vendor.unref(isExpand)
+      }, !common_vendor.unref(isExpand) ? {
+        k: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
           return {
             a: item
           };
         })
-      };
+      } : {
+        l: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
+          return {
+            a: "f6d487c6-5-" + i0,
+            b: item
+          };
+        }),
+        m: common_vendor.p({
+          type: "person",
+          color: "#db7e9e"
+        })
+      });
     };
   }
 };
