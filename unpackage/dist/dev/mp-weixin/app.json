@@ -12,7 +12,8 @@
       "pages": [
         "list/index",
         "detail/index",
-        "recordList/index"
+        "recordList/index",
+        "album/index"
       ]
     }
   ],

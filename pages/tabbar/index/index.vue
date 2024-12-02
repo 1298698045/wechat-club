@@ -57,7 +57,7 @@
 					</view>
 					<view class="menu-item-name">出勤榜</view>
 				</view>
-				<view class="menu-item">
+				<view class="menu-item" @click="handleAlbum">
 					<view class="menu-item-icon">
 						<uni-icons type="image" size="30" color="#6be8f5"></uni-icons>
 					</view>
@@ -164,6 +164,12 @@
 	const goto = () => {
 		uni.navigateTo({
 			url:"/pages/activity/recordList/index"
+		})
+	}
+	
+	const handleAlbum = () => {
+		uni.navigateTo({
+			url: "/pages/activity/album/index"
 		})
 	}
 	

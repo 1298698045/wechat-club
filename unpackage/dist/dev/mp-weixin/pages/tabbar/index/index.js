@@ -95,6 +95,11 @@ const _sfc_main = {
         url: "/pages/activity/recordList/index"
       });
     };
+    const handleAlbum = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/activity/album/index"
+      });
+    };
     common_vendor.onLoad(() => {
       const windowInfo = common_vendor.index.getWindowInfo();
       console.log("windowInfo", windowInfo);
@@ -162,26 +167,27 @@ const _sfc_main = {
           size: "30",
           color: "#6be8f5"
         }),
-        o: common_vendor.p({
+        o: common_vendor.o(handleAlbum),
+        p: common_vendor.p({
           type: "list",
           size: "30",
           color: "#6be8f5"
         }),
-        p: common_vendor.o(goto),
-        q: common_vendor.p({
+        q: common_vendor.o(goto),
+        r: common_vendor.p({
           type: "wallet",
           size: "30",
           color: "#6be8f5"
         }),
-        r: common_vendor.o(handleTab),
-        s: common_vendor.p({
+        s: common_vendor.o(handleTab),
+        t: common_vendor.p({
           tabs: common_vendor.unref(tabs)
         }),
-        t: common_vendor.unref(isTabsFixed) ? 1 : "",
-        v: common_vendor.unref(top) + "px",
-        w: common_vendor.unref(currentTab) == 0
+        v: common_vendor.unref(isTabsFixed) ? 1 : "",
+        w: common_vendor.unref(top) + "px",
+        x: common_vendor.unref(currentTab) == 0
       }, common_vendor.unref(currentTab) == 0 ? {} : common_vendor.unref(currentTab) == 1 ? {} : {}, {
-        x: common_vendor.unref(currentTab) == 1
+        y: common_vendor.unref(currentTab) == 1
       });
     };
   }

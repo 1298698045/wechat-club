@@ -42,8 +42,8 @@
 				</view>
 			</view>
 			<view class="popup" v-if="isFilter" @click="closeFilter">
-				<view class="mask" @click.stop>
-					<view class="filter-wrap">
+				<view class="mask">
+					<view class="filter-wrap" @click.stop>
 						<view class="filter-content">
 							<view class="filter-category">
 								<view class="filter-item">
@@ -143,6 +143,9 @@
 		.header{
 			background: #fff;
 			padding: 20rpx 32rpx;
+			position: sticky;
+			top: 0;
+			z-index: 1;
 		}
 		.search-container{
 			

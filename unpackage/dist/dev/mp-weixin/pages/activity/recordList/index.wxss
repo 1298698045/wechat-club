@@ -58,6 +58,10 @@
 .record-wrap .header.data-v-c00f9596 {
   background: #fff;
   padding: 20rpx 32rpx;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 .record-wrap .category.data-v-c00f9596 {
   display: flex;

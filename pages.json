@@ -120,6 +120,13 @@
 					{
 						"navigationBarTitleText" : "活动记录"
 					}
+				},
+				{
+					"path" : "album/index",
+					"style" : 
+					{
+						"navigationBarTitleText" : "活动影集"
+					}
 				}
 			]
 		}
