@@ -30,7 +30,7 @@
 			</view>
 		</view>
 		<view class="center-list">
-			<view class="center-list-item border-bottom">
+			<view class="center-list-item border-bottom" @click="gotoUser">
 				<text class="list-icon color-1">&#xe60e;</text>
 				<text class="list-text">帐号管理</text>
 				<text class="navigat-arrow">&#xe65e;</text>
@@ -132,6 +132,13 @@
 			console.log("err", err);
 		}	
 	}
+	
+	const gotoUser = () => {
+		uni.navigateTo({
+			url: "/pages/my/personInfo/index"
+		})
+	}
+	
 </script>
 <style>
 	@font-face {

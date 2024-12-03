@@ -69,6 +69,11 @@ const _sfc_main = {
         console.log("err", err);
       }
     };
+    const gotoUser = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/my/personInfo/index"
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: common_assets._imports_0,
@@ -87,7 +92,8 @@ const _sfc_main = {
             b: common_vendor.t(nav.text),
             c: index
           };
-        })
+        }),
+        f: common_vendor.o(gotoUser)
       };
     };
   }

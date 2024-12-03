@@ -70,7 +70,7 @@
 					</view>
 					<view class="menu-item-name">活动记录</view>
 				</view>
-				<view class="menu-item">
+				<view class="menu-item" @click="gotoDiscout">
 					<view class="menu-item-icon">
 						<uni-icons type="wallet" size="30" color="#6be8f5"></uni-icons>
 					</view>
@@ -170,6 +170,12 @@
 	const handleAlbum = () => {
 		uni.navigateTo({
 			url: "/pages/activity/album/index"
+		})
+	}
+	
+	const gotoDiscout = () => {
+		uni.navigateTo({
+			url: "/pages/other/discountRules/index"
 		})
 	}
 	

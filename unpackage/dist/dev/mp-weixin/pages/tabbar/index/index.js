@@ -100,6 +100,11 @@ const _sfc_main = {
         url: "/pages/activity/album/index"
       });
     };
+    const gotoDiscout = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/other/discountRules/index"
+      });
+    };
     common_vendor.onLoad(() => {
       const windowInfo = common_vendor.index.getWindowInfo();
       console.log("windowInfo", windowInfo);
@@ -179,15 +184,16 @@ const _sfc_main = {
           size: "30",
           color: "#6be8f5"
         }),
-        s: common_vendor.o(handleTab),
-        t: common_vendor.p({
+        s: common_vendor.o(gotoDiscout),
+        t: common_vendor.o(handleTab),
+        v: common_vendor.p({
           tabs: common_vendor.unref(tabs)
         }),
-        v: common_vendor.unref(isTabsFixed) ? 1 : "",
-        w: common_vendor.unref(top) + "px",
-        x: common_vendor.unref(currentTab) == 0
+        w: common_vendor.unref(isTabsFixed) ? 1 : "",
+        x: common_vendor.unref(top) + "px",
+        y: common_vendor.unref(currentTab) == 0
       }, common_vendor.unref(currentTab) == 0 ? {} : common_vendor.unref(currentTab) == 1 ? {} : {}, {
-        y: common_vendor.unref(currentTab) == 1
+        z: common_vendor.unref(currentTab) == 1
       });
     };
   }

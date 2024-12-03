@@ -15,6 +15,18 @@
         "recordList/index",
         "album/index"
       ]
+    },
+    {
+      "root": "pages/other",
+      "pages": [
+        "discountRules/index"
+      ]
+    },
+    {
+      "root": "pages/my",
+      "pages": [
+        "personInfo/index"
+      ]
     }
   ],
   "window": {

@@ -129,6 +129,30 @@
 					}
 				}
 			]
+		},
+		{
+			"root": "pages/other",
+			"pages": [
+				{
+					"path": "discountRules/index",
+					"style" :
+					{
+						"navigationBarTitleText" : "优惠规则"
+					}
+				}
+			]
+		},
+		{
+			"root": "pages/my",
+			"pages": [
+				{
+					"path": "personInfo/index",
+					"style" :
+					{
+						"navigationBarTitleText" : "个人信息编辑"
+					}
+				}
+			]
 		}
 	],
 	"permission": {
