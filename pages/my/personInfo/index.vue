@@ -13,7 +13,6 @@
 						  @change="change"
 						></uni-data-select>
 				</uni-forms-item>
-				
 			</uni-forms>
 		</view>
 		<view class="footer">

@@ -8492,6 +8492,7 @@ const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
   !isInSSRComponentSetup && injectHook(lifecycle, hook, target);
 };
 const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
+const onUnload = /* @__PURE__ */ createHook(ON_UNLOAD);
 const onPageScroll = /* @__PURE__ */ createHook(ON_PAGE_SCROLL);
 const onPullDownRefresh = /* @__PURE__ */ createHook(ON_PULL_DOWN_REFRESH);
 const onShareAppMessage = /* @__PURE__ */ createHook(ON_SHARE_APP_MESSAGE);
@@ -11437,6 +11438,7 @@ exports.onLoad = onLoad;
 exports.onPageScroll = onPageScroll;
 exports.onPullDownRefresh = onPullDownRefresh;
 exports.onShareAppMessage = onShareAppMessage;
+exports.onUnload = onUnload;
 exports.p = p$1;
 exports.reactive = reactive;
 exports.ref = ref;

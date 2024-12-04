@@ -33,7 +33,6 @@
 			<view class="center-list-item border-bottom" @click="gotoUser">
 				<text class="list-icon color-1">&#xe60e;</text>
 				<text class="list-text">帐号管理</text>
-				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 <!-- 			<view class="center-list-item">
 				<text class="list-icon color-2">&#xe60b;</text>
@@ -45,19 +44,16 @@
 			<view class="center-list-item border-bottom">
 				<text class="list-icon color-3">&#xe60c;</text>
 				<text class="list-text">帮助与反馈</text>
-				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 			<view class="center-list-item">
 				<text class="list-icon color-4">&#xe60c;</text>
 				<text class="list-text">服务条款及隐私</text>
-				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>
 		<view class="center-list">
 			<view class="center-list-item">
 				<text class="list-icon color-1">&#xe60d;</text>
 				<text class="list-text">关于</text>
-				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>
 		</view>
@@ -145,7 +141,7 @@
 		font-family: texticons;
 		font-weight: normal;
 		font-style: normal;
-		src: url('https://at.alicdn.com/t/c/font_4218190_6debofuo8gh.ttf?t=1701960489041') format('truetype');
+		src: url('@/static/icon/font_4218190_6debofuo8gh.ttf') format('truetype');
 	}
 </style>
 <style lang="scss" scoped>
