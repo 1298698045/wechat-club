@@ -74,6 +74,26 @@ const _sfc_main = {
         promise
       };
     });
+    const isToken = () => {
+      let token = common_vendor.index.getStorageSync("token");
+      return token ? true : false;
+    };
+    const handleSignup = () => {
+      if (!isToken()) {
+        common_vendor.index.showModal({
+          title: "提示",
+          content: "请先完善用户信息",
+          showCancel: false,
+          success(res) {
+            if (res.confirm == true) {
+              common_vendor.index.navigateTo({
+                url: "/pages/my/personInfo/index"
+              });
+            }
+          }
+        });
+      }
+    };
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.p({
@@ -118,6 +138,8 @@ const _sfc_main = {
           type: "person",
           color: "#db7e9e"
         })
+      }, {
+        n: common_vendor.o(handleSignup)
       });
     };
   }

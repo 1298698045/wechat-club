@@ -17,7 +17,7 @@
 		</view>
 		<view class="footer">
 			<view class="footer-content">
-				<button class="btn" hover-class="btnHover" @click="handleSave">保存</button>
+				<button class="btn" hover-class="btnHover" @tap="handleSave">保存</button>
 			</view>
 		</view>
 	</view>
@@ -25,9 +25,11 @@
 
 <script setup>
 	import { ref, reactive } from "vue";
+	import Interface from "@/utils/Interface";
+	import { get, post } from "@/utils/request.js";
 	const formData = reactive({
 		name: "",
-		sex: ""
+		sex: 1
 	});
 	const range = ref([
 		{ value: 0, text: "男" },
@@ -37,8 +39,42 @@
 	const change = () => {
 		
 	};
-	
-	const handleSave = () => {
+	const code = ref();
+	const handleSave = async () => {
+		try{
+			const profileRes = await uni.getUserProfile({
+			  provider: "weixin",
+			  desc: "太友趣小程序隐私保护指引",
+			});
+			console.log("用户信息获取成功:", profileRes);
+			let userInfo = JSON.parse(profileRes.rawData);
+			console.log("user", userInfo);
+			const loginRes = await uni.login({ provider: "weixin" });
+			console.log("登录成功，code:", loginRes.code);
+			code.value = loginRes.code;
+			console.log("code.value", code.value);
+			post(Interface.login,{
+				code: code.value,
+				nickName: userInfo.nickName,
+				avatarUrl: userInfo.avatarUrl
+			}).then(res=>{
+				console.log('res', res);
+				if(res.code === 20000){
+					let { wechatOpenid } = res.data;
+					console.log("wechatOpenid", wechatOpenid);
+					try{
+						uni.setStorageSync('token', wechatOpenid);
+						uni.navigateBack({
+							delta: 1
+						})
+					}catch{
+						
+					}
+				}
+			})
+		}catch(err){
+			console.log("err", err);
+		}
 		console.log("formData:", formData);
 	}
 	

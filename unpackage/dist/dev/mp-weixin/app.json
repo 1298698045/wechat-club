@@ -25,7 +25,9 @@
     {
       "root": "pages/my",
       "pages": [
-        "personInfo/index"
+        "personInfo/index",
+        "order/index",
+        "activity/index"
       ]
     }
   ],

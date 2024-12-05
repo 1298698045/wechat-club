@@ -9,7 +9,8 @@ const _sfc_main = {
     const navs = common_vendor.ref([
       {
         icon: "",
-        text: "我的订单"
+        text: "我的订单",
+        url: "/pages/my/order/index"
       },
       {
         icon: "",
@@ -32,7 +33,8 @@ const _sfc_main = {
     const count = common_vendor.ref([
       {
         num: 5,
-        text: "我的活动"
+        text: "我的活动",
+        url: "/pages/my/activity/index"
       },
       {
         num: 7,
@@ -74,6 +76,13 @@ const _sfc_main = {
         url: "/pages/my/personInfo/index"
       });
     };
+    const handleItemGoto = (item, index) => {
+      if (item.url) {
+        common_vendor.index.navigateTo({
+          url: item.url
+        });
+      }
+    };
     return (_ctx, _cache) => {
       return {
         a: common_assets._imports_0,
@@ -82,7 +91,8 @@ const _sfc_main = {
           return {
             a: common_vendor.t(c.num),
             b: common_vendor.t(c.text),
-            c: index
+            c: index,
+            d: common_vendor.o(($event) => handleItemGoto(c), index)
           };
         }),
         d: !login.value ? "logo-hover" : "",
@@ -90,7 +100,8 @@ const _sfc_main = {
           return {
             a: common_vendor.t(nav.icon),
             b: common_vendor.t(nav.text),
-            c: index
+            c: index,
+            d: common_vendor.o(($event) => handleItemGoto(nav), index)
           };
         }),
         f: common_vendor.o(gotoUser)

@@ -86,14 +86,14 @@
 				<view class="footer-tips">
 					Tips: 2024-11-26 22:00 前可取消报名
 				</view>
-				<button class="btn" hover-class="btnHover">活动报名</button>
+				<button class="btn" hover-class="btnHover" @click="handleSignup">活动报名</button>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script setup>
-	import { reactive, ref, toRef, toRefs } from "vue";
+	import { computed, reactive, ref, toRef, toRefs } from "vue";
 	import { onLoad, onShareAppMessage } from "@dcloudio/uni-app";
 	const id = ref('');
 	
@@ -163,7 +163,30 @@
 		  path: '/pages/activity/detail/index?id=123',
 		  promise 
 		}
-	})
+	});
+	
+	const isToken = () => {
+		let token = uni.getStorageSync("token");
+		return token ? true : false;
+	};
+	
+	const handleSignup = () => {
+		if(!isToken()){			
+			uni.showModal({
+				title: "提示",
+				content:"请先完善用户信息",
+				showCancel:false,
+				success(res) {
+					if(res.confirm == true){
+						uni.navigateTo({
+							url:"/pages/my/personInfo/index"
+						})
+					}
+				}
+			})
+		}
+	}
+	
 </script>
 
 <style lang="scss" scoped>

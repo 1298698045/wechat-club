@@ -10,7 +10,7 @@
 					<text class="uer-name">Lisa</text>
 				</view>
 				<view class="count">
-					<view class="count-item" v-for="(c,index) in count" :key="index">
+					<view class="count-item" v-for="(c,index) in count" :key="index" @click="handleItemGoto(c, index)">
 						<text class="count-item-num">{{c.num}}</text>
 						<text class="count-item-text">{{c.text}}</text>
 					</view>
@@ -23,7 +23,7 @@
 				<text>我的订单</text>
 			</view>
 			<view class="center-nav-content">
-				<view class="center-nav-item" v-for="(nav,index) in navs" :key="index">
+				<view class="center-nav-item" v-for="(nav,index) in navs" :key="index" @click="handleItemGoto(nav, index)">
 					<text class="center-nav-item-icon"> {{ nav.icon  }}  </text>
 					<text class="center-nav-item-text">{{nav.text}}</text>
 				</view>
@@ -66,7 +66,8 @@
 	const navs = ref([
 		{
 			icon:"\u{e602}",
-			text:'我的订单'
+			text:'我的订单',
+			url:"/pages/my/order/index"
 		},
 		{
 			icon:"\u{e602}",
@@ -88,7 +89,8 @@
 	const count = ref([
 		{
 			num:5,
-			text:'我的活动'
+			text:'我的活动',
+			url: "/pages/my/activity/index"
 		},
 		{
 			num:7,
@@ -133,6 +135,14 @@
 		uni.navigateTo({
 			url: "/pages/my/personInfo/index"
 		})
+	}
+	
+	const handleItemGoto = (item, index) => {
+		if(item.url){			
+			uni.navigateTo({
+				url: item.url
+			})
+		}
 	}
 	
 </script>

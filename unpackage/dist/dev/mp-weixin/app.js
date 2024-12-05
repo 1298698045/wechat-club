@@ -13,6 +13,8 @@ if (!Math) {
   "./pages/activity/album/index.js";
   "./pages/other/discountRules/index.js";
   "./pages/my/personInfo/index.js";
+  "./pages/my/order/index.js";
+  "./pages/my/activity/index.js";
 }
 const _sfc_main = {
   onLaunch: function() {

@@ -8642,6 +8642,18 @@ const subPackages = [
         style: {
           navigationBarTitleText: "个人信息编辑"
         }
+      },
+      {
+        path: "order/index",
+        style: {
+          navigationBarTitleText: "我的订单"
+        }
+      },
+      {
+        path: "activity/index",
+        style: {
+          navigationBarTitleText: "我的活动"
+        }
       }
     ]
   }
