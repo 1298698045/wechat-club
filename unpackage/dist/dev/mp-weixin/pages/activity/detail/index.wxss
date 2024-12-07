@@ -43,6 +43,10 @@
   height: 500rpx;
   background: #3399ff;
 }
+.detailWrap .banner .img.data-v-f6d487c6 {
+  width: 100%;
+  height: 100%;
+}
 .detailWrap .detail-content.data-v-f6d487c6 {
   width: 100%;
   position: relative;

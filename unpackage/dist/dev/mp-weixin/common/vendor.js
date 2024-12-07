@@ -8640,7 +8640,7 @@ const subPackages = [
       {
         path: "personInfo/index",
         style: {
-          navigationBarTitleText: "个人信息编辑"
+          navigationBarTitleText: "完善个人信息"
         }
       },
       {
@@ -8653,6 +8653,12 @@ const subPackages = [
         path: "activity/index",
         style: {
           navigationBarTitleText: "我的活动"
+        }
+      },
+      {
+        path: "personalEdit/index",
+        style: {
+          navigationBarTitleText: "个人资料"
         }
       }
     ]

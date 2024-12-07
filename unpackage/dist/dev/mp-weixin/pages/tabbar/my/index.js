@@ -73,7 +73,7 @@ const _sfc_main = {
     };
     const gotoUser = () => {
       common_vendor.index.navigateTo({
-        url: "/pages/my/personInfo/index"
+        url: "/pages/my/personalEdit/index"
       });
     };
     const handleItemGoto = (item, index) => {

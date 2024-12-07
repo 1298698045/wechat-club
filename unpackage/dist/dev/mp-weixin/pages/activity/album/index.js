@@ -35,7 +35,7 @@ const _sfc_main = {
             d: item
           };
         }),
-        b: common_assets._imports_0$1,
+        b: common_assets._imports_0$2,
         c: common_vendor.p({
           type: "location",
           color: "#fff"

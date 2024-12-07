@@ -1,7 +1,7 @@
 <template>
 	<view class="detailWrap">
 		<view class="banner">
-			
+			<image class="img" src="@/static/img/2.jpg" mode="aspectFill"></image>
 		</view>
 		<view class="detail-content">
 			<view style="height: 470rpx;">
@@ -42,8 +42,8 @@
 					<view class="signHead">
 						<view>已报名（9/20）</view>
 						<view @click="handleExpand">
-							默认
-							<uni-icons type="down"></uni-icons>
+							<!-- 默认
+							<uni-icons type="down"></uni-icons> -->
 							展开
 							<uni-icons type="down" v-if="!isExpand"></uni-icons>
 							<uni-icons type="up" v-else></uni-icons>
@@ -208,6 +208,10 @@
 		.banner{
 			height: 500rpx;
 			background: #3399ff;
+			.img{
+				width: 100%;
+				height: 100%;
+			}
 		}
 		.detail-content{
 			width: 100%;

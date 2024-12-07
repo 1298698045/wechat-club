@@ -15,6 +15,7 @@ if (!Math) {
   "./pages/my/personInfo/index.js";
   "./pages/my/order/index.js";
   "./pages/my/activity/index.js";
+  "./pages/my/personalEdit/index.js";
 }
 const _sfc_main = {
   onLaunch: function() {

@@ -28,7 +28,7 @@ const _sfc_main = {
             e: common_vendor.o(($event) => handleDetail(item), item)
           };
         }),
-        b: common_assets._imports_0$2,
+        b: common_assets._imports_0$1,
         c: common_vendor.p({
           type: "medal-filled",
           size: "30",

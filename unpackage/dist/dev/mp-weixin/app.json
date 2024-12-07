@@ -27,7 +27,8 @@
       "pages": [
         "personInfo/index",
         "order/index",
-        "activity/index"
+        "activity/index",
+        "personalEdit/index"
       ]
     }
   ],

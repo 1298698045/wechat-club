@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
+const common_assets = require("../../../common/assets.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   _easycom_uni_icons2();
@@ -96,19 +97,17 @@ const _sfc_main = {
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
-        a: common_vendor.p({
+        a: common_assets._imports_0$1,
+        b: common_vendor.p({
           type: "redo",
           color: "#fff"
         }),
-        b: common_vendor.o(handleShare),
-        c: common_vendor.p({
+        c: common_vendor.o(handleShare),
+        d: common_vendor.p({
           type: "location",
           color: "#fff"
         }),
-        d: common_vendor.o(handleLocation),
-        e: common_vendor.p({
-          type: "down"
-        }),
+        e: common_vendor.o(handleLocation),
         f: !common_vendor.unref(isExpand)
       }, !common_vendor.unref(isExpand) ? {
         g: common_vendor.p({
@@ -130,7 +129,7 @@ const _sfc_main = {
       } : {
         l: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
           return {
-            a: "f6d487c6-5-" + i0,
+            a: "f6d487c6-4-" + i0,
             b: item
           };
         }),

@@ -133,7 +133,7 @@
 	
 	const gotoUser = () => {
 		uni.navigateTo({
-			url: "/pages/my/personInfo/index"
+			url: "/pages/my/personalEdit/index"
 		})
 	}
 	
