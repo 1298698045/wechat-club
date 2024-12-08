@@ -1,1 +1,1 @@
-<view class="wrapper data-v-dc634a44"><activity-item class="data-v-dc634a44" u-i="dc634a44-0" bind:__l="__l"/></view>
+<view class="wrapper data-v-dc634a44"><activity-item wx:if="{{a}}" class="data-v-dc634a44" u-i="dc634a44-0" bind:__l="__l" u-p="{{a}}"/></view>

@@ -19,7 +19,7 @@ const _sfc_main = {
       age: "",
       signature: ""
     });
-    const index = common_vendor.ref(0);
+    const index = common_vendor.ref(1);
     const range = common_vendor.ref([
       { value: 0, text: "男" },
       { value: 1, text: "女" }

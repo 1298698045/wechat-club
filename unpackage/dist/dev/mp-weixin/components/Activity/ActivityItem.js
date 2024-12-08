@@ -1,6 +1,5 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const common_assets = require("../../common/assets.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   _easycom_uni_icons2();
@@ -11,35 +10,54 @@ if (!Math) {
 }
 const _sfc_main = {
   __name: "ActivityItem",
+  props: {
+    list: {
+      type: Array,
+      default: () => []
+    }
+  },
   setup(__props) {
+    const weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+    const weekName = (date) => {
+      const day = common_vendor.hooks(date).day();
+      return weeks[day];
+    };
     const handleDetail = (item) => {
       common_vendor.index.navigateTo({
-        url: "/pages/activity/detail/index?id=" + item
+        url: "/pages/activity/detail/index?id=" + item.id
       });
     };
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
+        a: common_vendor.f(__props.list, (item, index, i0) => {
           return {
-            a: "f854d1e8-0-" + i0,
-            b: "f854d1e8-1-" + i0,
-            c: "f854d1e8-2-" + i0,
-            d: item,
-            e: common_vendor.o(($event) => handleDetail(item), item)
+            a: item.currentImg,
+            b: common_vendor.t(item.price),
+            c: "f854d1e8-0-" + i0,
+            d: common_vendor.t(item.name),
+            e: "f854d1e8-1-" + i0,
+            f: common_vendor.t(item.address),
+            g: "f854d1e8-2-" + i0,
+            h: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("MM")),
+            i: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("DD")),
+            j: common_vendor.t(weekName(item.startTime)),
+            k: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("hh:mm")),
+            l: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.endTime).format("hh:mm")),
+            m: index,
+            n: common_vendor.o(($event) => handleDetail(item), index)
           };
         }),
-        b: common_assets._imports_0$1,
-        c: common_vendor.p({
+        b: common_vendor.p({
           type: "medal-filled",
           size: "30",
           color: "#f5d16b"
         }),
-        d: common_vendor.p({
+        c: common_vendor.p({
           type: "location",
           color: "#666",
           size: "20"
         }),
-        e: common_vendor.p({
+        d: common_vendor.p({
           type: "location",
           color: "#666",
           size: "20"

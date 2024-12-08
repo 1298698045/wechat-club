@@ -1,7 +1,7 @@
 <template>
 	<view class="detailWrap">
 		<view class="banner">
-			<image class="img" src="@/static/img/2.jpg" mode="aspectFill"></image>
+			<image class="img" :src="currentImg" mode="aspectFill"></image>
 		</view>
 		<view class="detail-content">
 			<view style="height: 470rpx;">
@@ -10,26 +10,30 @@
 					<view class="activity-info-bd">					
 						<view class="price">
 							<view class="symbol">¥</view>
-							<view class="priceNum">79</view>
+							<view class="priceNum">{{ detail.price }}</view>
 						</view>
 						<view class="info-head">
 							<view class="name">
-								攀岩🧗‍♀️体验新项目
+								{{ detail.name }}
 							</view>
 							<button open-type="share" class="shareBtn" @click="handleShare">
 								<uni-icons type="redo" color="#fff"></uni-icons>
 								分享
 							</button>
 						</view>
-						<view class="location-desc">北京朝阳区</view>
+						<view class="location-desc">{{ detail.address }}</view>
 						<view class="location" @click="handleLocation">
 							<uni-icons type="location" color="#fff"></uni-icons>
-							<view class="location-text">北京朝阳区</view>
+							<view class="location-text">{{ detail.address }}</view>
 						</view>
 						<view class="split"></view>
 						<view class="row">
 							<view class="label">活动时间</view>
-							<view class="value">2024-11-27</view>
+							<view class="value">
+								{{moment(detail.startTime).format('MM')}}月{{moment(detail.startTime).format('DD')}}日
+								 {{ weekName(detail.startTime) }} 
+								 {{moment(detail.startTime).format('hh:mm')}}-{{moment(detail.endTime).format('hh:mm')}}
+							</view>
 						</view>
 						<view class="row">
 							<view class="label">级别</view>
@@ -75,7 +79,7 @@
 					<view class="label">活动描述</view>
 					<view class="desc-body">
 						<rich-text>
-							12312
+							{{ detail.description }}
 						</rich-text>
 					</view>
 				</view>
@@ -95,13 +99,25 @@
 <script setup>
 	import { computed, reactive, ref, toRef, toRefs } from "vue";
 	import { onLoad, onShareAppMessage } from "@dcloudio/uni-app";
+	import Interface from "@/utils/Interface";
+	import { get } from "@/utils/request.js";
+	import moment from "moment";
 	const id = ref('');
 	
+	const weeks = ['周日','周一','周二','周三','周四','周五','周六']
+	
 	const data = reactive({
-		isExpand: false
+		isExpand: false,
+		detail: {},
+		currentImg: ""
 	});
 	
-	const { isExpand } = toRefs(data);
+	const { isExpand, detail, currentImg } = toRefs(data);
+	
+	const weekName = (date) => {
+		const day = moment(date).day();
+		return weeks[day];
+	}
 	
 	const handleExpand = () => {
 		data.isExpand = !data.isExpand;
@@ -110,7 +126,23 @@
 	onLoad((options)=>{
 		console.log("options", options);
 		id.value = options.id;
+		getDetail();
 	})
+	
+	const getDetail = () => {
+		get(Interface.activity.detail, {
+			id: id.value
+		}).then(res=>{
+			data.detail = res.data;
+			
+			let currentImgData = data.detail.activitiePictures.find(row=>row.isRecommend==true);
+			let currentImg = '';
+			if(currentImgData){
+				currentImg = currentImgData.fileLocation;
+			}
+			data.currentImg = currentImg;
+		})
+	}
 	
 	const handleShare = () => {
 		console.log('123123');

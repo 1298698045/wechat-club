@@ -51,7 +51,8 @@ const _sfc_main = {
       color: "#fff",
       statusBarHeight: 0,
       isTabsFixed: false,
-      top: 0
+      top: 0,
+      listData: []
     });
     const {
       title,
@@ -67,17 +68,26 @@ const _sfc_main = {
       color,
       statusBarHeight,
       isTabsFixed,
-      top
+      top,
+      listData
     } = common_vendor.toRefs(data);
     const onSwiperChange = (e) => {
       data.current = e.detail.current;
     };
-    const getActivityList = () => {
-      utils_request.get(utils_Interface.Interface.activity.list, {}).then((res) => {
-        console.log("res", res);
+    const getRecommends = () => {
+      utils_request.get(utils_Interface.Interface.activity.recommend, {}).then((res) => {
+        data.listData = res.data.map((item) => {
+          let currentImgData = item.pictures.find((row) => row.isRecommend == true);
+          let currentImg = "";
+          if (currentImgData) {
+            currentImg = currentImgData.fileLocation;
+          }
+          item.currentImg = currentImg;
+          return item;
+        });
       });
     };
-    getActivityList();
+    getRecommends();
     const handleTab = (e) => {
       data.currentTab = e;
       common_vendor.index.showLoading({
@@ -192,8 +202,12 @@ const _sfc_main = {
         w: common_vendor.unref(isTabsFixed) ? 1 : "",
         x: common_vendor.unref(top) + "px",
         y: common_vendor.unref(currentTab) == 0
-      }, common_vendor.unref(currentTab) == 0 ? {} : common_vendor.unref(currentTab) == 1 ? {} : {}, {
-        z: common_vendor.unref(currentTab) == 1
+      }, common_vendor.unref(currentTab) == 0 ? {
+        z: common_vendor.p({
+          list: common_vendor.unref(listData)
+        })
+      } : common_vendor.unref(currentTab) == 1 ? {} : {}, {
+        A: common_vendor.unref(currentTab) == 1
       });
     };
   }

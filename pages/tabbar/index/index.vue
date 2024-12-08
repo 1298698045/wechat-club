@@ -82,7 +82,7 @@
 			</view>
 			
 			<view style="margin-top: 20px;margin-bottom: 20px;">
-				<ActivityItem v-if="currentTab==0" />
+				<ActivityItem :list="listData" v-if="currentTab==0" />
 				<CommentItem v-else-if="currentTab==1" />
 			</view>
 			<BottomText />
@@ -131,22 +131,34 @@
 		color: "#fff",
 		statusBarHeight: 0,
 		isTabsFixed: false,
-		top: 0
+		top: 0,
+		listData: []
 	});
 	const { title, indicatorDots, autoplay, interval, 
-	duration, images, current, tabs, currentTab, backColor, color, statusBarHeight, isTabsFixed, top } = toRefs(data);
+	duration, images, current, tabs, currentTab, backColor, color, statusBarHeight, isTabsFixed, top,
+	 listData } = toRefs(data);
 	
 	const onSwiperChange = (e) => {
 		// console.log("e", e, data.current);
 		data.current = e.detail.current;
 	};
 	
-	const getActivityList = () => {
-		get(Interface.activity.list, {}).then(res=>{
-			console.log("res", res);
+	// 获取推荐活动
+	const getRecommends = () => {
+		get(Interface.activity.recommend, {}).then(res=>{
+			// console.log("res", res);
+			data.listData = res.data.map(item=>{
+				let currentImgData = item.pictures.find(row=>row.isRecommend==true);
+				let currentImg = '';
+				if(currentImgData){
+					currentImg = currentImgData.fileLocation;
+				}
+				item.currentImg = currentImg;
+				return item;
+			});
 		})
-	};
-	getActivityList();
+	}
+	getRecommends();
 	
 	const handleTab = (e) => {
 		data.currentTab = e;

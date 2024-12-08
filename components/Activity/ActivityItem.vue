@@ -1,30 +1,33 @@
 <template>
-	<view class="activityItem" v-for="item in [1,2,3,4,5,6,7,8]" :key="item" @click="handleDetail(item)">
+	<view class="activityItem" v-for="(item, index) in list" :key="index" @click="handleDetail(item)">
 		<view class="activityImg">
-			<image class="img" src="../../static/img/2.jpg" mode="aspectFill"></image>
+			<image class="img" :src="item.currentImg" mode="aspectFill"></image>
 			<view class="priceBox">
 				<view class="symbol">¥</view>
-				<view class="price">59</view>
+				<view class="price">{{item.price}}</view>
 			</view>
 		</view>
 		<view class="activityBody">
 			<view class="title">
 				<uni-icons type="medal-filled" size="30" color="#f5d16b"></uni-icons>
 				<view class="name">
-					朝夕读书会《乌合之众》
+					{{ item.name }}
 				</view>
 			</view>
 			<view class="row location">
 				<view class="licon">
 					<uni-icons type="location" color="#666" size="20"></uni-icons>
 				</view>
-				<view class="text">清格书房</view>
+				<view class="text">{{item.address}}</view>
 			</view>
 			<view class="row">
 				<view class="licon">
 					<uni-icons type="location" color="#666" size="20"></uni-icons>
 				</view>
-				<view class="text">11月22日 周五 10:00-12:00</view>
+				<view class="text">
+				{{moment(item.startTime).format('MM')}}月{{moment(item.startTime).format('DD')}}日
+				 {{ weekName(item.startTime) }} 
+				 {{moment(item.startTime).format('hh:mm')}}-{{moment(item.endTime).format('hh:mm')}}</view>
 			</view>
 		</view>
 	</view>
@@ -33,11 +36,25 @@
 <script setup>
 	import { ref } from "vue";
 	import { onLoad } from "@dcloudio/uni-app";
+	import moment from "moment";
 	
+	const weeks = ['周日','周一','周二','周三','周四','周五','周六']
+	
+	const props = defineProps({
+		list: {
+			type: Array,
+			default: () => []
+		}
+	})
+	
+	const weekName = (date) => {
+		const day = moment(date).day();
+		return weeks[day];
+	}
 	
 	const handleDetail = (item) => {
 		uni.navigateTo({
-			url:"/pages/activity/detail/index?id="+item,
+			url:"/pages/activity/detail/index?id="+item.id,
 		})
 	}
 	

@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
-const common_assets = require("../../../common/assets.js");
+const utils_Interface = require("../../../utils/Interface.js");
+const utils_request = require("../../../utils/request.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   _easycom_uni_icons2();
@@ -13,17 +14,38 @@ const _sfc_main = {
   __name: "index",
   setup(__props) {
     const id = common_vendor.ref("");
+    const weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
     const data = common_vendor.reactive({
-      isExpand: false
+      isExpand: false,
+      detail: {},
+      currentImg: ""
     });
-    const { isExpand } = common_vendor.toRefs(data);
+    const { isExpand, detail, currentImg } = common_vendor.toRefs(data);
+    const weekName = (date) => {
+      const day = common_vendor.hooks(date).day();
+      return weeks[day];
+    };
     const handleExpand = () => {
       data.isExpand = !data.isExpand;
     };
     common_vendor.onLoad((options) => {
       console.log("options", options);
       id.value = options.id;
+      getDetail();
     });
+    const getDetail = () => {
+      utils_request.get(utils_Interface.Interface.activity.detail, {
+        id: id.value
+      }).then((res) => {
+        data.detail = res.data;
+        let currentImgData = data.detail.activitiePictures.find((row) => row.isRecommend == true);
+        let currentImg2 = "";
+        if (currentImgData) {
+          currentImg2 = currentImgData.fileLocation;
+        }
+        data.currentImg = currentImg2;
+      });
+    };
     const handleShare = () => {
       console.log("123123");
       common_vendor.index.showShareMenu({
@@ -97,48 +119,58 @@ const _sfc_main = {
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
-        a: common_assets._imports_0$1,
-        b: common_vendor.p({
+        a: common_vendor.unref(currentImg),
+        b: common_vendor.t(common_vendor.unref(detail).price),
+        c: common_vendor.t(common_vendor.unref(detail).name),
+        d: common_vendor.p({
           type: "redo",
           color: "#fff"
         }),
-        c: common_vendor.o(handleShare),
-        d: common_vendor.p({
+        e: common_vendor.o(handleShare),
+        f: common_vendor.t(common_vendor.unref(detail).address),
+        g: common_vendor.p({
           type: "location",
           color: "#fff"
         }),
-        e: common_vendor.o(handleLocation),
-        f: !common_vendor.unref(isExpand)
+        h: common_vendor.t(common_vendor.unref(detail).address),
+        i: common_vendor.o(handleLocation),
+        j: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).startTime).format("MM")),
+        k: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).startTime).format("DD")),
+        l: common_vendor.t(weekName(common_vendor.unref(detail).startTime)),
+        m: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).startTime).format("hh:mm")),
+        n: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).endTime).format("hh:mm")),
+        o: !common_vendor.unref(isExpand)
       }, !common_vendor.unref(isExpand) ? {
-        g: common_vendor.p({
+        p: common_vendor.p({
           type: "down"
         })
       } : {
-        h: common_vendor.p({
+        q: common_vendor.p({
           type: "up"
         })
       }, {
-        i: common_vendor.o(handleExpand),
-        j: !common_vendor.unref(isExpand)
+        r: common_vendor.o(handleExpand),
+        s: !common_vendor.unref(isExpand)
       }, !common_vendor.unref(isExpand) ? {
-        k: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
+        t: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
           return {
             a: item
           };
         })
       } : {
-        l: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
+        v: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
           return {
             a: "f6d487c6-4-" + i0,
             b: item
           };
         }),
-        m: common_vendor.p({
+        w: common_vendor.p({
           type: "person",
           color: "#db7e9e"
         })
       }, {
-        n: common_vendor.o(handleSignup)
+        x: common_vendor.t(common_vendor.unref(detail).description),
+        y: common_vendor.o(handleSignup)
       });
     };
   }
