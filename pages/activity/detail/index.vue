@@ -44,7 +44,7 @@
 			<view class="detail-container">
 				<view class="signup-wrap">
 					<view class="signHead">
-						<view>已报名（9/20）</view>
+						<view>已报名（{{detail.currentStudents}}/{{detail.maxStudents}}）</view>
 						<view @click="handleExpand">
 							<!-- 默认
 							<uni-icons type="down"></uni-icons> -->
@@ -55,21 +55,23 @@
 					</view>
 					<view class="signBody">
 						<view class="avatarList" v-if="!isExpand">
-							<view class="avatarItem" v-for="item in [1,2,3,4,5,6,7,8]" :key="item">
-								
+							<view class="avatarItem" v-for="(item, index) in peopleList" :key="index">
+								<image class="img" :src="item.avatarUrl" mode="aspectFill"></image>
 							</view>
 						</view>
 						<view class="user-list" v-else>
-							<view class="user-item" v-for="item in [1,2,3,4,5,6,7,8]" :key="item">
+							<view class="user-item" v-for="(item, index) in peopleList" :key="index">
 								<view class="user-item-left">
-									<view class="avatar"></view>
-									<view class="name">真真</view>
+									<view class="avatar">
+										<image class="img" :src="item.avatarUrl" mode="aspectFill"></image>
+									</view>
+									<view class="name">{{item.userName}}</view>
 									<view class="sex">
-										<uni-icons type="person" color="#db7e9e"></uni-icons>
+										<uni-icons type="person" :color="item.gender == 0 ? '#db7e9e' : 'blue'"></uni-icons>
 									</view>
 								</view>
 								<view class="user-item-right">
-									萌新
+									{{item.levelName}}
 								</view>
 							</view>
 						</view>
@@ -88,7 +90,7 @@
 		<view class="footer">
 			<view class="footer-content">
 				<view class="footer-tips">
-					Tips: 2024-11-26 22:00 前可取消报名
+					Tips: {{moment(detail.cancelTime).format("YYYY-MM-DD hh:mm")}} 前可取消报名
 				</view>
 				<button class="btn" hover-class="btnHover" @click="handleSignup">活动报名</button>
 			</view>
@@ -109,10 +111,11 @@
 	const data = reactive({
 		isExpand: false,
 		detail: {},
-		currentImg: ""
+		currentImg: "",
+		peopleList: []
 	});
 	
-	const { isExpand, detail, currentImg } = toRefs(data);
+	const { isExpand, detail, currentImg, peopleList } = toRefs(data);
 	
 	const weekName = (date) => {
 		const day = moment(date).day();
@@ -127,6 +130,7 @@
 		console.log("options", options);
 		id.value = options.id;
 		getDetail();
+		getSignUpPeoples();
 	})
 	
 	const getDetail = () => {
@@ -135,12 +139,20 @@
 		}).then(res=>{
 			data.detail = res.data;
 			
-			let currentImgData = data.detail.activitiePictures.find(row=>row.isRecommend==true);
+			let currentImgData = data.detail.pictures.find(row=>row.isRecommend==true);
 			let currentImg = '';
 			if(currentImgData){
 				currentImg = currentImgData.fileLocation;
 			}
 			data.currentImg = currentImg;
+		})
+	}
+	
+	const getSignUpPeoples = () => {
+		get(Interface.activity.signPeoples, {
+			id: id.value
+		}).then(res=>{
+			data.peopleList = res.data;
 		})
 	}
 	
@@ -239,7 +251,7 @@
 		padding-bottom: 200rpx;
 		.banner{
 			height: 500rpx;
-			background: #3399ff;
+			background: #f9ffff;
 			.img{
 				width: 100%;
 				height: 100%;
@@ -352,6 +364,11 @@
 							  background: #e2e3e5;
 							  box-shadow: 0 0 8rpx rgba(0, 0, 0, 0.2);
 							  margin-left: -10rpx;
+							  .img{
+								  width: 100%;
+								  height: 100%;
+								  border-radius: 50%;
+							  }
 						  }
 						}
 						.user-list{
@@ -372,6 +389,11 @@
 										border-radius: 50%;
 										background: #e2e3e5;
 										margin-right: 20rpx;
+										.img{
+										  width: 100%;
+										  height: 100%;
+										  border-radius: 50%;
+										}
 									}
 									.name{
 										margin-right: 10rpx;

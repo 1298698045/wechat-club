@@ -41,7 +41,7 @@
 }
 .detailWrap .banner.data-v-f6d487c6 {
   height: 500rpx;
-  background: #3399ff;
+  background: #f9ffff;
 }
 .detailWrap .banner .img.data-v-f6d487c6 {
   width: 100%;
@@ -158,6 +158,11 @@
   box-shadow: 0 0 8rpx rgba(0, 0, 0, 0.2);
   margin-left: -10rpx;
 }
+.detailWrap .detail-content .detail-container .signup-wrap .signBody .avatarList .avatarItem .img.data-v-f6d487c6 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
 .detailWrap .detail-content .detail-container .signup-wrap .signBody .user-list .user-item.data-v-f6d487c6 {
   display: flex;
   justify-content: space-between;
@@ -177,6 +182,11 @@
   border-radius: 50%;
   background: #e2e3e5;
   margin-right: 20rpx;
+}
+.detailWrap .detail-content .detail-container .signup-wrap .signBody .user-list .user-item .user-item-left .avatar .img.data-v-f6d487c6 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 .detailWrap .detail-content .detail-container .signup-wrap .signBody .user-list .user-item .user-item-left .name.data-v-f6d487c6 {
   margin-right: 10rpx;

@@ -17,7 +17,7 @@ const _sfc_main = {
     const { currentTab } = common_vendor.toRefs(data);
     const handleTab = (index, item) => {
       data.currentTab = index;
-      emit("change", index);
+      emit("change", item);
     };
     return (_ctx, _cache) => {
       return {
@@ -26,7 +26,7 @@ const _sfc_main = {
             a: common_vendor.t(item.name),
             b: common_vendor.unref(currentTab) == index ? 1 : "",
             c: index,
-            d: common_vendor.o(($event) => handleTab(index), index)
+            d: common_vendor.o(($event) => handleTab(index, item), index)
           };
         })
       };

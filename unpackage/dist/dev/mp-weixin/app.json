@@ -19,7 +19,8 @@
     {
       "root": "pages/other",
       "pages": [
-        "discountRules/index"
+        "discountRules/index",
+        "memberInfo/index"
       ]
     },
     {

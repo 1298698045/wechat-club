@@ -135,6 +135,11 @@ const _sfc_main = {
         data.isTabsFixed = false;
       }
     });
+    const previewMember = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/other/memberInfo/index"
+      });
+    };
     common_vendor.onPullDownRefresh(() => {
       console.log("12123");
       common_vendor.index.stopPullDownRefresh();
@@ -172,42 +177,43 @@ const _sfc_main = {
             a: item
           };
         }),
-        m: common_vendor.p({
+        m: common_vendor.o(previewMember),
+        n: common_vendor.p({
           type: "calendar",
           size: "30",
           color: "#6be8f5"
         }),
-        n: common_vendor.p({
+        o: common_vendor.p({
           type: "image",
           size: "30",
           color: "#6be8f5"
         }),
-        o: common_vendor.o(handleAlbum),
-        p: common_vendor.p({
+        p: common_vendor.o(handleAlbum),
+        q: common_vendor.p({
           type: "list",
           size: "30",
           color: "#6be8f5"
         }),
-        q: common_vendor.o(goto),
-        r: common_vendor.p({
+        r: common_vendor.o(goto),
+        s: common_vendor.p({
           type: "wallet",
           size: "30",
           color: "#6be8f5"
         }),
-        s: common_vendor.o(gotoDiscout),
-        t: common_vendor.o(handleTab),
-        v: common_vendor.p({
+        t: common_vendor.o(gotoDiscout),
+        v: common_vendor.o(handleTab),
+        w: common_vendor.p({
           tabs: common_vendor.unref(tabs)
         }),
-        w: common_vendor.unref(isTabsFixed) ? 1 : "",
-        x: common_vendor.unref(top) + "px",
-        y: common_vendor.unref(currentTab) == 0
+        x: common_vendor.unref(isTabsFixed) ? 1 : "",
+        y: common_vendor.unref(top) + "px",
+        z: common_vendor.unref(currentTab) == 0
       }, common_vendor.unref(currentTab) == 0 ? {
-        z: common_vendor.p({
+        A: common_vendor.p({
           list: common_vendor.unref(listData)
         })
       } : common_vendor.unref(currentTab) == 1 ? {} : {}, {
-        A: common_vendor.unref(currentTab) == 1
+        B: common_vendor.unref(currentTab) == 1
       });
     };
   }

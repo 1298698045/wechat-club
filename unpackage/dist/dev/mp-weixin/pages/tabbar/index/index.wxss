@@ -203,6 +203,12 @@
   content: "";
   display: none;
 }
+.tabWrap.data-v-184b8d5d {
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .tabWrap.active.data-v-184b8d5d {
   position: -webkit-sticky;
   position: sticky;

@@ -24,7 +24,7 @@
 	
 	const handleTab = (index, item) => {
 		data.currentTab = index;
-		emit("change", index);
+		emit("change", item);
 	}
 	
 </script>
@@ -32,10 +32,10 @@
 <style lang="scss" scoped>
 .tabContainer{
 		display: flex;
-		justify-content: center;
+		// justify-content: center;
 		align-items: center;
 		height: 100rpx;
-		background: #f4f4f4;
+		// background: #f4f4f4;
 		.tabs{
 			display: flex;
 			.tab{
@@ -44,6 +44,7 @@
 				font-size: 16px;
 				position: relative;
 				z-index: 2;
+				white-space: nowrap;
 				&.active{
 					color: #333;
 					font-weight: 700;

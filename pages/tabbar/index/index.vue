@@ -32,7 +32,7 @@
 						<view>
 							成员(2464)
 						</view>
-						<view class="avatarList">
+						<view class="avatarList" @click="previewMember">
 							<view class="avatarItem" v-for="item in [1,2,3,4]" :key="item">
 								
 							</view>
@@ -213,6 +213,12 @@
 			data.isTabsFixed = false;
 		}
 	});
+	
+	const previewMember = () => {
+		uni.navigateTo({
+			url:"/pages/other/memberInfo/index"
+		})
+	}
 	
 	onPullDownRefresh(()=>{
 		console.log("12123");
@@ -412,6 +418,10 @@
 		}
 	}
 	.tabWrap{
+		background: #f4f4f4;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		&.active{
 			position: sticky;
 			z-index: 9999;

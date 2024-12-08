@@ -12616,6 +12616,13 @@ const subPackages = [
         style: {
           navigationBarTitleText: "优惠规则"
         }
+      },
+      {
+        path: "memberInfo/index",
+        style: {
+          navigationBarTitleText: "成员信息",
+          enablePullDownRefresh: true
+        }
       }
     ]
   },

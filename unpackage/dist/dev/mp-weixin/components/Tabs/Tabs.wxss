@@ -25,10 +25,8 @@
 /* 文章场景相关 */
 .tabContainer.data-v-28d956e0 {
   display: flex;
-  justify-content: center;
   align-items: center;
   height: 100rpx;
-  background: #f4f4f4;
 }
 .tabContainer .tabs.data-v-28d956e0 {
   display: flex;
@@ -39,6 +37,7 @@
   font-size: 16px;
   position: relative;
   z-index: 2;
+  white-space: nowrap;
 }
 .tabContainer .tabs .tab.active.data-v-28d956e0 {
   color: #333;

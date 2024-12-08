@@ -18,9 +18,10 @@ const _sfc_main = {
     const data = common_vendor.reactive({
       isExpand: false,
       detail: {},
-      currentImg: ""
+      currentImg: "",
+      peopleList: []
     });
-    const { isExpand, detail, currentImg } = common_vendor.toRefs(data);
+    const { isExpand, detail, currentImg, peopleList } = common_vendor.toRefs(data);
     const weekName = (date) => {
       const day = common_vendor.hooks(date).day();
       return weeks[day];
@@ -32,18 +33,26 @@ const _sfc_main = {
       console.log("options", options);
       id.value = options.id;
       getDetail();
+      getSignUpPeoples();
     });
     const getDetail = () => {
       utils_request.get(utils_Interface.Interface.activity.detail, {
         id: id.value
       }).then((res) => {
         data.detail = res.data;
-        let currentImgData = data.detail.activitiePictures.find((row) => row.isRecommend == true);
+        let currentImgData = data.detail.pictures.find((row) => row.isRecommend == true);
         let currentImg2 = "";
         if (currentImgData) {
           currentImg2 = currentImgData.fileLocation;
         }
         data.currentImg = currentImg2;
+      });
+    };
+    const getSignUpPeoples = () => {
+      utils_request.get(utils_Interface.Interface.activity.signPeoples, {
+        id: id.value
+      }).then((res) => {
+        data.peopleList = res.data;
       });
     };
     const handleShare = () => {
@@ -139,38 +148,45 @@ const _sfc_main = {
         l: common_vendor.t(weekName(common_vendor.unref(detail).startTime)),
         m: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).startTime).format("hh:mm")),
         n: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).endTime).format("hh:mm")),
-        o: !common_vendor.unref(isExpand)
+        o: common_vendor.t(common_vendor.unref(detail).currentStudents),
+        p: common_vendor.t(common_vendor.unref(detail).maxStudents),
+        q: !common_vendor.unref(isExpand)
       }, !common_vendor.unref(isExpand) ? {
-        p: common_vendor.p({
+        r: common_vendor.p({
           type: "down"
         })
       } : {
-        q: common_vendor.p({
+        s: common_vendor.p({
           type: "up"
         })
       }, {
-        r: common_vendor.o(handleExpand),
-        s: !common_vendor.unref(isExpand)
+        t: common_vendor.o(handleExpand),
+        v: !common_vendor.unref(isExpand)
       }, !common_vendor.unref(isExpand) ? {
-        t: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
+        w: common_vendor.f(common_vendor.unref(peopleList), (item, index, i0) => {
           return {
-            a: item
+            a: item.avatarUrl,
+            b: index
           };
         })
       } : {
-        v: common_vendor.f([1, 2, 3, 4, 5, 6, 7, 8], (item, k0, i0) => {
+        x: common_vendor.f(common_vendor.unref(peopleList), (item, index, i0) => {
           return {
-            a: "f6d487c6-4-" + i0,
-            b: item
+            a: item.avatarUrl,
+            b: common_vendor.t(item.userName),
+            c: "f6d487c6-4-" + i0,
+            d: common_vendor.p({
+              type: "person",
+              color: item.gender == 0 ? "#db7e9e" : "blue"
+            }),
+            e: common_vendor.t(item.levelName),
+            f: index
           };
-        }),
-        w: common_vendor.p({
-          type: "person",
-          color: "#db7e9e"
         })
       }, {
-        x: common_vendor.t(common_vendor.unref(detail).description),
-        y: common_vendor.o(handleSignup)
+        y: common_vendor.t(common_vendor.unref(detail).description),
+        z: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),
+        A: common_vendor.o(handleSignup)
       });
     };
   }
