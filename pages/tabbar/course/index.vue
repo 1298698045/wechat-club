@@ -2,21 +2,26 @@
 	<view class="wrap">
 		<view class="header">			
 			<view class="search-container">
-				<uni-easyinput prefixIcon="search" v-model="searchVal" placeholder="请输入课程名称" @iconClick="onClick"></uni-easyinput>
+				<uni-easyinput prefixIcon="search" v-model="searchVal" placeholder="请输入课程名称" @change="handleSearch" @confirm="handleSearch" @clear="handleSearch"></uni-easyinput>
 			</view>
+			<div class="category">
+				<scroll-view  scroll-x>
+					<tabs :tabs="categoryList" @change="changeTab" />
+				</scroll-view>
+			</div>
 		</view>
 		<view class="center">
 			<view class="course-list">
 				<view class="course-item" v-for="(item, index) in listData" :key="index">
 					<view class="course-item-head">
 						<view class="name">
-							周六爵士舞零基础课程
+							{{item.name}}
 						</view>
 						<view class="price">
 							<view class="icon">
 								¥
 							</view>
-							60
+							{{item.price}}
 						</view>
 					</view>
 					<view class="course-item-center">
@@ -24,17 +29,23 @@
 							<view class="licon">
 								<uni-icons type="location" color="#666" size="20"></uni-icons>
 							</view>
-							<view class="text">清格书房</view>
+							<view class="text">{{item.address}}</view>
 						</view>
 						<view class="row">
 							<view class="licon">
 								<uni-icons type="location" color="#666" size="20"></uni-icons>
 							</view>
-							<view class="text">11月22日 周五 10:00-12:00</view>
+							<view class="text">
+								{{moment(item.startTime).format('MM')}}月{{moment(item.startTime).format('DD')}}日
+								 {{ weekName(item.startTime) }} 
+								 {{moment(item.startTime).format('hh:mm')}}-{{moment(item.endTime).format('hh:mm')}}
+							</view>
 						</view>
 						<view class="people-row">
-							<AvatarGroup />
-							<text>4887人去过</text>
+							<AvatarGroup :list="item.pictures" />
+							<view style="flex: 1;">
+								<text v-if="item.pictures && item.pictures.length">{{item.pictures.length}}人去过</text>
+							</view>
 							<view class="tag">萌新-专业</view>
 						</view>
 					</view>
@@ -50,17 +61,99 @@
 <script setup>
 	import { ref, toRefs, reactive } from "vue";
 	import AvatarGroup from "@/components/AvatarGroup/AvatarGroup.vue";
+	import tabs from "@/components/Tabs/Tabs.vue";
+	import Interface from "@/utils/Interface";
+	import { get } from "@/utils/request.js";
+	import moment from "moment";
+	import { onPullDownRefresh, onReachBottom } from "@dcloudio/uni-app";
 	const popupRef = ref(null);
+	const weeks = ['周日','周一','周二','周三','周四','周五','周六'];
 	const data = reactive({
 		searchVal: "",
 		listData: [1,2,3,4,5,6,7,8],
+		pageNumber: 1,
+		pageSize: 5,
+		isPage: false,
+		categoryList: [],
+		categoryId: ""
 	});
-	const { searchVal, listData } = toRefs(data);
+	const { searchVal, listData, pageNumber, pageSize, isPage, categoryList, categoryId } = toRefs(data);
+	
+	
+	const weekName = (date) => {
+		const day = moment(date).day();
+		return weeks[day];
+	}
+	
+	const getCategory = () => {
+		get(Interface.category, {
+			category: 2
+		}).then(res=>{
+			data.categoryList = res.data;
+			data.categoryList.unshift({
+				id: "",
+				name: "全部"
+			})
+		})
+	}
+	getCategory();
+	
+	const handleSearch = () => {
+		data.pageNumber = 1;
+		getQuery();
+	}
+	
+	const changeTab = (e) => {
+		data.categoryId = e.id;
+		getQuery();
+	}
+	
+	const getQuery = () => {
+		get(Interface.course.list, {
+			name: data.searchVal,
+			page: data.pageNumber,
+			rows: data.pageSize,
+			folderId: data.categoryId
+		}).then(res=>{
+			let list = res.data;
+			let total = res.total;
+			if(data.pageNumber * data.pageSize < total) {
+				data.isPage = true;
+			}else {
+				data.isPage = false;
+			};
+			let temp = [];
+			if(data.pageNumber == 1){
+				temp = list;
+			}else {
+				temp = data.listData.concat(list);
+			}
+			data.listData = temp;
+			
+		})
+	};
+	getQuery();
+	
+	onPullDownRefresh(()=>{
+		data.pageNumber = 1;
+		getQuery();
+		uni.stopPullDownRefresh();
+	});
+	
+	onReachBottom(()=>{
+		if(data.isPage){
+			data.pageNumber++;
+			getQuery();
+		}
+	})
 	
 </script>
 <style lang="scss">
 	.is-input-border{
 		border-radius: 30rpx !important;
+	}
+	.tab{
+		margin-right: 50rpx !important;
 	}
 </style>
 <style lang="scss" scoped>
@@ -71,6 +164,11 @@
 			position: sticky;
 			top: 0;
 			z-index: 1;
+			.category{
+				background: #fff;
+				overflow-x: auto;
+				margin-top: 10rpx;
+			}
 		}
 		.search-container{
 			

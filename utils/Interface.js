@@ -12,7 +12,10 @@ const Interface = {
 		list: "/api/members/GetPageList", // 成员信息获取
 	},
 	order: {
-		list: "/api/orders/getListByMemberId"
+		list: "/api/orders/getMyOrderList"
+	},
+	course: {
+		list: "/api/courses/getCourses"
 	}
 };
 export default Interface;

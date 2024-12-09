@@ -1,1 +1,1 @@
-<view class="avatarList data-v-08115cbd"><view wx:for="{{a}}" wx:for-item="item" wx:key="a" class="avatarItem data-v-08115cbd"></view></view>
+<view class="avatarList data-v-08115cbd"><view wx:for="{{a}}" wx:for-item="item" wx:key="b" class="avatarItem data-v-08115cbd"><image class="img data-v-08115cbd" src="{{item.a}}" mode="aspectFill"></image></view></view>

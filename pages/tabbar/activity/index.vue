@@ -2,7 +2,7 @@
 	<view class="wrapper">
 		<view class="header">
 			<view class="search-container">
-				<uni-easyinput prefixIcon="search" v-model="searchVal" placeholder="请输入课程名称" @change="handleSearch" @confirm="handleSearch" @clear="handleSearch"></uni-easyinput>
+				<uni-easyinput prefixIcon="search" v-model="searchVal" placeholder="请输入活动名称" @change="handleSearch" @confirm="handleSearch" @clear="handleSearch"></uni-easyinput>
 			</view>
 			<div class="category">
 				<scroll-view  scroll-x>
@@ -30,26 +30,26 @@
 		pageSize: 3,
 		isPage: false,
 		categoryList: [
-			{
-				id: 1,
-				name: "分类1"
-			},
-			{
-				id: 2,
-				name: "分类2"
-			},
-			{
-				id: 3,
-				name: "分类3"
-			},
-			{
-				id: 4,
-				name: "分类4"
-			},
-			{
-				id: 5,
-				name: "分类5"
-			}
+			// {
+			// 	id: 1,
+			// 	name: "分类1"
+			// },
+			// {
+			// 	id: 2,
+			// 	name: "分类2"
+			// },
+			// {
+			// 	id: 3,
+			// 	name: "分类3"
+			// },
+			// {
+			// 	id: 4,
+			// 	name: "分类4"
+			// },
+			// {
+			// 	id: 5,
+			// 	name: "分类5"
+			// }
 		],
 		categoryId: ""
 	});
@@ -135,6 +135,9 @@
 	.is-input-border{
 		border-radius: 30rpx !important;
 	}
+	.tab{
+		margin-right: 50rpx !important;
+	}
 </style>
 <style lang="scss" scoped>
 	.wrapper{
@@ -153,10 +156,5 @@
 		.center{
 			padding: 20rpx;
 		}
-	}
-</style>
-<style>
-	.tab{
-		margin-right: 50rpx !important;
 	}
 </style>

@@ -26,6 +26,9 @@
 .is-input-border {
   border-radius: 30rpx !important;
 }
+.tab {
+  margin-right: 50rpx !important;
+}
 /**
  * 这里是uni-app内置的常用样式变量
  *
@@ -58,6 +61,11 @@
   position: sticky;
   top: 0;
   z-index: 1;
+}
+.wrap .header .category.data-v-cefcc65d {
+  background: #fff;
+  overflow-x: auto;
+  margin-top: 10rpx;
 }
 .wrap .center.data-v-cefcc65d {
   position: relative;

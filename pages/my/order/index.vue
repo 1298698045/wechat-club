@@ -5,12 +5,12 @@
 				<uni-easyinput prefixIcon="search" v-model="searchVal" placeholder="请输入活动名称" @iconClick="onClick"></uni-easyinput>
 			</view>
 			<div class="category">
-				<tabs :tabs="tabList" />
+				<tabs :tabs="tabList" @change="changeTab" />
 			</div>
 		</view>
 		<view class="center">
 			<view class="activity-list">
-				<view class="activity-item">
+				<view class="activity-item" v-for="(item, index) in listData" :key="index">
 					<view class="image">
 						<image class="img" src="@/static/img/1.jpg" mode="aspectFill"></image>
 					</view>
@@ -18,16 +18,18 @@
 						<view class="row">
 							<view class="text">
 								<uni-icons type="location" color="#666" size="20"></uni-icons>
-								123
+								{{item.businessName}}
 							</view>
 							<view class="text price">
-								¥100
+								¥{{item.unitPrice}}
 							</view>
 						</view>
 						<view class="row">
 							<view class="text">
 								<uni-icons type="location" color="#666" size="20"></uni-icons>
-								123456
+								{{moment(item.orderDate).format('MM')}}月{{moment(item.orderDate).format('DD')}}日
+								 {{ weekName(item.orderDate) }} 
+								 {{moment(item.orderDate).format('hh:mm')}}-{{moment(item.orderDate).format('hh:mm')}}
 							</view>
 							<view class="text payStatus">
 								已付款
@@ -48,55 +50,55 @@
 	import ActivityItem from "@/components/Activity/ActivityItem.vue";
 	import tabs from "@/components/Tabs/Tabs.vue";
 	import Interface from "@/utils/Interface";
+	import moment from "moment";
 	import { get } from "@/utils/request.js";
 	import { onPullDownRefresh, onReachBottom } from "@dcloudio/uni-app";
+	const weeks = ['周日','周一','周二','周三','周四','周五','周六'];
 	const data = reactive({
 		searchVal: "",
 		listData: [],
 		pageNumber: 1,
-		pageSize: 3,
+		pageSize: 5,
 		isPage: false,
 		tabList: [
 			{
 				id: 1,
-				name: "分类1"
+				name: "活动"
 			},
 			{
 				id: 2,
-				name: "分类2"
+				name: "课程"
 			},
 			{
 				id: 3,
-				name: "分类3"
-			},
-			{
-				id: 4,
-				name: "分类4"
-			},
-			{
-				id: 5,
-				name: "分类5"
+				name: "旅游"
 			}
-		]
+		],
+		orderType: 1
 	});
 	
-	const { searchVal, listData, pageNumber, pageSize, isPage, tabList } = toRefs(data);
+	const { searchVal, listData, pageNumber, pageSize, isPage, tabList, orderType } = toRefs(data);
+	
+	
+	const weekName = (date) => {
+		const day = moment(date).day();
+		return weeks[day];
+	}
+	
+	const changeTab = (e) => {
+		data.orderType = e.id;
+		getQuery();
+	}
 	
 	const getQuery = () => {
 		get(Interface.order.list, {
 			name: data.searchVal,
+			orderType: data.orderType,
 			page: data.pageNumber,
 			rows: data.pageSize
 		}).then(res=>{
-			let list = res.data.map(item=>{
-				let currentImgData = item.pictures.find(row=>row.isRecommend==true);
-				let currentImg = '';
-				if(currentImgData){
-					currentImg = currentImgData.fileLocation;
-				}
-				item.currentImg = currentImg;
-				return item;
-			});
+			let list = res.data;
+			
 			let total = res.total;
 			if(data.pageNumber * data.pageSize < total) {
 				data.isPage = true;

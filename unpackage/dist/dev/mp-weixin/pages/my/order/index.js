@@ -17,51 +17,46 @@ const tabs = () => "../../../components/Tabs/Tabs.js";
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    const weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
     const data = common_vendor.reactive({
       searchVal: "",
       listData: [],
       pageNumber: 1,
-      pageSize: 3,
+      pageSize: 5,
       isPage: false,
       tabList: [
         {
           id: 1,
-          name: "分类1"
+          name: "活动"
         },
         {
           id: 2,
-          name: "分类2"
+          name: "课程"
         },
         {
           id: 3,
-          name: "分类3"
-        },
-        {
-          id: 4,
-          name: "分类4"
-        },
-        {
-          id: 5,
-          name: "分类5"
+          name: "旅游"
         }
-      ]
+      ],
+      orderType: 1
     });
-    const { searchVal, listData, pageNumber, pageSize, isPage, tabList } = common_vendor.toRefs(data);
+    const { searchVal, listData, pageNumber, pageSize, isPage, tabList, orderType } = common_vendor.toRefs(data);
+    const weekName = (date) => {
+      const day = common_vendor.hooks(date).day();
+      return weeks[day];
+    };
+    const changeTab = (e) => {
+      data.orderType = e.id;
+      getQuery();
+    };
     const getQuery = () => {
       utils_request.get(utils_Interface.Interface.order.list, {
         name: data.searchVal,
+        orderType: data.orderType,
         page: data.pageNumber,
         rows: data.pageSize
       }).then((res) => {
-        let list = res.data.map((item) => {
-          let currentImgData = item.pictures.find((row) => row.isRecommend == true);
-          let currentImg = "";
-          if (currentImgData) {
-            currentImg = currentImgData.fileLocation;
-          }
-          item.currentImg = currentImg;
-          return item;
-        });
+        let list = res.data;
         let total = res.total;
         if (data.pageNumber * data.pageSize < total) {
           data.isPage = true;
@@ -99,16 +94,31 @@ const _sfc_main = {
           placeholder: "请输入活动名称",
           modelValue: common_vendor.unref(searchVal)
         }),
-        d: common_vendor.p({
+        d: common_vendor.o(changeTab),
+        e: common_vendor.p({
           tabs: common_vendor.unref(tabList)
         }),
-        e: common_assets._imports_1$1,
-        f: common_vendor.p({
+        f: common_vendor.f(common_vendor.unref(listData), (item, index, i0) => {
+          return {
+            a: "b9bb6734-2-" + i0,
+            b: common_vendor.t(item.businessName),
+            c: common_vendor.t(item.unitPrice),
+            d: "b9bb6734-3-" + i0,
+            e: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("MM")),
+            f: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("DD")),
+            g: common_vendor.t(weekName(item.orderDate)),
+            h: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("hh:mm")),
+            i: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("hh:mm")),
+            j: index
+          };
+        }),
+        g: common_assets._imports_1$1,
+        h: common_vendor.p({
           type: "location",
           color: "#666",
           size: "20"
         }),
-        g: common_vendor.p({
+        i: common_vendor.p({
           type: "location",
           color: "#666",
           size: "20"

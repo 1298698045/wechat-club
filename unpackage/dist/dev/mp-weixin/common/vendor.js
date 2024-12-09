@@ -12498,13 +12498,15 @@ const pages = [
   {
     path: "pages/tabbar/course/index",
     style: {
-      navigationBarTitleText: "课程"
+      navigationBarTitleText: "课程",
+      enablePullDownRefresh: true
     }
   },
   {
     path: "pages/tabbar/tourism/index",
     style: {
-      navigationBarTitleText: "旅游"
+      navigationBarTitleText: "旅游",
+      enablePullDownRefresh: true
     }
   },
   {

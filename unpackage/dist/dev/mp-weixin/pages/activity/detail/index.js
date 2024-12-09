@@ -185,9 +185,15 @@ const _sfc_main = {
         })
       }, {
         y: common_vendor.t(common_vendor.unref(detail).description),
-        z: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),
-        A: common_vendor.o(handleSignup)
-      });
+        z: common_vendor.unref(detail).stateCode == 0
+      }, common_vendor.unref(detail).stateCode == 0 ? {
+        A: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),
+        B: common_vendor.o(handleSignup)
+      } : {}, {
+        C: common_vendor.unref(detail).stateCode == 1
+      }, common_vendor.unref(detail).stateCode == 1 ? {
+        D: common_vendor.o(handleSignup)
+      } : {});
     };
   }
 };

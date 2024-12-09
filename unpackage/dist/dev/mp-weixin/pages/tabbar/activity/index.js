@@ -22,26 +22,26 @@ const _sfc_main = {
       pageSize: 3,
       isPage: false,
       categoryList: [
-        {
-          id: 1,
-          name: "分类1"
-        },
-        {
-          id: 2,
-          name: "分类2"
-        },
-        {
-          id: 3,
-          name: "分类3"
-        },
-        {
-          id: 4,
-          name: "分类4"
-        },
-        {
-          id: 5,
-          name: "分类5"
-        }
+        // {
+        // 	id: 1,
+        // 	name: "分类1"
+        // },
+        // {
+        // 	id: 2,
+        // 	name: "分类2"
+        // },
+        // {
+        // 	id: 3,
+        // 	name: "分类3"
+        // },
+        // {
+        // 	id: 4,
+        // 	name: "分类4"
+        // },
+        // {
+        // 	id: 5,
+        // 	name: "分类5"
+        // }
       ],
       categoryId: ""
     });
@@ -119,7 +119,7 @@ const _sfc_main = {
         d: common_vendor.o(($event) => common_vendor.isRef(searchVal) ? searchVal.value = $event : null),
         e: common_vendor.p({
           prefixIcon: "search",
-          placeholder: "请输入课程名称",
+          placeholder: "请输入活动名称",
           modelValue: common_vendor.unref(searchVal)
         }),
         f: common_vendor.o(changeTab),

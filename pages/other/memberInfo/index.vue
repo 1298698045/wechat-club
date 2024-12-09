@@ -17,14 +17,14 @@
 							<uni-icons type="person" :color="item.gender == 0 ? '#db7e9e' : 'blue'"></uni-icons>
 						</view>
 						<view class="info">
-							<view class="text admin">组织者</view>
+							<view class="text admin">用户</view>
 							<view class="text field">
 								等级：
-								<view class="text val">萌新</view>
+								<view class="text val">{{ item.levelName || '萌新'}}</view>
 							</view>
 							<view class="text field">
-								等级：
-								<view class="text val">1</view>
+								场次：
+								<view class="text val">{{item.count || 1}}</view>
 							</view>
 						</view>
 					</view>

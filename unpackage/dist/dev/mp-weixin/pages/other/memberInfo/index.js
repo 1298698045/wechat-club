@@ -81,7 +81,9 @@ const _sfc_main = {
               type: "person",
               color: item.gender == 0 ? "#db7e9e" : "blue"
             }),
-            e: index
+            e: common_vendor.t(item.levelName || "萌新"),
+            f: common_vendor.t(item.count || 1),
+            g: index
           };
         })
       };

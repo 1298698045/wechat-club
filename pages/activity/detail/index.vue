@@ -88,11 +88,14 @@
 			</view>
 		</view>
 		<view class="footer">
-			<view class="footer-content">
+			<view class="footer-content" v-if="detail.stateCode==0">
 				<view class="footer-tips">
 					Tips: {{moment(detail.cancelTime).format("YYYY-MM-DD hh:mm")}} 前可取消报名
 				</view>
 				<button class="btn" hover-class="btnHover" @click="handleSignup">活动报名</button>
+			</view>
+			<view class="footer-content" v-if="detail.stateCode==1">
+				<button class="btn" hover-class="btnHover" @click="handleSignup">取消报名</button>
 			</view>
 		</view>
 	</view>
