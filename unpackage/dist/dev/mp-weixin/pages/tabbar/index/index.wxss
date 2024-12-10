@@ -214,6 +214,33 @@
   position: sticky;
   z-index: 9999;
 }
+.headerLabel.data-v-184b8d5d {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+.headerLabel .write-btn.data-v-184b8d5d {
+  width: 150rpx;
+  height: 60rpx;
+  background: pink;
+  line-height: 60rpx;
+  text-align: center;
+  display: inline-block;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  font-weight: normal;
+  outline: none;
+  border: 1rpx solid #ea3582;
+  color: #ea3582;
+}
+.headerLabel .write-btn.data-v-184b8d5d::after, .headerLabel .write-btn.data-v-184b8d5d::before {
+  content: "";
+  display: none;
+}
 
 .data-v-184b8d5d .uni-navbar__header .uni-nav-bar-text{
 		font-size: 36rpx !important;

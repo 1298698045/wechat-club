@@ -2,6 +2,7 @@
 const Interface = {
   activity: {
     // list: "/api/activitie/GetPageList",
+    recordList: "/api/activitie/GetPageList",
     list: "/api/activitie/getActivitys",
     recommend: "/api/activitie/getRecommends",
     // 获取推荐活动列表
@@ -20,6 +21,11 @@ const Interface = {
   },
   course: {
     list: "/api/courses/getCourses"
+  },
+  comment: {
+    upload: "/api/comment/upload",
+    add: "/api/comment",
+    list: "/api/comment/getPageList"
   }
 };
 exports.Interface = Interface;

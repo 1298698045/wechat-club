@@ -12625,6 +12625,12 @@ const subPackages = [
           navigationBarTitleText: "成员信息",
           enablePullDownRefresh: true
         }
+      },
+      {
+        path: "evaluate/index",
+        style: {
+          navigationBarTitleText: "评价"
+        }
       }
     ]
   },

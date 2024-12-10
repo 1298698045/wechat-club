@@ -22,22 +22,24 @@
 			<view class="record-list">
 				<view class="record-item" v-for="(item, index) in listData" :key="index">
 					<view class="row top">
-						<view class="title">房车文化体验 + 魔力</view>
-						<view class="status">未开始</view>
+						<view class="title">{{item.name}}</view>
+						<view class="status">{{statusName(item.stateCode)}}</view>
 					</view>
 					<view class="row">
 						<view class="name location">
 							<uni-icons type="location"></uni-icons>
-							WWT(世界财富大厦) ｜ 0
+							{{item.address}} ｜ 0
 						</view>
-						<view class="name proportion">1/15</view>
+						<view class="name proportion">{{item.currentStudents}}/{{item.maxStudents}}</view>
 					</view>
 					<view class="row">
 						<view class="name time">
 							<uni-icons type="location"></uni-icons>
-							12-05 周四 14:00-16:00
+							{{moment(item.startTime).format('MM')}}月{{moment(item.startTime).format('DD')}}日
+							 {{ weekName(item.startTime) }} 
+							 {{moment(item.startTime).format('hh:mm')}}-{{moment(item.endTime).format('hh:mm')}}
 						</view>
-						<view class="price">¥399</view>
+						<view class="price">¥{{item.price}}</view>
 					</view>
 				</view>
 			</view>
@@ -96,7 +98,12 @@
 
 <script setup>
 	import { ref, toRefs, reactive } from "vue";
+	import Interface from "@/utils/Interface";
+	import { get, post } from "@/utils/request.js";
 	const popupRef = ref(null);
+	import moment from "moment";
+	
+	const weeks = ['周日','周一','周二','周三','周四','周五','周六'];
 	const data = reactive({
 		searchVal: "",
 		listData: [1,2,3,4,5,6,7,8],
@@ -115,12 +122,51 @@
 			}
 		],
 		current: 0,
-		isFilter: false
+		isFilter: false,
+		pageNumber: 1,
+		pageSize: 10
 	});
-	const { searchVal, listData, tabs, current, isFilter } = toRefs(data);
+	const { searchVal, listData, tabs, current, isFilter, pageNumber, pageSize } = toRefs(data);
+	
+	const statusName = (code) => {
+		const arr = ['未开始','活动中','已结束'];
+		return arr[code];
+	}
+	
+	const weekName = (date) => {
+		const day = moment(date).day();
+		return weeks[day];
+	}
+	
 	const handleTab = (item, index) => {
 		data.current = index;
 	};
+	
+	const getQuery = () => {
+		get(Interface.activity.recordList, {
+			name: data.searchVal,
+			page: data.pageNumber,
+			rows: data.pageSize,
+			// folderId: data.categoryId
+		}).then(res=>{
+			let list = res.data;
+			let total = res.total;
+			if(data.pageNumber * data.pageSize < total) {
+				data.isPage = true;
+			}else {
+				data.isPage = false;
+			};
+			let temp = [];
+			if(data.pageNumber == 1){
+				temp = list;
+			}else {
+				temp = data.listData.concat(list);
+			}
+			data.listData = temp;
+			
+		})
+	}
+	getQuery();
 	
 	const handleOpenFilter = () => {
 		data.isFilter = !data.isFilter;

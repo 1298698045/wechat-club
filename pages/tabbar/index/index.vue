@@ -42,7 +42,7 @@
 				<view class="clubInfo-detail">
 					<view class="displayFlex title">
 						<view style="font-weight: 500;font-size: 36rpx;">太友趣Club</view>
-						<button class="btn">加入</button>
+						<!-- <button class="btn">加入</button> -->
 					</view>
 					<view class="club-desc">
 						北京中年社交平台。我们定期组织各种丰富多彩的活动，在这里，可以结识志同道合的朋友，一起快乐享老，友趣的人生正精彩。<br/>
@@ -81,7 +81,18 @@
 				<Tabs :tabs="tabs" @change="handleTab"></Tabs>
 			</view>
 			
-			<view style="margin-top: 20px;margin-bottom: 20px;">
+			<view style="margin-bottom: 20px;">
+				<view class="headerLabel" v-if="currentTab==0">
+					<view class="label">活动（18）</view>
+					<view class="operator">
+					</view>
+				</view>
+				<view class="headerLabel" v-if="currentTab==1">
+					<view class="label">评价（18）</view>
+					<view class="operator">
+						<button class="write-btn" @click="handleEval">写评价</button>
+					</view>
+				</view>
 				<ActivityItem :list="listData" v-if="currentTab==0" />
 				<CommentItem v-else-if="currentTab==1" />
 			</view>
@@ -117,14 +128,16 @@
 		current: 0,
 		tabs: [
 			{
+				id:0,
 				name: "活动"
 			},
 			{
+				id: 1,
 				name: "评价"
 			},
-			{
-				name: "周期表"
-			}
+			// {
+			// 	name: "周期表"
+			// }
 		],
 		currentTab: 0,
 		backColor: "transparent",
@@ -161,7 +174,7 @@
 	getRecommends();
 	
 	const handleTab = (e) => {
-		data.currentTab = e;
+		data.currentTab = e.id;
 		uni.showLoading({
 			title: '加载中',
 			duration: 2000,
@@ -213,6 +226,12 @@
 			data.isTabsFixed = false;
 		}
 	});
+	
+	const handleEval = () => {
+		uni.navigateTo({
+			url:"/pages/other/evaluate/index"
+		})
+	}
 	
 	const previewMember = () => {
 		uni.navigateTo({
@@ -425,6 +444,33 @@
 		&.active{
 			position: sticky;
 			z-index: 9999;
+		}
+	}
+	.headerLabel{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 10rpx;
+		.write-btn{
+			width: 150rpx;
+			height: 60rpx;
+			background: pink;
+			line-height: 60rpx;
+			text-align: center;
+			display: inline-block;
+			border-radius: 30rpx;
+			font-size: 26rpx;
+			margin: 0;
+			padding: 0;
+			background: #fff;
+			font-weight: normal;
+			outline: none;
+			border: 1rpx solid #ea3582;
+			color: #ea3582;
+			&::after,&::before{
+				content: '';
+				display: none;
+			}
 		}
 	}
 </style>

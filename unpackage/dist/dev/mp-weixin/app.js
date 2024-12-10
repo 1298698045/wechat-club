@@ -13,6 +13,7 @@ if (!Math) {
   "./pages/activity/album/index.js";
   "./pages/other/discountRules/index.js";
   "./pages/other/memberInfo/index.js";
+  "./pages/other/evaluate/index.js";
   "./pages/my/personInfo/index.js";
   "./pages/my/order/index.js";
   "./pages/my/activity/index.js";

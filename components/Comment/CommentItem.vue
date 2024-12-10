@@ -1,23 +1,17 @@
 <template>
-	<view class="commentItem" v-for="(item, index) in [1,2,3,4,5]" :key="index">
+	<view class="commentItem" v-for="(item, index) in listData" :key="index">
 		<view class="leftAvatar">
-			<image src="@/static/img/logo2.jpg" mode="aspectFill"></image>
+			<image :src="item.avatarUrl" mode="aspectFill"></image>
 		</view>
 		<view class="rightContent">
-			<view class="user-name">陈丽平</view>
+			<view class="user-name">{{item.nickName}}</view>
 			<view class="comment-desc">
-				撒发烧发烧的房间里撒开飞机卢卡斯都放假啦开始放假啊开发了三顿饭啦上课地方
-				撒费拉达斯放了假啊三顿饭阿萨德开飞机啊阿微卷发发丝的减肥啦顿饭啦上课地方
-				撒费拉达斯放了假啊三顿饭阿萨德开飞机啊阿微卷发发丝的减肥啦阿完全无气味撒放浓缩咖啡i去
+				{{item.body}}
 			</view>
 			<view class="comment-imgs">
-				<view class="comment-img-item" @click="previewImg">
-					<image src="@/static/img/1.jpg" mode="aspectFill"></image>
+				<view class="comment-img-item" v-for="(row, idx) in item.pictures" :key="idx" @click="previewImg">
+					<image :src="row.fileLocation" mode="aspectFill"></image>
 				</view>
-				<view class="comment-img-item"></view>
-				<view class="comment-img-item"></view>
-				<view class="comment-img-item"></view>
-				<view class="comment-img-item"></view>
 			</view>
 		</view>
 	</view>
@@ -26,6 +20,17 @@
 <script setup>
 	import { ref } from "vue";
 	import { onLoad } from "@dcloudio/uni-app";
+	import Interface from "@/utils/Interface.js";
+	import { get } from "@/utils/request.js";
+	
+	const listData = ref([]);
+	
+	const getQuery = () => {
+		get(Interface.comment.list, {}).then(res=>{
+			listData.value = res.data;
+		})
+	};
+	getQuery();
 	
 	const previewImg = () => {
 		uni.previewImage({

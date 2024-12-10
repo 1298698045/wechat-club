@@ -1,5 +1,7 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
+const utils_Interface = require("../../../utils/Interface.js");
+const utils_request = require("../../../utils/request.js");
 if (!Array) {
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
@@ -14,6 +16,7 @@ const _sfc_main = {
   __name: "index",
   setup(__props) {
     common_vendor.ref(null);
+    const weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
     const data = common_vendor.reactive({
       searchVal: "",
       listData: [1, 2, 3, 4, 5, 6, 7, 8],
@@ -32,12 +35,46 @@ const _sfc_main = {
         }
       ],
       current: 0,
-      isFilter: false
+      isFilter: false,
+      pageNumber: 1,
+      pageSize: 10
     });
-    const { searchVal, listData, tabs, current, isFilter } = common_vendor.toRefs(data);
+    const { searchVal, listData, tabs, current, isFilter, pageNumber, pageSize } = common_vendor.toRefs(data);
+    const statusName = (code) => {
+      const arr = ["未开始", "活动中", "已结束"];
+      return arr[code];
+    };
+    const weekName = (date) => {
+      const day = common_vendor.hooks(date).day();
+      return weeks[day];
+    };
     const handleTab = (item, index) => {
       data.current = index;
     };
+    const getQuery = () => {
+      utils_request.get(utils_Interface.Interface.activity.recordList, {
+        name: data.searchVal,
+        page: data.pageNumber,
+        rows: data.pageSize
+        // folderId: data.categoryId
+      }).then((res) => {
+        let list = res.data;
+        let total = res.total;
+        if (data.pageNumber * data.pageSize < total) {
+          data.isPage = true;
+        } else {
+          data.isPage = false;
+        }
+        let temp = [];
+        if (data.pageNumber == 1) {
+          temp = list;
+        } else {
+          temp = data.listData.concat(list);
+        }
+        data.listData = temp;
+      });
+    };
+    getQuery();
     const handleOpenFilter = () => {
       data.isFilter = !data.isFilter;
     };
@@ -68,9 +105,20 @@ const _sfc_main = {
         f: common_vendor.o(handleOpenFilter),
         g: common_vendor.f(common_vendor.unref(listData), (item, index, i0) => {
           return {
-            a: "c00f9596-2-" + i0,
-            b: "c00f9596-3-" + i0,
-            c: index
+            a: common_vendor.t(item.name),
+            b: common_vendor.t(statusName(item.stateCode)),
+            c: "c00f9596-2-" + i0,
+            d: common_vendor.t(item.address),
+            e: common_vendor.t(item.currentStudents),
+            f: common_vendor.t(item.maxStudents),
+            g: "c00f9596-3-" + i0,
+            h: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("MM")),
+            i: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("DD")),
+            j: common_vendor.t(weekName(item.startTime)),
+            k: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("hh:mm")),
+            l: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.endTime).format("hh:mm")),
+            m: common_vendor.t(item.price),
+            n: index
           };
         }),
         h: common_vendor.p({

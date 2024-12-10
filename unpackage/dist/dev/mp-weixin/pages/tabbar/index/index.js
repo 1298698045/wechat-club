@@ -37,14 +37,16 @@ const _sfc_main = {
       current: 0,
       tabs: [
         {
+          id: 0,
           name: "活动"
         },
         {
+          id: 1,
           name: "评价"
-        },
-        {
-          name: "周期表"
         }
+        // {
+        // 	name: "周期表"
+        // }
       ],
       currentTab: 0,
       backColor: "transparent",
@@ -89,7 +91,7 @@ const _sfc_main = {
     };
     getRecommends();
     const handleTab = (e) => {
-      data.currentTab = e;
+      data.currentTab = e.id;
       common_vendor.index.showLoading({
         title: "加载中",
         duration: 2e3,
@@ -135,6 +137,11 @@ const _sfc_main = {
         data.isTabsFixed = false;
       }
     });
+    const handleEval = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/other/evaluate/index"
+      });
+    };
     const previewMember = () => {
       common_vendor.index.navigateTo({
         url: "/pages/other/memberInfo/index"
@@ -208,12 +215,18 @@ const _sfc_main = {
         x: common_vendor.unref(isTabsFixed) ? 1 : "",
         y: common_vendor.unref(top) + "px",
         z: common_vendor.unref(currentTab) == 0
+      }, common_vendor.unref(currentTab) == 0 ? {} : {}, {
+        A: common_vendor.unref(currentTab) == 1
+      }, common_vendor.unref(currentTab) == 1 ? {
+        B: common_vendor.o(handleEval)
+      } : {}, {
+        C: common_vendor.unref(currentTab) == 0
       }, common_vendor.unref(currentTab) == 0 ? {
-        A: common_vendor.p({
+        D: common_vendor.p({
           list: common_vendor.unref(listData)
         })
       } : common_vendor.unref(currentTab) == 1 ? {} : {}, {
-        B: common_vendor.unref(currentTab) == 1
+        E: common_vendor.unref(currentTab) == 1
       });
     };
   }

@@ -20,7 +20,8 @@
       "root": "pages/other",
       "pages": [
         "discountRules/index",
-        "memberInfo/index"
+        "memberInfo/index",
+        "evaluate/index"
       ]
     },
     {
