@@ -10,9 +10,9 @@
 			</view>
 			<textarea class="textarea" :placeholder="placeholder" name="" id="" cols="30" rows="10"></textarea>
 			<view class="imgList">
-				<!-- <view class="img-item" v-for="item in [1,2,3,4]" :key="item">
+				<view class="img-item" v-for="item in [1,2,3,4]" :key="item">
 					<image class="img" src="../../../static/img/2.jpg" mode="aspectFill"></image>
-				</view> -->
+				</view>
 			</view>
 			<view class="upload-container">
 				<view class="uploadPhoto" @click="uploadPhoto">
@@ -136,21 +136,26 @@
 	.imgList{
 		display: flex;
 		flex-wrap: wrap;
+		gap: 10rpx;
+		justify-content: space-between;
 		.img-item{
-			width: 160rpx;
-			height: 160rpx;
+			 flex: 0 0 calc(33.33% - 20rpx);
+			max-width: calc(33.33% - 20rpx);
+			aspect-ratio: 1 / 1;
 			border: 1rpx solid #848484;
 			border-radius: 5rpx;
-			margin-right: 20rpx;
-			margin-bottom: 20rpx;
-			// &:first-child(4n){
-			// 	margin-right: 0;
-			// }
+			margin-bottom: 10rpx;
+			display: flex;
+			align-items: stretch;
+			justify-content: stretch;
 			.img{
 				width: 100%;
 				height: 100%;
 				border-radius: 5rpx;
 			}
+		}
+		.img-item:nth-child(3n){
+			margin-right: 0;
 		}
 	}
 	.footer{

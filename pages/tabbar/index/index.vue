@@ -33,8 +33,8 @@
 							成员(2464)
 						</view>
 						<view class="avatarList" @click="previewMember">
-							<view class="avatarItem" v-for="item in [1,2,3,4]" :key="item">
-								
+							<view class="avatarItem" v-for="(item,index) in members" :key="index">
+								<image class="img" :src="item.avatarUrl" mode="aspectFill"></image>
 							</view>
 						</view>
 					</view>
@@ -145,16 +145,27 @@
 		statusBarHeight: 0,
 		isTabsFixed: false,
 		top: 0,
-		listData: []
+		listData: [],
+		members: []
 	});
 	const { title, indicatorDots, autoplay, interval, 
 	duration, images, current, tabs, currentTab, backColor, color, statusBarHeight, isTabsFixed, top,
-	 listData } = toRefs(data);
+	 listData, members } = toRefs(data);
 	
 	const onSwiperChange = (e) => {
 		// console.log("e", e, data.current);
 		data.current = e.detail.current;
 	};
+	
+	const getMemberList = (e) => {
+		get(Interface.member.list, {
+			page: 1,
+			rows: 5
+		}).then(res=>{
+			data.members = res.data;
+		})
+	};
+	getMemberList();
 	
 	// 获取推荐活动
 	const getRecommends = () => {
@@ -369,6 +380,11 @@
 					  background: #e2e3e5;
 					  box-shadow: 0 0 8rpx rgba(0, 0, 0, 0.2);
 					  margin-left: -10rpx;
+					  .img{
+						  width: 100%;
+						  height: 100%;
+						  border-radius: 50%;
+					  }
 				  }
 			  }
 		  }

@@ -100,7 +100,7 @@ const _sfc_main = {
         d: common_vendor.p({
           tabs: common_vendor.unref(tabList)
         }),
-        e: common_assets._imports_0$2,
+        e: common_assets._imports_0$3,
         f: common_vendor.p({
           type: "location",
           color: "#666",

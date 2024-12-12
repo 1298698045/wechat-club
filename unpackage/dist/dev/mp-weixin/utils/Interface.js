@@ -13,8 +13,10 @@ const Interface = {
   category: "/api/itemCategory/GetList",
   login: "/api/members/Login",
   member: {
-    list: "/api/members/GetPageList"
+    list: "/api/members/GetPageList",
     // 成员信息获取
+    detail: "/api/members/getInfo",
+    editUserInfo: "/api/members/EditPersonalInfo"
   },
   order: {
     list: "/api/orders/getMyOrderList"

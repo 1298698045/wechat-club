@@ -38,3 +38,6 @@ export const get = (url, data) => {
 export const post = (url, data) => {
 	return request("POST", url, data);
 };
+export const put = (url, data) => {
+	return request("PUT", url, data);
+};

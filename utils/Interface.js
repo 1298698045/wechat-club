@@ -11,6 +11,8 @@ const Interface = {
 	login: "/api/members/Login",
 	member: {
 		list: "/api/members/GetPageList", // 成员信息获取
+		detail: "/api/members/getInfo",
+		editUserInfo: "/api/members/EditPersonalInfo"
 	},
 	order: {
 		list: "/api/orders/getMyOrderList"
@@ -22,6 +24,6 @@ const Interface = {
 		upload: "/api/comment/upload",
 		add: "/api/comment",
 		list: "/api/comment/getPageList"
-	}
+	},
 };
 export default Interface;

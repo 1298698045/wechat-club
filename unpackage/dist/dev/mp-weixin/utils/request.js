@@ -37,5 +37,9 @@ const get = (url, data) => {
 const post = (url, data) => {
   return request("POST", url, data);
 };
+const put = (url, data) => {
+  return request("PUT", url, data);
+};
 exports.get = get;
 exports.post = post;
+exports.put = put;

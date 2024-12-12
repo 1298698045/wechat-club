@@ -23,7 +23,7 @@
 			<view class="cell-row">
 				<view class="label">姓名</view>
 				<view class="inp">
-					<input type="text" placeholder="请输入姓名">
+					<input type="text" v-model="formData.name" placeholder="请输入姓名">
 				</view>
 				<view class="icon">
 					<uni-icons type="right"></uni-icons>
@@ -43,7 +43,7 @@
 			<view class="cell-row">
 				<view class="label">年龄</view>
 				<view class="inp">
-					<input type="number" placeholder="请输入年龄">
+					<input type="number" v-model="formData.age" placeholder="请输入年龄">
 				</view>
 				<view class="icon">
 					<uni-icons type="right"></uni-icons>
@@ -52,7 +52,7 @@
 			<view class="cell-row">
 				<view class="label">个性签名</view>
 				<view class="inp">
-					<input type="text" placeholder="请输入个性签名">
+					<input type="text" v-model="formData.signature" placeholder="请输入个性签名">
 				</view>
 				<view class="icon">
 					<uni-icons type="right"></uni-icons>
@@ -70,7 +70,7 @@
 <script setup>
 	import { ref, reactive } from "vue";
 	import Interface from "@/utils/Interface";
-	import { get, post } from "@/utils/request.js";
+	import { get, post, put } from "@/utils/request.js";
 	const formData = reactive({
 		name: "",
 		sex: 1,
@@ -83,47 +83,42 @@
 		{ value: 1, text: "女" },
 	]);
 	const sexs = ref(['男','女']);
+	const code = ref();
+	
+	const getDetail = () => {
+		get(Interface.member.detail, {
+			// id: 
+		}).then(res=>{
+			console.log("res", res);
+			const { userName, gender, age, signature } = res.data;
+			formData.name = userName;
+			index.value = Number(gender) || 0;
+			formData.age = age;
+			formData.signature = signature;
+		})
+	};
+	getDetail();
 	
 	const change = (e) => {
 		index.value = e.detail.value;
 	};
-	const code = ref();
 	const handleSave = async () => {
 		try{
-			const profileRes = await uni.getUserProfile({
-			  provider: "weixin",
-			  desc: "太友趣小程序隐私保护指引",
-			});
-			console.log("用户信息获取成功:", profileRes);
-			let userInfo = JSON.parse(profileRes.rawData);
-			console.log("user", userInfo);
-			const loginRes = await uni.login({ provider: "weixin" });
-			console.log("登录成功，code:", loginRes.code);
-			code.value = loginRes.code;
-			console.log("code.value", code.value);
-			post(Interface.login,{
-				code: code.value,
-				nickName: userInfo.nickName,
-				avatarUrl: userInfo.avatarUrl
+			put(Interface.member.editUserInfo, {
+				userName: formData.name,
+				gender: index.value,
+				age: formData.age,
+				signature: formData.signature
 			}).then(res=>{
-				console.log('res', res);
-				if(res.code === 20000){
-					let { wechatOpenid } = res.data;
-					console.log("wechatOpenid", wechatOpenid);
-					try{
-						uni.setStorageSync('token', wechatOpenid);
-						uni.navigateBack({
-							delta: 1
-						})
-					}catch{
-						
-					}
-				}
+				uni.showToast({
+					duration: 2000,
+					title: "保存成功！",
+					icon:"success"
+				})
 			})
 		}catch(err){
 			console.log("err", err);
 		}
-		console.log("formData:", formData);
 	}
 	
 </script>

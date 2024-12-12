@@ -2,7 +2,7 @@
 	<view class="wrapper">
 		<view class="header">
 			<view class="search-container">
-				<uni-easyinput prefixIcon="search" v-model="searchVal" placeholder="请输入活动名称" @iconClick="onClick"></uni-easyinput>
+				<uni-easyinput prefixIcon="search" v-model="searchVal" placeholder="请输入活动名称"></uni-easyinput>
 			</view>
 			<div class="category">
 				<tabs :tabs="tabList" @change="changeTab" />
@@ -61,6 +61,10 @@
 		pageSize: 5,
 		isPage: false,
 		tabList: [
+			{
+				id: '',
+				name: "全部"
+			},
 			{
 				id: 1,
 				name: "活动"

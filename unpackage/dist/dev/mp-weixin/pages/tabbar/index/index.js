@@ -54,7 +54,8 @@ const _sfc_main = {
       statusBarHeight: 0,
       isTabsFixed: false,
       top: 0,
-      listData: []
+      listData: [],
+      members: []
     });
     const {
       title,
@@ -71,11 +72,21 @@ const _sfc_main = {
       statusBarHeight,
       isTabsFixed,
       top,
-      listData
+      listData,
+      members
     } = common_vendor.toRefs(data);
     const onSwiperChange = (e) => {
       data.current = e.detail.current;
     };
+    const getMemberList = (e) => {
+      utils_request.get(utils_Interface.Interface.member.list, {
+        page: 1,
+        rows: 5
+      }).then((res) => {
+        data.members = res.data;
+      });
+    };
+    getMemberList();
     const getRecommends = () => {
       utils_request.get(utils_Interface.Interface.activity.recommend, {}).then((res) => {
         data.listData = res.data.map((item) => {
@@ -179,9 +190,10 @@ const _sfc_main = {
           };
         }),
         k: common_assets._imports_0,
-        l: common_vendor.f([1, 2, 3, 4], (item, k0, i0) => {
+        l: common_vendor.f(common_vendor.unref(members), (item, index, i0) => {
           return {
-            a: item
+            a: item.avatarUrl,
+            b: index
           };
         }),
         m: common_vendor.o(previewMember),

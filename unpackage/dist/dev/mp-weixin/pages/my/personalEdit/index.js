@@ -25,66 +25,67 @@ const _sfc_main = {
       { value: 1, text: "女" }
     ]);
     const sexs = common_vendor.ref(["男", "女"]);
+    common_vendor.ref();
+    const getDetail = () => {
+      utils_request.get(utils_Interface.Interface.member.detail, {
+        // id: 
+      }).then((res) => {
+        console.log("res", res);
+        const { userName, gender, age, signature } = res.data;
+        formData.name = userName;
+        index.value = Number(gender) || 0;
+        formData.age = age;
+        formData.signature = signature;
+      });
+    };
+    getDetail();
     const change = (e) => {
       index.value = e.detail.value;
     };
-    const code = common_vendor.ref();
     const handleSave = async () => {
       try {
-        const profileRes = await common_vendor.index.getUserProfile({
-          provider: "weixin",
-          desc: "太友趣小程序隐私保护指引"
-        });
-        console.log("用户信息获取成功:", profileRes);
-        let userInfo = JSON.parse(profileRes.rawData);
-        console.log("user", userInfo);
-        const loginRes = await common_vendor.index.login({ provider: "weixin" });
-        console.log("登录成功，code:", loginRes.code);
-        code.value = loginRes.code;
-        console.log("code.value", code.value);
-        utils_request.post(utils_Interface.Interface.login, {
-          code: code.value,
-          nickName: userInfo.nickName,
-          avatarUrl: userInfo.avatarUrl
+        utils_request.put(utils_Interface.Interface.member.editUserInfo, {
+          userName: formData.name,
+          gender: index.value,
+          age: formData.age,
+          signature: formData.signature
         }).then((res) => {
-          console.log("res", res);
-          if (res.code === 2e4) {
-            let { wechatOpenid } = res.data;
-            console.log("wechatOpenid", wechatOpenid);
-            try {
-              common_vendor.index.setStorageSync("token", wechatOpenid);
-              common_vendor.index.navigateBack({
-                delta: 1
-              });
-            } catch {
-            }
-          }
+          common_vendor.index.showToast({
+            duration: 2e3,
+            title: "保存成功！",
+            icon: "success"
+          });
         });
       } catch (err) {
         console.log("err", err);
       }
-      console.log("formData:", formData);
     };
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.p({
+        a: formData.name,
+        b: common_vendor.o(($event) => formData.name = $event.detail.value),
+        c: common_vendor.p({
           type: "right"
         }),
-        b: sexs.value[index.value],
-        c: common_vendor.o(($event) => sexs.value[index.value] = $event.detail.value),
-        d: common_vendor.o(change),
-        e: index.value,
-        f: range.value,
-        g: common_vendor.p({
-          type: "right"
-        }),
-        h: common_vendor.p({
-          type: "right"
-        }),
+        d: sexs.value[index.value],
+        e: common_vendor.o(($event) => sexs.value[index.value] = $event.detail.value),
+        f: common_vendor.o(change),
+        g: index.value,
+        h: range.value,
         i: common_vendor.p({
           type: "right"
         }),
-        j: common_vendor.o(handleSave)
+        j: formData.age,
+        k: common_vendor.o(($event) => formData.age = $event.detail.value),
+        l: common_vendor.p({
+          type: "right"
+        }),
+        m: formData.signature,
+        n: common_vendor.o(($event) => formData.signature = $event.detail.value),
+        o: common_vendor.p({
+          type: "right"
+        }),
+        p: common_vendor.o(handleSave)
       };
     };
   }

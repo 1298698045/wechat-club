@@ -26,6 +26,10 @@ const _sfc_main = {
       isPage: false,
       tabList: [
         {
+          id: "",
+          name: "全部"
+        },
+        {
           id: 1,
           name: "活动"
         },
@@ -87,18 +91,17 @@ const _sfc_main = {
     });
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.o(_ctx.onClick),
-        b: common_vendor.o(($event) => common_vendor.isRef(searchVal) ? searchVal.value = $event : null),
-        c: common_vendor.p({
+        a: common_vendor.o(($event) => common_vendor.isRef(searchVal) ? searchVal.value = $event : null),
+        b: common_vendor.p({
           prefixIcon: "search",
           placeholder: "请输入活动名称",
           modelValue: common_vendor.unref(searchVal)
         }),
-        d: common_vendor.o(changeTab),
-        e: common_vendor.p({
+        c: common_vendor.o(changeTab),
+        d: common_vendor.p({
           tabs: common_vendor.unref(tabList)
         }),
-        f: common_vendor.f(common_vendor.unref(listData), (item, index, i0) => {
+        e: common_vendor.f(common_vendor.unref(listData), (item, index, i0) => {
           return {
             a: "b9bb6734-2-" + i0,
             b: common_vendor.t(item.businessName),
@@ -112,13 +115,13 @@ const _sfc_main = {
             j: index
           };
         }),
-        g: common_assets._imports_0$2,
-        h: common_vendor.p({
+        f: common_assets._imports_0$3,
+        g: common_vendor.p({
           type: "location",
           color: "#666",
           size: "20"
         }),
-        i: common_vendor.p({
+        h: common_vendor.p({
           type: "location",
           color: "#666",
           size: "20"

@@ -143,6 +143,11 @@
   box-shadow: 0 0 8rpx rgba(0, 0, 0, 0.2);
   margin-left: -10rpx;
 }
+.wrapper .clubInfo .peopleBox .avatarList .avatarItem .img.data-v-184b8d5d {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
 .wrapper .clubInfo .clubInfo-detail.data-v-184b8d5d {
   padding: 0 30rpx;
 }

@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
+const common_assets = require("../../../common/assets.js");
 const utils_Interface = require("../../../utils/Interface.js");
 if (!Array) {
   const _easycom_uni_rate2 = common_vendor.resolveComponent("uni-rate");
@@ -62,13 +63,19 @@ const _sfc_main = {
           modelValue: common_vendor.unref(rateValue)
         }),
         d: placeholder.value,
-        e: common_vendor.p({
+        e: common_vendor.f([1, 2, 3, 4], (item, k0, i0) => {
+          return {
+            a: item
+          };
+        }),
+        f: common_assets._imports_0$2,
+        g: common_vendor.p({
           type: "image",
           color: "#848484",
           size: "40"
         }),
-        f: common_vendor.o(uploadPhoto),
-        g: common_vendor.o(handleSend)
+        h: common_vendor.o(uploadPhoto),
+        i: common_vendor.o(handleSend)
       };
     };
   }
