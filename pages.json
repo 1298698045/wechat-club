@@ -157,6 +157,20 @@
 					{
 						"navigationBarTitleText" : "评价"
 					}
+				},
+				{
+					"path": "courseDetail/index",
+					"style" :
+					{
+						"navigationBarTitleText" : "课程详情"
+					}
+				},
+				{
+					"path": "tourismDetail/index",
+					"style" :
+					{
+						"navigationBarTitleText" : "旅游详情"
+					}
 				}
 			]
 		},

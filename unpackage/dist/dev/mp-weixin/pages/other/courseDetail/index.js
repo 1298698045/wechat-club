@@ -19,10 +19,15 @@ const _sfc_main = {
       isExpand: false,
       detail: {},
       currentImg: "",
-      peopleList: [],
-      isCancel: false
+      peopleList: []
     });
-    const { isExpand, detail, currentImg, peopleList, isCancel } = common_vendor.toRefs(data);
+    const { isExpand, detail, currentImg, peopleList } = common_vendor.toRefs(data);
+    common_vendor.computed(() => {
+      const now = common_vendor.hooks(data.detail.endTime);
+      const isBefore = common_vendor.hooks.isBefore(now);
+      console.log("isBefore:", isBefore);
+      return isBefore;
+    });
     const weekName = (date) => {
       const day = common_vendor.hooks(date).day();
       return weeks[day];
@@ -37,7 +42,7 @@ const _sfc_main = {
       getSignUpPeoples();
     });
     const getDetail = () => {
-      utils_request.get(utils_Interface.Interface.activity.detail, {
+      utils_request.get(utils_Interface.Interface.course.detail, {
         id: id.value
       }).then((res) => {
         data.detail = res.data;
@@ -47,10 +52,6 @@ const _sfc_main = {
           currentImg2 = currentImgData.fileLocation;
         }
         data.currentImg = currentImg2;
-        const then = common_vendor.hooks(data.detail.cancelTime);
-        const isBefore = common_vendor.hooks().isBefore(then);
-        console.log("isBefore", isBefore);
-        data.isCancel = isBefore;
       });
     };
     const getSignUpPeoples = () => {
@@ -179,7 +180,7 @@ const _sfc_main = {
           return {
             a: item.avatarUrl,
             b: common_vendor.t(item.userName),
-            c: "f6d487c6-4-" + i0,
+            c: "964f8375-4-" + i0,
             d: common_vendor.p({
               type: "person",
               color: item.gender == 0 ? "#db7e9e" : "blue"
@@ -190,20 +191,18 @@ const _sfc_main = {
         })
       }, {
         y: common_vendor.t(common_vendor.unref(detail).description),
-        z: common_vendor.unref(isCancel)
-      }, common_vendor.unref(isCancel) ? common_vendor.e({
-        A: common_vendor.unref(detail).stateCode == 0
+        z: common_vendor.unref(detail).stateCode == 0
       }, common_vendor.unref(detail).stateCode == 0 ? {
-        B: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),
-        C: common_vendor.o(handleSignup)
+        A: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),
+        B: common_vendor.o(handleSignup)
       } : {}, {
-        D: common_vendor.unref(detail).stateCode == 1
+        C: common_vendor.unref(detail).stateCode == 1
       }, common_vendor.unref(detail).stateCode == 1 ? {
-        E: common_vendor.o(handleSignup)
-      } : {}) : {});
+        D: common_vendor.o(handleSignup)
+      } : {});
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-f6d487c6"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-964f8375"]]);
 _sfc_main.__runtimeHooks = 2;
 wx.createPage(MiniProgramPage);

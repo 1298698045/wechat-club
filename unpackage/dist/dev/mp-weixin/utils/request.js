@@ -2,13 +2,16 @@
 const common_vendor = require("../common/vendor.js");
 const BASE_URL = "http://47.96.15.8:9006";
 const TIMEOUT = 5e3;
-const request = (method, url, data) => {
+const request = (method, url, data, type = "") => {
   let token = common_vendor.index.getStorageSync("token");
   let header = {
     "Content-Type": "application/json"
   };
   if (token) {
     header["token"] = token;
+  }
+  if (type != "") {
+    header["Content-Type"] = type;
   }
   return new Promise((resolve, reject) => {
     common_vendor.index.request({

@@ -1,6 +1,6 @@
 const BASE_URL = "http://47.96.15.8:9006";
 const TIMEOUT = 5000;
-const request = (method, url, data) => {
+const request = (method, url, data, type='') => {
 	let token = uni.getStorageSync('token');
 	
 	let header = {
@@ -8,6 +8,9 @@ const request = (method, url, data) => {
 	};
 	if(token){
 		header['token'] = token;
+	}
+	if(type!=''){
+		header['Content-Type'] = type;
 	}
 	
 	return new Promise((resolve, reject)=>{		

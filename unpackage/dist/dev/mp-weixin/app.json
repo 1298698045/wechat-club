@@ -21,7 +21,9 @@
       "pages": [
         "discountRules/index",
         "memberInfo/index",
-        "evaluate/index"
+        "evaluate/index",
+        "courseDetail/index",
+        "tourismDetail/index"
       ]
     },
     {

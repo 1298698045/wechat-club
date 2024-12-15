@@ -26,6 +26,9 @@
 .is-input-border {
   border-radius: 30rpx !important;
 }
+.tab {
+  margin-right: 50rpx !important;
+}
 /**
  * 这里是uni-app内置的常用样式变量
  *
@@ -59,90 +62,78 @@
   top: 0;
   z-index: 1;
 }
+.wrap .header .category.data-v-cc77bab7 {
+  background: #fff;
+  overflow-x: auto;
+  margin-top: 10rpx;
+}
 .wrap .center.data-v-cc77bab7 {
   position: relative;
   padding: 0 32rpx;
+  margin-top: 30rpx;
 }
-.course-list .course-item.data-v-cc77bab7 {
-  margin-top: 24rpx;
+.wrap .center .tourism.data-v-cc77bab7 {
+  display: flex;
+  flex-wrap: wrap;
+}
+.wrap .center .tourism .tourism-item.data-v-cc77bab7 {
+  width: calc(50% - 16rpx);
+  margin-right: 32rpx;
   background: #fff;
-  border-radius: 20rpx;
-  padding: 32rpx 20rpx 20rpx 20rpx;
+  margin-bottom: 32rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
 }
-.course-list .course-item .course-item-head.data-v-cc77bab7 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.wrap .center .tourism .tourism-item .masterImg.data-v-cc77bab7 {
+  width: 100%;
+  height: 300rpx;
 }
-.course-list .course-item .course-item-head .name.data-v-cc77bab7 {
+.wrap .center .tourism .tourism-item .masterImg .img.data-v-cc77bab7 {
+  width: 100%;
+  height: 100%;
+}
+.wrap .center .tourism .tourism-item .tourism-content.data-v-cc77bab7 {
+  padding: 10rpx;
+}
+.wrap .center .tourism .tourism-item .tourism-content .title.data-v-cc77bab7 {
+  font-size: 32rpx;
   font-weight: 500;
-  font-size: 32rpx;
-  color: #333;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
 }
-.course-list .course-item .course-item-head .price.data-v-cc77bab7 {
-  color: #ea3852;
-  display: flex;
-  align-items: flex-end;
-  font-size: 40rpx;
+.wrap .center .tourism .tourism-item .tourism-content .tags.data-v-cc77bab7 {
+  margin: 20rpx 0;
 }
-.course-list .course-item .course-item-head .price .icon.data-v-cc77bab7 {
-  font-size: 26rpx;
-  font-weight: bold;
-  padding-right: 10rpx;
-}
-.course-list .course-item .course-item-center.data-v-cc77bab7 {
-  margin-top: 20rpx;
-}
-.course-list .course-item .course-item-center .row.data-v-cc77bab7 {
-  display: flex;
-  align-items: center;
-}
-.course-list .course-item .course-item-center .row .licon.data-v-cc77bab7 {
-  padding-right: 20rpx;
-}
-.course-list .course-item .course-item-center .row .text.data-v-cc77bab7 {
-  color: #666;
-  font-size: 28rpx;
-}
-.course-list .course-item .course-item-footer.data-v-cc77bab7 {
-  display: flex;
-  justify-content: flex-end;
-}
-.course-list .course-item .course-item-footer .btn.data-v-cc77bab7 {
-  width: 200rpx;
-  height: 80rpx;
-  background: pink;
-  line-height: 80rpx;
-  text-align: center;
+.wrap .center .tourism .tourism-item .tourism-content .tags .tag.data-v-cc77bab7 {
   display: inline-block;
-  border-radius: 40rpx;
+  padding: 0 6rpx;
+  border-radius: 5rpx;
+  border: 1rpx solid #d48f42;
+  color: #d48f42;
+  margin-right: 10rpx;
+  font-size: 24rpx;
+}
+.wrap .center .tourism .tourism-item .tourism-content .price.data-v-cc77bab7 {
+  margin-bottom: 20rpx;
+  font-size: 18rpx;
+  color: #848484;
+}
+.wrap .center .tourism .tourism-item .tourism-content .price .text.data-v-cc77bab7 {
+  display: inline-block;
+}
+.wrap .center .tourism .tourism-item .tourism-content .price .icon.data-v-cc77bab7 {
+  font-size: 24rpx;
+  color: #d83f36;
+}
+.wrap .center .tourism .tourism-item .tourism-content .price .number.data-v-cc77bab7 {
   font-size: 32rpx;
-  margin: 0;
-  padding: 0;
-  background: #6be8f5;
-  font-weight: 700;
-  outline: none;
-  border: none;
+  color: #d83f36;
+  font-weight: bold;
 }
-.course-list .course-item .course-item-footer .btn.data-v-cc77bab7::after, .course-list .course-item .course-item-footer .btn.data-v-cc77bab7::before {
-  content: "";
-  display: none;
-}
-.tag.data-v-cc77bab7 {
-  border-radius: 10rpx;
-  padding: 5rpx 10rpx;
-  background: #f3fcfd;
-  color: #6be8f5;
-  font-size: 24rpx;
-}
-.people-row.data-v-cc77bab7 {
-  display: flex;
-  align-items: center;
-  padding: 20rpx 0 20rpx 20rpx;
-}
-.people-row text.data-v-cc77bab7 {
-  flex: 1;
-  margin-left: 10rpx;
-  font-size: 24rpx;
-  color: #666;
+.wrap .center .tourism .tourism-item.data-v-cc77bab7:nth-child(2n) {
+  margin-right: 0;
 }

@@ -14,6 +14,8 @@ if (!Math) {
   "./pages/other/discountRules/index.js";
   "./pages/other/memberInfo/index.js";
   "./pages/other/evaluate/index.js";
+  "./pages/other/courseDetail/index.js";
+  "./pages/other/tourismDetail/index.js";
   "./pages/my/personInfo/index.js";
   "./pages/my/order/index.js";
   "./pages/my/activity/index.js";

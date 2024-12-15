@@ -2,6 +2,7 @@
 const common_vendor = require("../../../common/vendor.js");
 const common_assets = require("../../../common/assets.js");
 const utils_Interface = require("../../../utils/Interface.js");
+const utils_request = require("../../../utils/request.js");
 if (!Array) {
   const _easycom_uni_rate2 = common_vendor.resolveComponent("uni-rate");
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
@@ -25,7 +26,7 @@ const _sfc_main = {
       console.log("e", e);
     };
     const uploadPhoto = () => {
-      const url = utils_Interface.Interface.comment.upload;
+      const url = utils_Interface.Interface.uploadUrl + utils_Interface.Interface.comment.upload;
       common_vendor.index.chooseImage({
         count: 1,
         sourceType: ["album", "camera"],
@@ -53,6 +54,8 @@ const _sfc_main = {
       });
     };
     const handleSend = () => {
+      utils_request.post(utils_Interface.Interface.comment.add, {}).then((res) => {
+      });
     };
     return (_ctx, _cache) => {
       return {

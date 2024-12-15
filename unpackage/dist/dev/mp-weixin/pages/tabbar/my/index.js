@@ -6,7 +6,7 @@ const utils_request = require("../../../utils/request.js");
 const _sfc_main = {
   __name: "index",
   setup(__props) {
-    const navs = common_vendor.ref([
+    common_vendor.ref([
       {
         icon: "",
         text: "我的订单",
@@ -83,6 +83,11 @@ const _sfc_main = {
         });
       }
     };
+    const gotoOrder = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/my/order/index"
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: common_assets._imports_0,
@@ -96,14 +101,7 @@ const _sfc_main = {
           };
         }),
         d: !login.value ? "logo-hover" : "",
-        e: common_vendor.f(navs.value, (nav, index, i0) => {
-          return {
-            a: common_vendor.t(nav.icon),
-            b: common_vendor.t(nav.text),
-            c: index,
-            d: common_vendor.o(($event) => handleItemGoto(nav), index)
-          };
-        }),
+        e: common_vendor.o(gotoOrder),
         f: common_vendor.o(gotoUser)
       };
     };

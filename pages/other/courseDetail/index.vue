@@ -87,14 +87,14 @@
 				</view>
 			</view>
 		</view>
-		<view class="footer" v-if="isCancel">
+		<view class="footer">
 			<view class="footer-content" v-if="detail.stateCode==0">
 				<view class="footer-tips">
 					Tips: {{moment(detail.cancelTime).format("YYYY-MM-DD hh:mm")}} 前可取消报名
 				</view>
-				<button class="btn" hover-class="btnHover" @click="handleSignup">活动报名</button>
+				<button class="btn" hover-class="btnHover" @click="handleSignup">课程报名</button>
 			</view>
-			<view class="footer-content" style="padding-top: 20rpx;" v-if="detail.stateCode==1">
+			<view class="footer-content" v-if="detail.stateCode==1">
 				<button class="btn" hover-class="btnHover" @click="handleSignup">取消报名</button>
 			</view>
 		</view>
@@ -115,11 +115,17 @@
 		isExpand: false,
 		detail: {},
 		currentImg: "",
-		peopleList: [],
-		isCancel: false
+		peopleList: []
 	});
 	
-	const { isExpand, detail, currentImg, peopleList, isCancel } = toRefs(data);
+	const { isExpand, detail, currentImg, peopleList } = toRefs(data);
+	
+	const isCancel = computed(()=>{
+		const now = moment(data.detail.endTime);
+		const isBefore = moment.isBefore(now);
+		console.log("isBefore:", isBefore);
+		return isBefore;
+	})
 	
 	const weekName = (date) => {
 		const day = moment(date).day();
@@ -138,7 +144,7 @@
 	})
 	
 	const getDetail = () => {
-		get(Interface.activity.detail, {
+		get(Interface.course.detail, {
 			id: id.value
 		}).then(res=>{
 			data.detail = res.data;
@@ -149,11 +155,6 @@
 				currentImg = currentImgData.fileLocation;
 			}
 			data.currentImg = currentImg;
-			
-			const then = moment(data.detail.cancelTime);
-			const isBefore = moment().isBefore(then);
-			console.log("isBefore", isBefore);
-			data.isCancel = isBefore;
 		})
 	}
 	

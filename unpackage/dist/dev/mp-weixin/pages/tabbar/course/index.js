@@ -77,6 +77,11 @@ const _sfc_main = {
       });
     };
     getQuery();
+    const handleDetail = (item) => {
+      common_vendor.index.navigateTo({
+        url: "/pages/other/courseDetail/index?id=" + item.id
+      });
+    };
     common_vendor.onPullDownRefresh(() => {
       data.pageNumber = 1;
       getQuery();
@@ -123,7 +128,8 @@ const _sfc_main = {
           }, item.pictures && item.pictures.length ? {
             n: common_vendor.t(item.pictures.length)
           } : {}, {
-            o: index
+            o: common_vendor.o(($event) => handleDetail(item), index),
+            p: index
           });
         }),
         i: common_vendor.p({

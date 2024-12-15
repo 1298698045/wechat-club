@@ -108,7 +108,7 @@
 }
 .center-list.data-v-25e2cca3 {
   background-color: #FFFFFF;
-  margin: 0 auto 20rpx;
+  margin: 20rpx auto 0;
   width: calc(100vw - 0rpx);
   display: flex;
   flex-direction: column;

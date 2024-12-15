@@ -48,7 +48,7 @@
 	};
 	
 	const uploadPhoto = () => {
-		const url = Interface.comment.upload;
+		const url = Interface.uploadUrl + Interface.comment.upload;
 		uni.chooseImage({
 			count: 1,
 			sourceType:  ['album', 'camera'],
@@ -78,7 +78,11 @@
 	};
 	
 	const handleSend = () => {
-		
+		post(Interface.comment.add, {
+			
+		}).then(res=>{
+			
+		})
 	}
 	
 </script>

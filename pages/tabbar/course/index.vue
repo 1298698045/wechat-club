@@ -50,7 +50,7 @@
 						</view>
 					</view>
 					<view class="course-item-footer">
-						<button class="btn">去报名</button>
+						<button class="btn" @click="handleDetail(item)">去报名</button>
 					</view>
 				</view>
 			</view>
@@ -133,6 +133,12 @@
 		})
 	};
 	getQuery();
+	
+	const handleDetail = (item) => {
+		uni.navigateTo({
+			url:"/pages/other/courseDetail/index?id="+item.id
+		})
+	}
 	
 	onPullDownRefresh(()=>{
 		data.pageNumber = 1;

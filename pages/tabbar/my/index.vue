@@ -18,7 +18,7 @@
 			</view>
 		</view>
 		<view class="bg-gray center">
-		<view class="center-nav margin-top">
+		<!-- <view class="center-nav margin-top">
 			<view class="center-nav-title">
 				<text>我的订单</text>
 			</view>
@@ -28,8 +28,12 @@
 					<text class="center-nav-item-text">{{nav.text}}</text>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<view class="center-list">
+			<view class="center-list-item border-bottom" @click="gotoOrder">
+				<text class="list-icon color-1">&#xe60e;</text>
+				<text class="list-text">我的订单</text>
+			</view>
 			<view class="center-list-item border-bottom" @click="gotoUser">
 				<text class="list-icon color-1">&#xe60e;</text>
 				<text class="list-text">帐号管理</text>
@@ -143,6 +147,12 @@
 				url: item.url
 			})
 		}
+	};
+	
+	const gotoOrder = () => {
+		uni.navigateTo({
+			url: "/pages/my/order/index"
+		})
 	}
 	
 </script>
@@ -253,7 +263,7 @@
 	}
 	.center-list {
 		background-color: #FFFFFF;
-		margin:0 auto $list-margin;
+		margin:$list-margin auto 0;
 		width: $width;
 		display: flex;
 		flex-direction: column;

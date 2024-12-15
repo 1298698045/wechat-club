@@ -55,7 +55,8 @@ const _sfc_main = {
       isTabsFixed: false,
       top: 0,
       listData: [],
-      members: []
+      members: [],
+      memberNumber: 0
     });
     const {
       title,
@@ -73,7 +74,8 @@ const _sfc_main = {
       isTabsFixed,
       top,
       listData,
-      members
+      members,
+      memberNumber
     } = common_vendor.toRefs(data);
     const onSwiperChange = (e) => {
       data.current = e.detail.current;
@@ -84,6 +86,7 @@ const _sfc_main = {
         rows: 5
       }).then((res) => {
         data.members = res.data;
+        data.memberNumber = res.total;
       });
     };
     getMemberList();
@@ -190,55 +193,56 @@ const _sfc_main = {
           };
         }),
         k: common_assets._imports_0,
-        l: common_vendor.f(common_vendor.unref(members), (item, index, i0) => {
+        l: common_vendor.t(common_vendor.unref(memberNumber)),
+        m: common_vendor.f(common_vendor.unref(members), (item, index, i0) => {
           return {
             a: item.avatarUrl,
             b: index
           };
         }),
-        m: common_vendor.o(previewMember),
-        n: common_vendor.p({
+        n: common_vendor.o(previewMember),
+        o: common_vendor.p({
           type: "calendar",
           size: "30",
           color: "#6be8f5"
         }),
-        o: common_vendor.p({
+        p: common_vendor.p({
           type: "image",
           size: "30",
           color: "#6be8f5"
         }),
-        p: common_vendor.o(handleAlbum),
-        q: common_vendor.p({
+        q: common_vendor.o(handleAlbum),
+        r: common_vendor.p({
           type: "list",
           size: "30",
           color: "#6be8f5"
         }),
-        r: common_vendor.o(goto),
-        s: common_vendor.p({
+        s: common_vendor.o(goto),
+        t: common_vendor.p({
           type: "wallet",
           size: "30",
           color: "#6be8f5"
         }),
-        t: common_vendor.o(gotoDiscout),
-        v: common_vendor.o(handleTab),
-        w: common_vendor.p({
+        v: common_vendor.o(gotoDiscout),
+        w: common_vendor.o(handleTab),
+        x: common_vendor.p({
           tabs: common_vendor.unref(tabs)
         }),
-        x: common_vendor.unref(isTabsFixed) ? 1 : "",
-        y: common_vendor.unref(top) + "px",
-        z: common_vendor.unref(currentTab) == 0
+        y: common_vendor.unref(isTabsFixed) ? 1 : "",
+        z: common_vendor.unref(top) + "px",
+        A: common_vendor.unref(currentTab) == 0
       }, common_vendor.unref(currentTab) == 0 ? {} : {}, {
-        A: common_vendor.unref(currentTab) == 1
+        B: common_vendor.unref(currentTab) == 1
       }, common_vendor.unref(currentTab) == 1 ? {
-        B: common_vendor.o(handleEval)
+        C: common_vendor.o(handleEval)
       } : {}, {
-        C: common_vendor.unref(currentTab) == 0
+        D: common_vendor.unref(currentTab) == 0
       }, common_vendor.unref(currentTab) == 0 ? {
-        D: common_vendor.p({
+        E: common_vendor.p({
           list: common_vendor.unref(listData)
         })
       } : common_vendor.unref(currentTab) == 1 ? {} : {}, {
-        E: common_vendor.unref(currentTab) == 1
+        F: common_vendor.unref(currentTab) == 1
       });
     };
   }

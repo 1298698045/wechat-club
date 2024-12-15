@@ -30,7 +30,7 @@
 				<view class="peopleBox">
 					<view class="peopleHead">						
 						<view>
-							成员(2464)
+							成员({{memberNumber}})
 						</view>
 						<view class="avatarList" @click="previewMember">
 							<view class="avatarItem" v-for="(item,index) in members" :key="index">
@@ -146,11 +146,12 @@
 		isTabsFixed: false,
 		top: 0,
 		listData: [],
-		members: []
+		members: [],
+		memberNumber: 0
 	});
 	const { title, indicatorDots, autoplay, interval, 
 	duration, images, current, tabs, currentTab, backColor, color, statusBarHeight, isTabsFixed, top,
-	 listData, members } = toRefs(data);
+	 listData, members, memberNumber } = toRefs(data);
 	
 	const onSwiperChange = (e) => {
 		// console.log("e", e, data.current);
@@ -163,6 +164,7 @@
 			rows: 5
 		}).then(res=>{
 			data.members = res.data;
+			data.memberNumber = res.total;
 		})
 	};
 	getMemberList();
