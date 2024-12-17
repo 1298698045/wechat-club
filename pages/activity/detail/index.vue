@@ -87,7 +87,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="footer" v-if="isCancel">
+		<view class="footer" v-if="detail.stateCode==0 || isCancel">
 			<view class="footer-content" v-if="detail.stateCode==0">
 				<view class="footer-tips">
 					Tips: {{moment(detail.cancelTime).format("YYYY-MM-DD hh:mm")}} 前可取消报名
@@ -146,7 +146,7 @@
 			let currentImgData = data.detail.pictures.find(row=>row.isRecommend==true);
 			let currentImg = '';
 			if(currentImgData){
-				currentImg = currentImgData.fileLocation;
+				currentImg = Interface.uploadUrl + currentImgData.fileLocation;
 			}
 			data.currentImg = currentImg;
 			
@@ -224,7 +224,7 @@
 	};
 	
 	const handleSignup = () => {
-		if(!isToken()){			
+		if(!isToken()){
 			uni.showModal({
 				title: "提示",
 				content:"请先完善用户信息",

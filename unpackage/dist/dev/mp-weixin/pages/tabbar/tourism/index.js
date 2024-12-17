@@ -59,7 +59,7 @@ const _sfc_main = {
           let currentImgData = item.pictures.find((row) => row.isRecommend == true);
           let currentImg = "";
           if (currentImgData) {
-            currentImg = currentImgData.fileLocation;
+            currentImg = utils_Interface.Interface.uploadUrl + currentImgData.fileLocation;
           }
           item.currentImg = currentImg;
           return item;

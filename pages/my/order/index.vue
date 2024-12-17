@@ -12,7 +12,7 @@
 			<view class="activity-list">
 				<view class="activity-item" v-for="(item, index) in listData" :key="index">
 					<view class="image">
-						<image class="img" src="@/static/img/1.jpg" mode="aspectFill"></image>
+						<image class="img" :src="Interface.uploadUrl+item.businessPicture" mode="aspectFill"></image>
 					</view>
 					<view class="info">
 						<view class="row">

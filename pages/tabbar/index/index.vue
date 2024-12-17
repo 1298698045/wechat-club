@@ -94,7 +94,7 @@
 					</view>
 				</view>
 				<ActivityItem :list="listData" v-if="currentTab==0" />
-				<CommentItem v-else-if="currentTab==1" />
+				<CommentItem ref="commonRef" v-else-if="currentTab==1" />
 			</view>
 			<BottomText />
 		</view>
@@ -104,7 +104,7 @@
 
 <script setup>
 	import { ref, reactive, toRefs, toRef } from "vue";
-	import { onLoad, onReady, onPageScroll, onPullDownRefresh } from '@dcloudio/uni-app';
+	import { onLoad, onReady, onPageScroll, onPullDownRefresh, onShow } from '@dcloudio/uni-app';
 	import { useCounterStore } from "@/stores/counter";
 	import Tabs from "@/components/Tabs/Tabs.vue";
 	import ActivityItem from "@/components/Activity/ActivityItem.vue";
@@ -114,6 +114,8 @@
 	import { get } from "@/utils/request.js";
 	const store = useCounterStore();
 	console.log("count:", store.count)
+	
+	const commonRef = ref(null);
 	const data = reactive({
 		title: 'Hello',
 		indicatorDots: false,
@@ -177,7 +179,7 @@
 				let currentImgData = item.pictures.find(row=>row.isRecommend==true);
 				let currentImg = '';
 				if(currentImgData){
-					currentImg = currentImgData.fileLocation;
+					currentImg = Interface.uploadUrl + currentImgData.fileLocation;
 				}
 				item.currentImg = currentImg;
 				return item;
@@ -222,7 +224,14 @@
 		console.log("windowInfo", windowInfo);
 		data.statusBarHeight = windowInfo.statusBarHeight;
 		data.top = windowInfo.statusBarHeight + 44;
+	});
+	
+	onShow(()=>{
+		if(commonRef && commonRef.value){
+			commonRef.value.getQuery();
+		}
 	})
+	
 	
 	onPageScroll((e)=>{
 		// console.log("onPageScroll", e);

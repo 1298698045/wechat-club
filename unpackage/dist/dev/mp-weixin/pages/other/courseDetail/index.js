@@ -19,14 +19,15 @@ const _sfc_main = {
       isExpand: false,
       detail: {},
       currentImg: "",
-      peopleList: []
+      peopleList: [],
+      isBefore: false
     });
-    const { isExpand, detail, currentImg, peopleList } = common_vendor.toRefs(data);
-    common_vendor.computed(() => {
+    const { isExpand, detail, currentImg, peopleList, isBefore } = common_vendor.toRefs(data);
+    const isCancel = common_vendor.computed(() => {
       const now = common_vendor.hooks(data.detail.endTime);
-      const isBefore = common_vendor.hooks.isBefore(now);
-      console.log("isBefore:", isBefore);
-      return isBefore;
+      const isBefore2 = common_vendor.hooks.isBefore(now);
+      console.log("isBefore:", isBefore2);
+      return isBefore2;
     });
     const weekName = (date) => {
       const day = common_vendor.hooks(date).day();
@@ -49,9 +50,12 @@ const _sfc_main = {
         let currentImgData = data.detail.pictures.find((row) => row.isRecommend == true);
         let currentImg2 = "";
         if (currentImgData) {
-          currentImg2 = currentImgData.fileLocation;
+          currentImg2 = utils_Interface.Interface.uploadUrl + currentImgData.fileLocation;
         }
         data.currentImg = currentImg2;
+        const then = common_vendor.hooks(data.detail.cancelTime);
+        const isBefore2 = common_vendor.hooks().isBefore(then);
+        data.isCancel = isBefore2;
       });
     };
     const getSignUpPeoples = () => {
@@ -191,15 +195,17 @@ const _sfc_main = {
         })
       }, {
         y: common_vendor.t(common_vendor.unref(detail).description),
-        z: common_vendor.unref(detail).stateCode == 0
+        z: common_vendor.unref(detail).stateCode == 0 || isCancel.value
+      }, common_vendor.unref(detail).stateCode == 0 || isCancel.value ? common_vendor.e({
+        A: common_vendor.unref(detail).stateCode == 0
       }, common_vendor.unref(detail).stateCode == 0 ? {
-        A: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),
-        B: common_vendor.o(handleSignup)
+        B: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),
+        C: common_vendor.o(handleSignup)
       } : {}, {
-        C: common_vendor.unref(detail).stateCode == 1
+        D: common_vendor.unref(detail).stateCode == 1
       }, common_vendor.unref(detail).stateCode == 1 ? {
-        D: common_vendor.o(handleSignup)
-      } : {});
+        E: common_vendor.o(handleSignup)
+      } : {}) : {});
     };
   }
 };

@@ -1,6 +1,5 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
-const common_assets = require("../../../common/assets.js");
 const utils_Interface = require("../../../utils/Interface.js");
 const utils_request = require("../../../utils/request.js");
 if (!Array) {
@@ -103,25 +102,25 @@ const _sfc_main = {
         }),
         e: common_vendor.f(common_vendor.unref(listData), (item, index, i0) => {
           return {
-            a: "b9bb6734-2-" + i0,
-            b: common_vendor.t(item.businessName),
-            c: common_vendor.t(item.unitPrice),
-            d: "b9bb6734-3-" + i0,
-            e: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("MM")),
-            f: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("DD")),
-            g: common_vendor.t(weekName(item.orderDate)),
-            h: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("hh:mm")),
+            a: common_vendor.unref(utils_Interface.Interface).uploadUrl + item.businessPicture,
+            b: "b9bb6734-2-" + i0,
+            c: common_vendor.t(item.businessName),
+            d: common_vendor.t(item.unitPrice),
+            e: "b9bb6734-3-" + i0,
+            f: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("MM")),
+            g: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("DD")),
+            h: common_vendor.t(weekName(item.orderDate)),
             i: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("hh:mm")),
-            j: index
+            j: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("hh:mm")),
+            k: index
           };
         }),
-        f: common_assets._imports_0$3,
-        g: common_vendor.p({
+        f: common_vendor.p({
           type: "location",
           color: "#666",
           size: "20"
         }),
-        h: common_vendor.p({
+        g: common_vendor.p({
           type: "location",
           color: "#666",
           size: "20"

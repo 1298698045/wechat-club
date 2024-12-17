@@ -87,7 +87,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="footer">
+		<view class="footer" v-if="detail.stateCode==0 || isCancel">
 			<view class="footer-content" v-if="detail.stateCode==0">
 				<view class="footer-tips">
 					Tips: {{moment(detail.cancelTime).format("YYYY-MM-DD hh:mm")}} 前可取消报名
@@ -115,10 +115,11 @@
 		isExpand: false,
 		detail: {},
 		currentImg: "",
-		peopleList: []
+		peopleList: [],
+		isCancel: false
 	});
 	
-	const { isExpand, detail, currentImg, peopleList } = toRefs(data);
+	const { isExpand, detail, currentImg, peopleList, isCancel } = toRefs(data);
 	
 	const weekName = (date) => {
 		const day = moment(date).day();
@@ -145,9 +146,12 @@
 			let currentImgData = data.detail.pictures.find(row=>row.isRecommend==true);
 			let currentImg = '';
 			if(currentImgData){
-				currentImg = currentImgData.fileLocation;
+				currentImg = Interface.uploadUrl + currentImgData.fileLocation;
 			}
 			data.currentImg = currentImg;
+			const then = moment(data.detail.cancelTime);
+			const isBefore = moment().isBefore(then);
+			data.isCancel = isBefore;
 		})
 	}
 	

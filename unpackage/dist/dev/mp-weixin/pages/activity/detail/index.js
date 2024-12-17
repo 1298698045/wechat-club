@@ -44,7 +44,7 @@ const _sfc_main = {
         let currentImgData = data.detail.pictures.find((row) => row.isRecommend == true);
         let currentImg2 = "";
         if (currentImgData) {
-          currentImg2 = currentImgData.fileLocation;
+          currentImg2 = utils_Interface.Interface.uploadUrl + currentImgData.fileLocation;
         }
         data.currentImg = currentImg2;
         const then = common_vendor.hooks(data.detail.cancelTime);
@@ -190,8 +190,8 @@ const _sfc_main = {
         })
       }, {
         y: common_vendor.t(common_vendor.unref(detail).description),
-        z: common_vendor.unref(isCancel)
-      }, common_vendor.unref(isCancel) ? common_vendor.e({
+        z: common_vendor.unref(detail).stateCode == 0 || common_vendor.unref(isCancel)
+      }, common_vendor.unref(detail).stateCode == 0 || common_vendor.unref(isCancel) ? common_vendor.e({
         A: common_vendor.unref(detail).stateCode == 0
       }, common_vendor.unref(detail).stateCode == 0 ? {
         B: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),

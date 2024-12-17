@@ -9,8 +9,8 @@
 				{{item.body}}
 			</view>
 			<view class="comment-imgs">
-				<view class="comment-img-item" v-for="(row, idx) in item.pictures" :key="idx" @click="previewImg">
-					<image :src="row.fileLocation" mode="aspectFill"></image>
+				<view class="comment-img-item" v-for="(row, idx) in item.pictures" :key="idx" @click="previewImg(item, row)">
+					<image :src="row.photoUrl" mode="aspectFill"></image>
 				</view>
 			</view>
 		</view>
@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-	import { ref } from "vue";
+	import { ref, defineExpose } from "vue";
 	import { onLoad } from "@dcloudio/uni-app";
 	import Interface from "@/utils/Interface.js";
 	import { get } from "@/utils/request.js";
@@ -27,20 +27,36 @@
 	
 	const getQuery = () => {
 		get(Interface.comment.list, {}).then(res=>{
-			listData.value = res.data;
+			listData.value = res.data.map(item=>{
+				item.pictures = item.pictures.map(row=>{
+					row.photoUrl = Interface.uploadUrl + decodeURIComponent(row.fileLocation);
+					return row;
+				})
+				return item;
+			});
+			console.log("listData.value", listData.value);
 		})
 	};
 	getQuery();
 	
-	const previewImg = () => {
+	const previewImg = (item, row) => {
+		let url = row.photoUrl;
+		let urls = item.pictures.map(v=>v.photoUrl);
+		// item.pictures.forEach(row=>{
+		// 	let path = Interface.uploadUrl+item.fileLocation;
+		// 	urls.push(path);
+		// })
 		uni.previewImage({
-			urls: ["http://47.96.15.8:9006/images/1.jpg","http://47.96.15.8:9006/images/2.jpg","http://47.96.15.8:9006/images/3.jpg"],
-			current: "http://47.96.15.8:9006/images/1.jpg",
+			// urls: ["http://47.96.15.8:9006/images/1.jpg","http://47.96.15.8:9006/images/2.jpg","http://47.96.15.8:9006/images/3.jpg"],
+			// current: "http://47.96.15.8:9006/images/1.jpg",
+			urls: urls,
+			current: url,
 			success: (res) => {
 				
 			}
 		})
 	}
+	defineExpose({ getQuery });
 	
 </script>
 

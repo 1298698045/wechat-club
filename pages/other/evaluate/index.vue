@@ -8,10 +8,10 @@
 			<view class="eval">
 				<uni-rate v-model="rateValue" size="32" @change="onChange" />
 			</view>
-			<textarea class="textarea" :placeholder="placeholder" name="" id="" cols="30" rows="10"></textarea>
+			<textarea class="textarea" v-model="content" :placeholder="placeholder" name="" id="" cols="30" rows="10"></textarea>
 			<view class="imgList">
-				<view class="img-item" v-for="item in [1,2,3,4]" :key="item">
-					<image class="img" src="../../../static/img/2.jpg" mode="aspectFill"></image>
+				<view class="img-item" v-for="(item,index) in images" :key="index" @click="previewImg(item)">
+					<image class="img" :src="item.photoUrl" mode="aspectFill"></image>
 				</view>
 			</view>
 			<view class="upload-container">
@@ -38,10 +38,11 @@
 	
 	const data = reactive({
 		rateValue: 1,
-		images: []
+		images: [],
+		content: ""
 	});
 	
-	const { rateValue, images } = toRefs(data);
+	const { rateValue, images, content } = toRefs(data);
 	
 	const onChange = (e) => {
 		console.log("e", e);
@@ -54,34 +55,102 @@
 			sourceType:  ['album', 'camera'],
 			success: (res) => {
 				console.log("chooseImage", res);
-			    const tempFilePaths = res.tempFilePaths[0];
-				setTimeout(()=>{
-					console.log("url", url);
-					uni.uploadFile({
-						url: url,
-						filePath: tempFilePaths,
-						name: 'file',
-						formData: {
-						   parentId: '',
-						},
-						success(res) {
-							console.log("res", res);
-						},fail: (error) => {
-							// 处理上传失败的情况
-							console.error('上传失败：', error);
-							// 在这里显示错误消息
+				uni.showLoading({
+					title:'上传中'
+				})
+				const tempFilePaths = res.tempFilePaths[0];
+				console.log("url", url);
+				uni.uploadFile({
+					url: url,
+					filePath: tempFilePaths,
+					name: 'files',
+					formData: {
+						
+					},
+					success(uploadRes) {
+						console.log("uploadRes", uploadRes);
+						const info = JSON.parse(uploadRes.data);
+						info.data.forEach(item=>{
+							item.photoUrl = Interface.uploadUrl + decodeURIComponent(item.fileLocation)
+						})
+						data.images = data.images.concat(info.data);
+						if (info.code === 2000) {
+							uni.showToast({
+								title: '上传成功',
+								icon: 'success'
+							});
+						} else {
+							uni.showToast({
+								title: '上传失败',
+								icon: 'none'
+							});
 						}
-					})
-				},1000)
+						
+					},fail: (error) => {
+						// 处理上传失败的情况
+						console.error('上传失败：', error);
+						// 在这里显示错误消息
+						uni.showToast({
+							title: '上传失败，请重试',
+							icon: 'none'
+						});
+					},
+					complete: () => {
+						// 隐藏加载提示
+						uni.hideLoading();
+					}
+				})
 			}
 		})
 	};
 	
+	const previewImg = (item) => {
+		// let url = Interface.uploadUrl+decodeURIComponent(item.fileLocation);
+		let url = item.photoUrl;
+		const urls = data.images.map(item=>item.photoUrl);
+		// data.images.forEach(row=>{
+		// 	let path = Interface.uploadUrl+decodeURIComponent(item.fileLocation);
+		// 	urls.push(path);
+		// })
+		uni.previewImage({
+			urls: urls,
+			current: url,
+			success: (res) => {
+				
+			}
+		})
+	}
 	const handleSend = () => {
+		
+		let commentPictures = [];
+		data.images.forEach((item, index)=>{
+			let obj = {
+				id: item.id,
+				name: item.name,
+				fileSize: item.fileSize,
+				fileLocation: item.fileLocation,
+				fileExtension: item.fileExtension,
+				sortNumber: index
+			}
+			commentPictures.push(obj);
+		})
+		
 		post(Interface.comment.add, {
-			
+			body: data.content,
+			rating: data.rateValue,
+			commentPictures: commentPictures
 		}).then(res=>{
+			uni.showToast({
+				title:"发布成功！",
+				duration: 3000,
+				icon: "success"
+			});
 			
+			setTimeout(()=>{
+				uni.navigateBack({
+					delta: 1
+				})
+			},1000)
 		})
 	}
 	
@@ -140,15 +209,16 @@
 	.imgList{
 		display: flex;
 		flex-wrap: wrap;
-		gap: 10rpx;
-		justify-content: space-between;
+		gap: 24rpx;
+		justify-content: flex-start;
+		margin-bottom: 20rpx;
 		.img-item{
-			 flex: 0 0 calc(33.33% - 20rpx);
+			flex: 0 0 calc(33.33% - 20rpx);
 			max-width: calc(33.33% - 20rpx);
 			aspect-ratio: 1 / 1;
 			border: 1rpx solid #848484;
 			border-radius: 5rpx;
-			margin-bottom: 10rpx;
+			// margin-bottom: 10rpx;
 			display: flex;
 			align-items: stretch;
 			justify-content: stretch;

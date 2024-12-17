@@ -6882,6 +6882,10 @@ function stringify(styles) {
   }
   return ret;
 }
+function setRef(ref2, id, opts = {}) {
+  const { $templateRefs } = getCurrentInstance();
+  $templateRefs.push({ i: id, r: ref2, k: opts.k, f: opts.f });
+}
 const o$1 = (value, key) => vOn(value, key);
 const f$1 = (source, renderItem) => vFor(source, renderItem);
 const s$1 = (value) => stringifyStyle(value);
@@ -6889,6 +6893,7 @@ const e$1 = (target, ...sources) => extend$1(target, ...sources);
 const n$1 = (value) => normalizeClass(value);
 const t$1 = (val) => toDisplayString(val);
 const p$1 = (props) => renderProps(props);
+const sr = (ref2, id, opts) => setRef(ref2, id, opts);
 function createApp$1(rootComponent, rootProps = null) {
   rootComponent && (rootComponent.mpType = "app");
   return createVueApp(rootComponent, rootProps).use(plugin);
@@ -8491,6 +8496,7 @@ const Pinia = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
   !isInSSRComponentSetup && injectHook(lifecycle, hook, target);
 };
+const onShow = /* @__PURE__ */ createHook(ON_SHOW);
 const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
 const onUnload = /* @__PURE__ */ createHook(ON_UNLOAD);
 const onPageScroll = /* @__PURE__ */ createHook(ON_PAGE_SCROLL);
@@ -15471,12 +15477,14 @@ exports.onPageScroll = onPageScroll;
 exports.onPullDownRefresh = onPullDownRefresh;
 exports.onReachBottom = onReachBottom;
 exports.onShareAppMessage = onShareAppMessage;
+exports.onShow = onShow;
 exports.onUnload = onUnload;
 exports.p = p$1;
 exports.reactive = reactive;
 exports.ref = ref;
 exports.resolveComponent = resolveComponent;
 exports.s = s$1;
+exports.sr = sr;
 exports.t = t$1;
 exports.toRefs = toRefs;
 exports.unref = unref;

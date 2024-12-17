@@ -99,7 +99,7 @@
 				let currentImgData = item.pictures.find(row=>row.isRecommend==true);
 				let currentImg = '';
 				if(currentImgData){
-					currentImg = currentImgData.fileLocation;
+					currentImg = Interface.uploadUrl + currentImgData.fileLocation;
 				}
 				item.currentImg = currentImg;
 				return item;

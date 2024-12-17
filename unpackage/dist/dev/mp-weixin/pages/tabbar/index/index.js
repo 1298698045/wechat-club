@@ -23,6 +23,7 @@ const _sfc_main = {
   setup(__props) {
     const store = stores_counter.useCounterStore();
     console.log("count:", store.count);
+    const commonRef = common_vendor.ref(null);
     const data = common_vendor.reactive({
       title: "Hello",
       indicatorDots: false,
@@ -96,7 +97,7 @@ const _sfc_main = {
           let currentImgData = item.pictures.find((row) => row.isRecommend == true);
           let currentImg = "";
           if (currentImgData) {
-            currentImg = currentImgData.fileLocation;
+            currentImg = utils_Interface.Interface.uploadUrl + currentImgData.fileLocation;
           }
           item.currentImg = currentImg;
           return item;
@@ -136,6 +137,11 @@ const _sfc_main = {
       console.log("windowInfo", windowInfo);
       data.statusBarHeight = windowInfo.statusBarHeight;
       data.top = windowInfo.statusBarHeight + 44;
+    });
+    common_vendor.onShow(() => {
+      if (commonRef && commonRef.value) {
+        commonRef.value.getQuery();
+      }
     });
     common_vendor.onPageScroll((e) => {
       if (e.scrollTop >= 100) {
@@ -241,7 +247,11 @@ const _sfc_main = {
         E: common_vendor.p({
           list: common_vendor.unref(listData)
         })
-      } : common_vendor.unref(currentTab) == 1 ? {} : {}, {
+      } : common_vendor.unref(currentTab) == 1 ? {
+        G: common_vendor.sr(commonRef, "184b8d5d-7", {
+          "k": "commonRef"
+        })
+      } : {}, {
         F: common_vendor.unref(currentTab) == 1
       });
     };
