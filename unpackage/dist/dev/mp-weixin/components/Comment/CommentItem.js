@@ -4,10 +4,15 @@ const utils_Interface = require("../../utils/Interface.js");
 const utils_request = require("../../utils/request.js");
 const _sfc_main = {
   __name: "CommentItem",
-  setup(__props, { expose: __expose }) {
+  emits: ["change"],
+  setup(__props, { expose: __expose, emit: __emit }) {
+    const emit = __emit;
     const listData = common_vendor.ref([]);
+    const total = common_vendor.ref(0);
     const getQuery = () => {
       utils_request.get(utils_Interface.Interface.comment.list, {}).then((res) => {
+        total.value = res.total;
+        emit("change", total.value);
         listData.value = res.data.map((item) => {
           item.pictures = item.pictures.map((row) => {
             row.photoUrl = utils_Interface.Interface.uploadUrl + decodeURIComponent(row.fileLocation);

@@ -3,6 +3,7 @@ const common_vendor = require("../../../common/vendor.js");
 const common_assets = require("../../../common/assets.js");
 const utils_Interface = require("../../../utils/Interface.js");
 const utils_request = require("../../../utils/request.js");
+const utils_auth = require("../../../utils/auth.js");
 const _sfc_main = {
   __name: "index",
   setup(__props) {
@@ -72,8 +73,10 @@ const _sfc_main = {
       }
     };
     const gotoUser = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/my/personalEdit/index"
+      utils_auth.checkAuth(() => {
+        common_vendor.index.navigateTo({
+          url: "/pages/my/personalEdit/index"
+        });
       });
     };
     const handleItemGoto = (item, index) => {
@@ -84,8 +87,10 @@ const _sfc_main = {
       }
     };
     const gotoOrder = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/my/order/index"
+      utils_auth.checkAuth(() => {
+        common_vendor.index.navigateTo({
+          url: "/pages/my/order/index"
+        });
       });
     };
     return (_ctx, _cache) => {

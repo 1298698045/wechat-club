@@ -27,6 +27,8 @@
 	import { ref, reactive } from "vue";
 	import Interface from "@/utils/Interface";
 	import { get, post } from "@/utils/request.js";
+	import { useAuthStore } from '@/stores/authStore';
+	const authStore = useAuthStore();
 	const formData = reactive({
 		name: "",
 		sex: 1
@@ -42,6 +44,10 @@
 	const code = ref();
 	const handleSave = async () => {
 		try{
+			uni.showLoading({
+				mask: true,
+				title: "保存中～"
+			})
 			const profileRes = await uni.getUserProfile({
 			  provider: "weixin",
 			  desc: "太友趣小程序隐私保护指引",
@@ -63,9 +69,19 @@
 					let { wechatOpenid } = res.data;
 					console.log("wechatOpenid", wechatOpenid);
 					try{
-						uni.setStorageSync('token', wechatOpenid);
-						uni.navigateBack({
-							delta: 1
+						// uni.setStorageSync('token', wechatOpenid);
+						uni.hideLoading();
+						uni.showToast({
+							title:"保存成功！",
+							duration: 3000,
+							success: (res) => {
+								setTimeout(()=>{									
+									authStore.setToken(wechatOpenid);
+									uni.navigateBack({
+										delta: 1
+									})
+								}, 1000)
+							}
 						})
 					}catch{
 						

@@ -180,31 +180,46 @@
 	
 	const handleLocation = () => {
 	  console.log("获取位置信息");
-	  uni.getLocation({
-	    type: 'gcj02', // 使用GCJ-02坐标系，适配腾讯地图和微信内置地图
-	    success: function (res) {
-	      console.log("定位成功", res);
-	      const { latitude, longitude } = res;
+	//   uni.getLocation({
+	//     type: 'gcj02', // 使用GCJ-02坐标系，适配腾讯地图和微信内置地图
+	//     success: function (res) {
+	//       console.log("定位成功", res);
+	//       const { latitude, longitude } = res;
 	
-	      // 打开地图并显示当前位置
-	      uni.openLocation({
-	        latitude,
-	        longitude,
-	        scale: 18, // 缩放级别，范围为5-18，默认值为18
-	        name: "当前位置", // 地点名称，可选
-	        address: "你所在的位置", // 地址描述，可选
-	        success: function () {
-	          console.log('打开地图成功');
-	        },
-	        fail: function (err) {
-	          console.error('打开地图失败', err);
-	        }
-	      });
-	    },
-	    fail: function (err) {
-	      console.error("定位失败", err);
-	    }
-	  });
+	//       // 打开地图并显示当前位置
+	//       uni.openLocation({
+	//         latitude,
+	//         longitude,
+	//         scale: 18, // 缩放级别，范围为5-18，默认值为18
+	//         name: "当前位置", // 地点名称，可选
+	//         address: "你所在的位置", // 地址描述，可选
+	//         success: function () {
+	//           console.log('打开地图成功');
+	//         },
+	//         fail: function (err) {
+	//           console.error('打开地图失败', err);
+	//         }
+	//       });
+	//     },
+	//     fail: function (err) {
+	//       console.error("定位失败", err);
+	//     }
+	//   });
+		let latitude = 39.904599;
+		let longitude = 116.407001;
+		uni.openLocation({
+		  latitude,
+		  longitude,
+		  scale: 18, // 缩放级别，范围为5-18，默认值为18
+		  name: "当前位置", // 地点名称，可选
+		  address: data.detail.address, // 地址描述，可选
+		  success: function () {
+			console.log('打开地图成功');
+		  },
+		  fail: function (err) {
+			console.error('打开地图失败', err);
+		  }
+		});
 	};
 	
 	

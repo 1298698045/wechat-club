@@ -4,6 +4,7 @@ const common_assets = require("../../../common/assets.js");
 const stores_counter = require("../../../stores/counter.js");
 const utils_Interface = require("../../../utils/Interface.js");
 const utils_request = require("../../../utils/request.js");
+const utils_auth = require("../../../utils/auth.js");
 if (!Array) {
   const _easycom_uni_nav_bar2 = common_vendor.resolveComponent("uni-nav-bar");
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
@@ -57,7 +58,9 @@ const _sfc_main = {
       top: 0,
       listData: [],
       members: [],
-      memberNumber: 0
+      memberNumber: 0,
+      activityTotal: 0,
+      commentTotal: 0
     });
     const {
       title,
@@ -76,10 +79,15 @@ const _sfc_main = {
       top,
       listData,
       members,
-      memberNumber
+      memberNumber,
+      activityTotal,
+      commentTotal
     } = common_vendor.toRefs(data);
     const onSwiperChange = (e) => {
       data.current = e.detail.current;
+    };
+    const setCommentTotal = (e) => {
+      data.commentTotal = e;
     };
     const getMemberList = (e) => {
       utils_request.get(utils_Interface.Interface.member.list, {
@@ -93,6 +101,7 @@ const _sfc_main = {
     getMemberList();
     const getRecommends = () => {
       utils_request.get(utils_Interface.Interface.activity.recommend, {}).then((res) => {
+        data.activityTotal = res.total;
         data.listData = res.data.map((item) => {
           let currentImgData = item.pictures.find((row) => row.isRecommend == true);
           let currentImg = "";
@@ -158,8 +167,10 @@ const _sfc_main = {
       }
     });
     const handleEval = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/other/evaluate/index"
+      utils_auth.checkAuth(() => {
+        common_vendor.index.navigateTo({
+          url: "/pages/other/evaluate/index"
+        });
       });
     };
     const previewMember = () => {
@@ -237,22 +248,26 @@ const _sfc_main = {
         y: common_vendor.unref(isTabsFixed) ? 1 : "",
         z: common_vendor.unref(top) + "px",
         A: common_vendor.unref(currentTab) == 0
-      }, common_vendor.unref(currentTab) == 0 ? {} : {}, {
-        B: common_vendor.unref(currentTab) == 1
-      }, common_vendor.unref(currentTab) == 1 ? {
-        C: common_vendor.o(handleEval)
-      } : {}, {
-        D: common_vendor.unref(currentTab) == 0
       }, common_vendor.unref(currentTab) == 0 ? {
-        E: common_vendor.p({
+        B: common_vendor.t(common_vendor.unref(activityTotal))
+      } : {}, {
+        C: common_vendor.unref(currentTab) == 1
+      }, common_vendor.unref(currentTab) == 1 ? {
+        D: common_vendor.t(common_vendor.unref(commentTotal)),
+        E: common_vendor.o(handleEval)
+      } : {}, {
+        F: common_vendor.unref(currentTab) == 0
+      }, common_vendor.unref(currentTab) == 0 ? {
+        G: common_vendor.p({
           list: common_vendor.unref(listData)
         })
       } : common_vendor.unref(currentTab) == 1 ? {
-        G: common_vendor.sr(commonRef, "184b8d5d-7", {
+        I: common_vendor.sr(commonRef, "184b8d5d-7", {
           "k": "commonRef"
-        })
+        }),
+        J: common_vendor.o(setCommentTotal)
       } : {}, {
-        F: common_vendor.unref(currentTab) == 1
+        H: common_vendor.unref(currentTab) == 1
       });
     };
   }

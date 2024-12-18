@@ -18,15 +18,20 @@
 </template>
 
 <script setup>
-	import { ref, defineExpose } from "vue";
+	import { ref, defineEmits, defineExpose } from "vue";
 	import { onLoad } from "@dcloudio/uni-app";
 	import Interface from "@/utils/Interface.js";
 	import { get } from "@/utils/request.js";
 	
+	const emit = defineEmits(['change']);
 	const listData = ref([]);
+	
+	const total = ref(0);
 	
 	const getQuery = () => {
 		get(Interface.comment.list, {}).then(res=>{
+			total.value = res.total;
+			emit("change", total.value);
 			listData.value = res.data.map(item=>{
 				item.pictures = item.pictures.map(row=>{
 					row.photoUrl = Interface.uploadUrl + decodeURIComponent(row.fileLocation);

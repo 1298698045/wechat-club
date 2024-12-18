@@ -2,6 +2,7 @@
 const common_vendor = require("../../../common/vendor.js");
 const utils_Interface = require("../../../utils/Interface.js");
 const utils_request = require("../../../utils/request.js");
+const stores_authStore = require("../../../stores/authStore.js");
 if (!Array) {
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
   const _easycom_uni_forms_item2 = common_vendor.resolveComponent("uni-forms-item");
@@ -19,6 +20,7 @@ if (!Math) {
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    const authStore = stores_authStore.useAuthStore();
     const formData = common_vendor.reactive({
       name: "",
       sex: 1
@@ -32,6 +34,10 @@ const _sfc_main = {
     const code = common_vendor.ref();
     const handleSave = async () => {
       try {
+        common_vendor.index.showLoading({
+          mask: true,
+          title: "保存中～"
+        });
         const profileRes = await common_vendor.index.getUserProfile({
           provider: "weixin",
           desc: "太友趣小程序隐私保护指引"
@@ -53,9 +59,18 @@ const _sfc_main = {
             let { wechatOpenid } = res.data;
             console.log("wechatOpenid", wechatOpenid);
             try {
-              common_vendor.index.setStorageSync("token", wechatOpenid);
-              common_vendor.index.navigateBack({
-                delta: 1
+              common_vendor.index.hideLoading();
+              common_vendor.index.showToast({
+                title: "保存成功！",
+                duration: 3e3,
+                success: (res2) => {
+                  setTimeout(() => {
+                    authStore.setToken(wechatOpenid);
+                    common_vendor.index.navigateBack({
+                      delta: 1
+                    });
+                  }, 1e3);
+                }
               });
             } catch {
             }

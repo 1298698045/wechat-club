@@ -83,18 +83,18 @@
 			
 			<view style="margin-bottom: 20px;">
 				<view class="headerLabel" v-if="currentTab==0">
-					<view class="label">活动（18）</view>
+					<view class="label">活动（{{activityTotal}}）</view>
 					<view class="operator">
 					</view>
 				</view>
 				<view class="headerLabel" v-if="currentTab==1">
-					<view class="label">评价（18）</view>
+					<view class="label">评价（{{commentTotal}}）</view>
 					<view class="operator">
 						<button class="write-btn" @click="handleEval">写评价</button>
 					</view>
 				</view>
 				<ActivityItem :list="listData" v-if="currentTab==0" />
-				<CommentItem ref="commonRef" v-else-if="currentTab==1" />
+				<CommentItem ref="commonRef" @change="setCommentTotal" v-else-if="currentTab==1" />
 			</view>
 			<BottomText />
 		</view>
@@ -112,6 +112,7 @@
 	import BottomText from "@/components/BottomText/BottomText.vue";
 	import Interface from "../../../utils/Interface";
 	import { get } from "@/utils/request.js";
+	import { checkAuth } from "@/utils/auth.js";
 	const store = useCounterStore();
 	console.log("count:", store.count)
 	
@@ -149,16 +150,22 @@
 		top: 0,
 		listData: [],
 		members: [],
-		memberNumber: 0
+		memberNumber: 0,
+		activityTotal: 0,
+		commentTotal: 0
 	});
 	const { title, indicatorDots, autoplay, interval, 
 	duration, images, current, tabs, currentTab, backColor, color, statusBarHeight, isTabsFixed, top,
-	 listData, members, memberNumber } = toRefs(data);
+	 listData, members, memberNumber, activityTotal, commentTotal } = toRefs(data);
 	
 	const onSwiperChange = (e) => {
 		// console.log("e", e, data.current);
 		data.current = e.detail.current;
 	};
+	
+	const setCommentTotal = (e) => {
+		data.commentTotal = e;
+	}
 	
 	const getMemberList = (e) => {
 		get(Interface.member.list, {
@@ -175,6 +182,7 @@
 	const getRecommends = () => {
 		get(Interface.activity.recommend, {}).then(res=>{
 			// console.log("res", res);
+			data.activityTotal = res.total;
 			data.listData = res.data.map(item=>{
 				let currentImgData = item.pictures.find(row=>row.isRecommend==true);
 				let currentImg = '';
@@ -250,8 +258,10 @@
 	});
 	
 	const handleEval = () => {
-		uni.navigateTo({
-			url:"/pages/other/evaluate/index"
+		checkAuth(()=>{			
+			uni.navigateTo({
+				url:"/pages/other/evaluate/index"
+			})
 		})
 	}
 	

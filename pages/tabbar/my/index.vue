@@ -67,6 +67,7 @@
 	import { ref } from "vue";
 	import Interface from "@/utils/Interface";
 	import { get, post } from "@/utils/request.js";
+	import { checkAuth } from '@/utils/auth.js';
 	const navs = ref([
 		{
 			icon:"\u{e602}",
@@ -136,8 +137,10 @@
 	}
 	
 	const gotoUser = () => {
-		uni.navigateTo({
-			url: "/pages/my/personalEdit/index"
+		checkAuth(()=>{
+			uni.navigateTo({
+				url: "/pages/my/personalEdit/index"
+			})
 		})
 	}
 	
@@ -150,8 +153,10 @@
 	};
 	
 	const gotoOrder = () => {
-		uni.navigateTo({
-			url: "/pages/my/order/index"
+		checkAuth(()=>{
+			uni.navigateTo({
+				url: "/pages/my/order/index"
+			})
 		})
 	}
 	
