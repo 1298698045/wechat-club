@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-rate": "../../uni_modules/uni-rate/components/uni-rate/uni-rate"
+  }
 }

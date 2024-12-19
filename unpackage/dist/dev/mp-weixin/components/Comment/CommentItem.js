@@ -2,6 +2,14 @@
 const common_vendor = require("../../common/vendor.js");
 const utils_Interface = require("../../utils/Interface.js");
 const utils_request = require("../../utils/request.js");
+if (!Array) {
+  const _easycom_uni_rate2 = common_vendor.resolveComponent("uni-rate");
+  _easycom_uni_rate2();
+}
+const _easycom_uni_rate = () => "../../uni_modules/uni-rate/components/uni-rate/uni-rate.js";
+if (!Math) {
+  _easycom_uni_rate();
+}
 const _sfc_main = {
   __name: "CommentItem",
   emits: ["change"],
@@ -43,15 +51,24 @@ const _sfc_main = {
           return {
             a: item.avatarUrl,
             b: common_vendor.t(item.nickName),
-            c: common_vendor.t(item.body),
-            d: common_vendor.f(item.pictures, (row, idx, i1) => {
+            c: common_vendor.o(_ctx.onChange, index),
+            d: "20dbeb0a-0-" + i0,
+            e: common_vendor.o(($event) => item.rating = $event, index),
+            f: common_vendor.p({
+              size: "24",
+              activeColor: "#ea3582",
+              modelValue: item.rating
+            }),
+            g: common_vendor.t(item.rating),
+            h: common_vendor.t(item.body),
+            i: common_vendor.f(item.pictures, (row, idx, i1) => {
               return {
                 a: row.photoUrl,
                 b: idx,
                 c: common_vendor.o(($event) => previewImg(item, row), idx)
               };
             }),
-            e: index
+            j: index
           };
         })
       };
