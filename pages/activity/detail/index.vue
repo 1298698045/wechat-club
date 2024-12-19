@@ -80,8 +80,8 @@
 				<view class="desc-wrap">
 					<view class="label">活动描述</view>
 					<view class="desc-body">
-						<rich-text>
-							{{ detail.description }}
+						<rich-text v-html="detail.description">
+							// {{ detail.description }}
 						</rich-text>
 					</view>
 				</view>

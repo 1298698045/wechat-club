@@ -22,24 +22,29 @@ const _sfc_main = {
       listData: [1, 2, 3, 4, 5, 6, 7, 8],
       tabs: [
         {
+          code: -1,
           name: "全部"
         },
         {
+          code: 0,
           name: "未开始"
         },
         {
+          code: 1,
           name: "活动中"
         },
         {
+          code: 2,
           name: "已结束"
         }
       ],
       current: 0,
       isFilter: false,
       pageNumber: 1,
-      pageSize: 10
+      pageSize: 10,
+      stateCode: -1
     });
-    const { searchVal, listData, tabs, current, isFilter, pageNumber, pageSize } = common_vendor.toRefs(data);
+    const { searchVal, listData, tabs, current, isFilter, pageNumber, pageSize, stateCode } = common_vendor.toRefs(data);
     const statusName = (code) => {
       const arr = ["未开始", "活动中", "已结束"];
       return arr[code];
@@ -50,12 +55,19 @@ const _sfc_main = {
     };
     const handleTab = (item, index) => {
       data.current = index;
+      data.stateCode = item.code;
+      getQuery();
+    };
+    const handleSearch = () => {
+      data.pageNumber = 1;
+      getQuery();
     };
     const getQuery = () => {
       utils_request.get(utils_Interface.Interface.activity.recordList, {
         name: data.searchVal,
         page: data.pageNumber,
-        rows: data.pageSize
+        rows: data.pageSize,
+        stateCode: data.stateCode
         // folderId: data.categoryId
       }).then((res) => {
         let list = res.data;
@@ -81,16 +93,29 @@ const _sfc_main = {
     const closeFilter = () => {
       data.isFilter = false;
     };
+    common_vendor.onPullDownRefresh(() => {
+      data.pageNumber = 1;
+      getQuery();
+      common_vendor.index.stopPullDownRefresh();
+    });
+    common_vendor.onReachBottom(() => {
+      if (data.isPage) {
+        data.pageNumber++;
+        getQuery();
+      }
+    });
     return (_ctx, _cache) => {
       return common_vendor.e({
-        a: common_vendor.o(_ctx.onClick),
-        b: common_vendor.o(($event) => common_vendor.isRef(searchVal) ? searchVal.value = $event : null),
-        c: common_vendor.p({
+        a: common_vendor.o(handleSearch),
+        b: common_vendor.o(handleSearch),
+        c: common_vendor.o(handleSearch),
+        d: common_vendor.o(($event) => common_vendor.isRef(searchVal) ? searchVal.value = $event : null),
+        e: common_vendor.p({
           prefixIcon: "search",
           placeholder: "请输入活动名称",
           modelValue: common_vendor.unref(searchVal)
         }),
-        d: common_vendor.f(common_vendor.unref(tabs), (item, index, i0) => {
+        f: common_vendor.f(common_vendor.unref(tabs), (item, index, i0) => {
           return {
             a: common_vendor.t(item.name),
             b: common_vendor.unref(current) == index ? 1 : "",
@@ -98,34 +123,26 @@ const _sfc_main = {
             d: common_vendor.o(($event) => handleTab(item, index), index)
           };
         }),
-        e: common_vendor.p({
+        g: common_vendor.p({
           type: "down",
           color: "#848484"
         }),
-        f: common_vendor.o(handleOpenFilter),
-        g: common_vendor.f(common_vendor.unref(listData), (item, index, i0) => {
+        h: common_vendor.o(handleOpenFilter),
+        i: common_vendor.f(common_vendor.unref(listData), (item, index, i0) => {
           return {
             a: common_vendor.t(item.name),
             b: common_vendor.t(statusName(item.stateCode)),
-            c: "c00f9596-2-" + i0,
-            d: common_vendor.t(item.address),
-            e: common_vendor.t(item.currentStudents),
-            f: common_vendor.t(item.maxStudents),
-            g: "c00f9596-3-" + i0,
-            h: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("MM")),
-            i: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("DD")),
-            j: common_vendor.t(weekName(item.startTime)),
-            k: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("hh:mm")),
-            l: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.endTime).format("hh:mm")),
-            m: common_vendor.t(item.price),
-            n: index
+            c: common_vendor.t(item.address),
+            d: common_vendor.t(item.currentStudents),
+            e: common_vendor.t(item.maxStudents),
+            f: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("MM")),
+            g: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("DD")),
+            h: common_vendor.t(weekName(item.startTime)),
+            i: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("hh:mm")),
+            j: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.endTime).format("hh:mm")),
+            k: common_vendor.t(item.price),
+            l: index
           };
-        }),
-        h: common_vendor.p({
-          type: "location"
-        }),
-        i: common_vendor.p({
-          type: "location"
         }),
         j: common_vendor.unref(isFilter)
       }, common_vendor.unref(isFilter) ? {

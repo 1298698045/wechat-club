@@ -16,13 +16,15 @@
 			</view>
 			<view class="row location">
 				<view class="licon">
-					<uni-icons type="location" color="#666" size="20"></uni-icons>
+					<text class="text-icon color-1">&#xe62f;</text>
+					<!-- <uni-icons type="location" color="#666" size="20"></uni-icons> -->
 				</view>
 				<view class="text">{{item.address}}</view>
 			</view>
 			<view class="row">
 				<view class="licon">
-					<uni-icons type="location" color="#666" size="20"></uni-icons>
+					<text class="text-icon color-1">&#xe661;</text>
+					<!-- <uni-icons type="location" color="#666" size="20"></uni-icons> -->
 				</view>
 				<view class="text">
 				{{moment(item.startTime).format('MM')}}月{{moment(item.startTime).format('DD')}}日
@@ -31,13 +33,14 @@
 			</view>
 		</view>
 	</view>
+	<Empty v-if="list.length==0" />
 </template>
 
 <script setup>
 	import { ref } from "vue";
 	import { onLoad } from "@dcloudio/uni-app";
 	import moment from "moment";
-	
+	import Empty from "@/components/Empty/EmptyView.vue";
 	const weeks = ['周日','周一','周二','周三','周四','周五','周六'];
 	
 	const props = defineProps({
@@ -59,7 +62,9 @@
 	}
 	
 </script>
-
+<style>
+	@import url("@/static/style/public.css");
+</style>
 <style lang="scss" scoped>
 	.activityItem{
 		// height: 300px;

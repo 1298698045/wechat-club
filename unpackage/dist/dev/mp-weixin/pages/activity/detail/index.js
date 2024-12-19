@@ -180,7 +180,7 @@ const _sfc_main = {
           };
         })
       }, {
-        y: common_vendor.t(common_vendor.unref(detail).description),
+        y: common_vendor.unref(detail).description,
         z: common_vendor.unref(detail).stateCode == 0 || common_vendor.unref(isCancel)
       }, common_vendor.unref(detail).stateCode == 0 || common_vendor.unref(isCancel) ? common_vendor.e({
         A: common_vendor.unref(detail).stateCode == 0

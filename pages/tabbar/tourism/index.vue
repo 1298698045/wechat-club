@@ -153,6 +153,7 @@
 	
 </script>
 <style lang="scss">
+	@import url("@/static/style/public.css");
 	.is-input-border{
 		border-radius: 30rpx !important;
 	}

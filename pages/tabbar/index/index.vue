@@ -51,12 +51,12 @@
 				</view>
 			</view>
 			<view class="menu-wrap">
-				<view class="menu-item">
+				<!-- <view class="menu-item">
 					<view class="menu-item-icon">
 						<uni-icons type="calendar" size="30" color="#6be8f5"></uni-icons>
 					</view>
 					<view class="menu-item-name">出勤榜</view>
-				</view>
+				</view> -->
 				<view class="menu-item" @click="handleAlbum">
 					<view class="menu-item-icon">
 						<uni-icons type="image" size="30" color="#6be8f5"></uni-icons>
@@ -96,7 +96,7 @@
 				<ActivityItem :list="listData" v-if="currentTab==0" />
 				<CommentItem ref="commonRef" @change="setCommentTotal" v-else-if="currentTab==1" />
 			</view>
-			<BottomText />
+			<BottomText v-if="activityTotal > 0 || commentTotal > 0" />
 		</view>
 		
 	</view>

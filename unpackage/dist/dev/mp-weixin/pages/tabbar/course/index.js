@@ -4,13 +4,11 @@ const utils_Interface = require("../../../utils/Interface.js");
 const utils_request = require("../../../utils/request.js");
 if (!Array) {
   const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
-  const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
-  (_easycom_uni_easyinput2 + _easycom_uni_icons2)();
+  _easycom_uni_easyinput2();
 }
 const _easycom_uni_easyinput = () => "../../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.js";
-const _easycom_uni_icons = () => "../../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
 if (!Math) {
-  (_easycom_uni_easyinput + tabs + _easycom_uni_icons + AvatarGroup)();
+  (_easycom_uni_easyinput + tabs + AvatarGroup)();
 }
 const AvatarGroup = () => "../../../components/AvatarGroup/AvatarGroup.js";
 const tabs = () => "../../../components/Tabs/Tabs.js";
@@ -112,35 +110,23 @@ const _sfc_main = {
           return common_vendor.e({
             a: common_vendor.t(item.name),
             b: common_vendor.t(item.price),
-            c: "cefcc65d-2-" + i0,
-            d: common_vendor.t(item.address),
-            e: "cefcc65d-3-" + i0,
-            f: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("MM")),
-            g: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("DD")),
-            h: common_vendor.t(weekName(item.startTime)),
-            i: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("hh:mm")),
-            j: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.endTime).format("hh:mm")),
-            k: "cefcc65d-4-" + i0,
-            l: common_vendor.p({
+            c: common_vendor.t(item.address),
+            d: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("MM")),
+            e: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("DD")),
+            f: common_vendor.t(weekName(item.startTime)),
+            g: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("hh:mm")),
+            h: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.endTime).format("hh:mm")),
+            i: "cefcc65d-2-" + i0,
+            j: common_vendor.p({
               list: item.pictures
             }),
-            m: item.pictures && item.pictures.length
+            k: item.pictures && item.pictures.length
           }, item.pictures && item.pictures.length ? {
-            n: common_vendor.t(item.pictures.length)
+            l: common_vendor.t(item.pictures.length)
           } : {}, {
-            o: common_vendor.o(($event) => handleDetail(item), index),
-            p: index
+            m: common_vendor.o(($event) => handleDetail(item), index),
+            n: index
           });
-        }),
-        i: common_vendor.p({
-          type: "location",
-          color: "#666",
-          size: "20"
-        }),
-        j: common_vendor.p({
-          type: "location",
-          color: "#666",
-          size: "20"
         })
       };
     };

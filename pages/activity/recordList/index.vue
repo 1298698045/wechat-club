@@ -2,7 +2,7 @@
 	<view class="record-wrap" :class="{hidden:isFilter}">
 		<view class="header">			
 			<view class="search-container">
-				<uni-easyinput prefixIcon="search" v-model="searchVal" placeholder="请输入活动名称" @iconClick="onClick"></uni-easyinput>
+				<uni-easyinput prefixIcon="search" v-model="searchVal" placeholder="请输入活动名称" @change="handleSearch" @confirm="handleSearch" @clear="handleSearch"></uni-easyinput>
 			</view>
 			<view class="category">
 				<view class="tabContainer">
@@ -27,14 +27,16 @@
 					</view>
 					<view class="row">
 						<view class="name location">
-							<uni-icons type="location"></uni-icons>
+							<text class="text-icon color-1">&#xe62f;</text>
+							<!-- <uni-icons type="location"></uni-icons> -->
 							{{item.address}} ｜ 0
 						</view>
 						<view class="name proportion">{{item.currentStudents}}/{{item.maxStudents}}</view>
 					</view>
 					<view class="row">
 						<view class="name time">
-							<uni-icons type="location"></uni-icons>
+							<text class="text-icon color-1">&#xe661;</text>
+							<!-- <uni-icons type="location"></uni-icons> -->
 							{{moment(item.startTime).format('MM')}}月{{moment(item.startTime).format('DD')}}日
 							 {{ weekName(item.startTime) }} 
 							 {{moment(item.startTime).format('hh:mm')}}-{{moment(item.endTime).format('hh:mm')}}
@@ -98,6 +100,7 @@
 
 <script setup>
 	import { ref, toRefs, reactive } from "vue";
+	import { onPullDownRefresh, onReachBottom } from "@dcloudio/uni-app";
 	import Interface from "@/utils/Interface";
 	import { get, post } from "@/utils/request.js";
 	const popupRef = ref(null);
@@ -109,24 +112,29 @@
 		listData: [1,2,3,4,5,6,7,8],
 		tabs: [
 			{
+				code: -1,
 				name: "全部",
 			},
 			{
+				code: 0,
 				name: "未开始",
 			},
 			{
+				code: 1,
 				name: "活动中",
 			},
 			{
+				code: 2,
 				name: "已结束",
 			}
 		],
 		current: 0,
 		isFilter: false,
 		pageNumber: 1,
-		pageSize: 10
+		pageSize: 10,
+		stateCode: -1
 	});
-	const { searchVal, listData, tabs, current, isFilter, pageNumber, pageSize } = toRefs(data);
+	const { searchVal, listData, tabs, current, isFilter, pageNumber, pageSize, stateCode } = toRefs(data);
 	
 	const statusName = (code) => {
 		const arr = ['未开始','活动中','已结束'];
@@ -140,13 +148,21 @@
 	
 	const handleTab = (item, index) => {
 		data.current = index;
+		data.stateCode = item.code;
+		getQuery();
 	};
+	
+	const handleSearch = () => {
+		data.pageNumber = 1;
+		getQuery();
+	}
 	
 	const getQuery = () => {
 		get(Interface.activity.recordList, {
 			name: data.searchVal,
 			page: data.pageNumber,
 			rows: data.pageSize,
+			stateCode: data.stateCode
 			// folderId: data.categoryId
 		}).then(res=>{
 			let list = res.data;
@@ -174,8 +190,22 @@
 	const closeFilter = () => {
 		data.isFilter = false;
 	}
+	
+	onPullDownRefresh(()=>{
+		data.pageNumber = 1;
+		getQuery();
+		uni.stopPullDownRefresh();
+	});
+	
+	onReachBottom(()=>{
+		if(data.isPage){
+			data.pageNumber++;
+			getQuery();
+		}
+	})
 </script>
 <style lang="scss">
+	@import url("@/static/style/public.css");
 	.is-input-border{
 		border-radius: 30rpx !important;
 	}

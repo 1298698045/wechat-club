@@ -12,3 +12,17 @@
 .align-item-center{
 	align-items: center;
 }
+
+@font-face {
+	font-family: texticons;
+	font-weight: normal;
+	font-style: normal;
+	src: url('@/static/icon/font/iconfont.ttf') format('truetype');
+}
+
+.text-icon{
+	font-size: 36rpx;
+	color: #666;
+	text-align: center;
+	font-family: texticons;
+}

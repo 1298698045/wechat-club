@@ -31,7 +31,7 @@
 		</view> -->
 		<view class="center-list">
 			<view class="center-list-item border-bottom" @click="gotoOrder">
-				<text class="list-icon color-1">&#xe60e;</text>
+				<text class="list-icon color-1">&#xe737;</text>
 				<text class="list-text">我的订单</text>
 			</view>
 			<view class="center-list-item border-bottom" @click="gotoUser">
@@ -167,6 +167,12 @@
 		font-weight: normal;
 		font-style: normal;
 		src: url('@/static/icon/font_4218190_6debofuo8gh.ttf') format('truetype');
+	}
+	@font-face {
+		font-family: texticons;
+		font-weight: normal;
+		font-style: normal;
+		src: url('@/static/icon/font/iconfont.ttf') format('truetype');
 	}
 </style>
 <style lang="scss" scoped>

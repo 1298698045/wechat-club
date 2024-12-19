@@ -6,8 +6,9 @@ if (!Array) {
 }
 const _easycom_uni_icons = () => "../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
 if (!Math) {
-  _easycom_uni_icons();
+  (_easycom_uni_icons + Empty)();
 }
+const Empty = () => "../Empty/EmptyView.js";
 const _sfc_main = {
   __name: "ActivityItem",
   props: {
@@ -28,23 +29,21 @@ const _sfc_main = {
       });
     };
     return (_ctx, _cache) => {
-      return {
+      return common_vendor.e({
         a: common_vendor.f(__props.list, (item, index, i0) => {
           return {
             a: item.currentImg,
             b: common_vendor.t(item.price),
             c: "f854d1e8-0-" + i0,
             d: common_vendor.t(item.name),
-            e: "f854d1e8-1-" + i0,
-            f: common_vendor.t(item.address),
-            g: "f854d1e8-2-" + i0,
-            h: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("MM")),
-            i: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("DD")),
-            j: common_vendor.t(weekName(item.startTime)),
-            k: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("hh:mm")),
-            l: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.endTime).format("hh:mm")),
-            m: index,
-            n: common_vendor.o(($event) => handleDetail(item), index)
+            e: common_vendor.t(item.address),
+            f: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("MM")),
+            g: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("DD")),
+            h: common_vendor.t(weekName(item.startTime)),
+            i: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("hh:mm")),
+            j: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.endTime).format("hh:mm")),
+            k: index,
+            l: common_vendor.o(($event) => handleDetail(item), index)
           };
         }),
         b: common_vendor.p({
@@ -52,17 +51,8 @@ const _sfc_main = {
           size: "30",
           color: "#f5d16b"
         }),
-        c: common_vendor.p({
-          type: "location",
-          color: "#666",
-          size: "20"
-        }),
-        d: common_vendor.p({
-          type: "location",
-          color: "#666",
-          size: "20"
-        })
-      };
+        c: __props.list.length == 0
+      }, __props.list.length == 0 ? {} : {});
     };
   }
 };

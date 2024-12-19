@@ -12549,26 +12549,26 @@ const tabBar = {
     },
     {
       pagePath: "pages/tabbar/activity/index",
-      iconPath: "static/img/tabbar/home.png",
-      selectedIconPath: "static/img/tabbar/home_.png",
+      iconPath: "static/img/tabbar/activity.png",
+      selectedIconPath: "static/img/tabbar/activity_1.png",
       text: "活动"
     },
     {
       pagePath: "pages/tabbar/course/index",
-      iconPath: "static/img/tabbar/home.png",
-      selectedIconPath: "static/img/tabbar/home_.png",
+      iconPath: "static/img/tabbar/course.png",
+      selectedIconPath: "static/img/tabbar/course_1.png",
       text: "课程"
     },
     {
       pagePath: "pages/tabbar/tourism/index",
-      iconPath: "static/img/tabbar/home.png",
-      selectedIconPath: "static/img/tabbar/home_.png",
+      iconPath: "static/img/tabbar/tourism.png",
+      selectedIconPath: "static/img/tabbar/tourism_1.png",
       text: "旅游"
     },
     {
       pagePath: "pages/tabbar/my/index",
-      iconPath: "static/img/tabbar/mine.png",
-      selectedIconPath: "static/img/tabbar/mine_.png",
+      iconPath: "static/img/tabbar/my.png",
+      selectedIconPath: "static/img/tabbar/my_1.png",
       text: "我的"
     }
   ]
@@ -12593,7 +12593,7 @@ const subPackages = [
         path: "list/index",
         style: {
           navigationBarTitleText: "活动记录",
-          enablePullDownRefresh: false
+          enablePullDownRefresh: true
         }
       },
       {
@@ -12605,7 +12605,8 @@ const subPackages = [
       {
         path: "recordList/index",
         style: {
-          navigationBarTitleText: "活动记录"
+          navigationBarTitleText: "活动记录",
+          enablePullDownRefresh: true
         }
       },
       {
