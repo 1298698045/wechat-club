@@ -21,9 +21,10 @@ const _sfc_main = {
       currentImg: "",
       peopleList: [],
       isCancel: false,
-      stateCode: 0
+      stateCode: 0,
+      isEnd: false
     });
-    const { isExpand, detail, currentImg, peopleList, isCancel, stateCode } = common_vendor.toRefs(data);
+    const { isExpand, detail, currentImg, peopleList, isCancel, stateCode, isEnd } = common_vendor.toRefs(data);
     const weekName = (date) => {
       const day = common_vendor.hooks(date).day();
       return weeks[day];
@@ -62,6 +63,8 @@ const _sfc_main = {
         const isBefore = common_vendor.hooks().isBefore(then);
         console.log("isBefore", isBefore);
         data.isCancel = isBefore;
+        data.isEnd = common_vendor.hooks().isAfter(data.detail.endTime);
+        console.log("isEnd", data.isEnd);
       });
     };
     const getSignUpPeoples = () => {
@@ -219,8 +222,8 @@ const _sfc_main = {
         })
       }, {
         y: common_vendor.unref(detail).description,
-        z: !isToken() || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 0
-      }, !isToken() || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 0 ? common_vendor.e({
+        z: !isToken() && !common_vendor.unref(isEnd) || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 0 && !common_vendor.unref(isEnd)
+      }, !isToken() && !common_vendor.unref(isEnd) || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 0 && !common_vendor.unref(isEnd) ? common_vendor.e({
         A: !isToken()
       }, !isToken() ? {
         B: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),

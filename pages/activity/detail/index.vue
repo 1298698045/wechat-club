@@ -86,7 +86,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="footer" v-if="!isToken() || (isCancel && stateCode==0)">
+		<view class="footer" v-if="!isToken() && !isEnd || (isCancel && stateCode==0 && !isEnd)">
 			<view class="footer-content" v-if="!isToken()">
 				<view class="footer-tips">
 					Tips: {{moment(detail.cancelTime).format("YYYY-MM-DD hh:mm")}} 前可取消报名
@@ -116,10 +116,11 @@
 		currentImg: "",
 		peopleList: [],
 		isCancel: false,
-		stateCode: 0
+		stateCode: 0,
+		isEnd: false
 	});
 	
-	const { isExpand, detail, currentImg, peopleList, isCancel, stateCode } = toRefs(data);
+	const { isExpand, detail, currentImg, peopleList, isCancel, stateCode, isEnd } = toRefs(data);
 	
 	const weekName = (date) => {
 		const day = moment(date).day();
@@ -167,6 +168,9 @@
 			const isBefore = moment().isBefore(then);
 			console.log("isBefore", isBefore);
 			data.isCancel = isBefore;
+			
+			data.isEnd = moment().isAfter(data.detail.endTime);
+			console.log("isEnd", data.isEnd);
 		})
 	}
 	
