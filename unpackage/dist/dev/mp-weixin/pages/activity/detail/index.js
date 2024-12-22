@@ -20,9 +20,10 @@ const _sfc_main = {
       detail: {},
       currentImg: "",
       peopleList: [],
-      isCancel: false
+      isCancel: false,
+      stateCode: 0
     });
-    const { isExpand, detail, currentImg, peopleList, isCancel } = common_vendor.toRefs(data);
+    const { isExpand, detail, currentImg, peopleList, isCancel, stateCode } = common_vendor.toRefs(data);
     const weekName = (date) => {
       const day = common_vendor.hooks(date).day();
       return weeks[day];
@@ -30,11 +31,21 @@ const _sfc_main = {
     const handleExpand = () => {
       data.isExpand = !data.isExpand;
     };
+    const getStatus = () => {
+      utils_request.get(utils_Interface.Interface.activity.getMyStateCode, {
+        id: id.value
+      }).then((res) => {
+        data.stateCode = res.data.stateCode;
+      });
+    };
     common_vendor.onLoad((options) => {
       console.log("options", options);
       id.value = options.id;
       getDetail();
       getSignUpPeoples();
+      if (isToken()) {
+        getStatus();
+      }
     });
     const getDetail = () => {
       utils_request.get(utils_Interface.Interface.activity.detail, {
@@ -68,7 +79,6 @@ const _sfc_main = {
       });
     };
     const handleLocation = () => {
-      console.log("获取位置信息");
       let latitude = 39.904599;
       let longitude = 116.407001;
       common_vendor.index.openLocation({
@@ -119,6 +129,34 @@ const _sfc_main = {
               });
             }
           }
+        });
+      } else {
+        let d = {
+          id: id.value
+        };
+        post(utils_Interface.Interface.activity.sign, d).then((res) => {
+          let timestamp = (/* @__PURE__ */ new Date()).getTime();
+          common_vendor.index.requestPayment({
+            provider: "wxpay",
+            orderInfo: {
+              appid: "wx47ba8ec7242d28ed",
+              noncestr: "",
+              package: "Sign=WXPay",
+              partnerid: "1684621376",
+              prepayid: "",
+              timestamp,
+              sign: "A842B45937F6EFF60DEC7A2EAA52D5A0"
+            },
+            success(res2) {
+            },
+            fail(e) {
+              common_vendor.index.showToast({
+                title: "已取消支付",
+                duration: 3e3,
+                icon: "success"
+              });
+            }
+          });
         });
       }
     };
@@ -181,17 +219,17 @@ const _sfc_main = {
         })
       }, {
         y: common_vendor.unref(detail).description,
-        z: common_vendor.unref(detail).stateCode == 0 || common_vendor.unref(isCancel)
-      }, common_vendor.unref(detail).stateCode == 0 || common_vendor.unref(isCancel) ? common_vendor.e({
-        A: common_vendor.unref(detail).stateCode == 0
-      }, common_vendor.unref(detail).stateCode == 0 ? {
+        z: !isToken() || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 0
+      }, !isToken() || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 0 ? common_vendor.e({
+        A: !isToken()
+      }, !isToken() ? {
         B: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),
         C: common_vendor.o(handleSignup)
-      } : {}, {
-        D: common_vendor.unref(detail).stateCode == 1
-      }, common_vendor.unref(detail).stateCode == 1 ? {
+      } : common_vendor.unref(stateCode) == 1 ? {
         E: common_vendor.o(handleSignup)
-      } : {}) : {});
+      } : {}, {
+        D: common_vendor.unref(stateCode) == 1
+      }) : {});
     };
   }
 };

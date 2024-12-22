@@ -20,9 +20,10 @@ const _sfc_main = {
       detail: {},
       currentImg: "",
       peopleList: [],
-      isCancel: false
+      isCancel: false,
+      stateCode: 0
     });
-    const { isExpand, detail, currentImg, peopleList, isCancel } = common_vendor.toRefs(data);
+    const { isExpand, detail, currentImg, peopleList, isCancel, stateCode } = common_vendor.toRefs(data);
     const weekName = (date) => {
       const day = common_vendor.hooks(date).day();
       return weeks[day];
@@ -30,11 +31,21 @@ const _sfc_main = {
     const handleExpand = () => {
       data.isExpand = !data.isExpand;
     };
+    const getStatus = () => {
+      utils_request.get(utils_Interface.Interface.tourism.getMyStateCode, {
+        id: id.value
+      }).then((res) => {
+        data.stateCode = res.data.stateCode;
+      });
+    };
     common_vendor.onLoad((options) => {
       console.log("options", options);
       id.value = options.id;
       getDetail();
       getSignUpPeoples();
+      if (isToken()) {
+        getStatus();
+      }
     });
     const getDetail = () => {
       utils_request.get(utils_Interface.Interface.tourism.detail, {
@@ -53,7 +64,7 @@ const _sfc_main = {
       });
     };
     const getSignUpPeoples = () => {
-      utils_request.get(utils_Interface.Interface.activity.signPeoples, {
+      utils_request.get(utils_Interface.Interface.tourism.signPeoples, {
         id: id.value
       }).then((res) => {
         data.peopleList = res.data;
@@ -180,17 +191,17 @@ const _sfc_main = {
         })
       }, {
         y: common_vendor.t(common_vendor.unref(detail).description),
-        z: common_vendor.unref(detail).stateCode == 0 || common_vendor.unref(isCancel)
-      }, common_vendor.unref(detail).stateCode == 0 || common_vendor.unref(isCancel) ? common_vendor.e({
-        A: common_vendor.unref(detail).stateCode == 0
-      }, common_vendor.unref(detail).stateCode == 0 ? {
+        z: !isToken() || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 0
+      }, !isToken() || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 0 ? common_vendor.e({
+        A: !isToken()
+      }, !isToken() ? {
         B: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),
         C: common_vendor.o(handleSignup)
-      } : {}, {
-        D: common_vendor.unref(detail).stateCode == 1
-      }, common_vendor.unref(detail).stateCode == 1 ? {
+      } : common_vendor.unref(stateCode) == 1 ? {
         E: common_vendor.o(handleSignup)
-      } : {}) : {});
+      } : {}, {
+        D: common_vendor.unref(stateCode) == 1
+      }) : {});
     };
   }
 };

@@ -17,7 +17,8 @@
 					<view class="info">
 						<view class="row">
 							<view class="text">
-								<uni-icons type="location" color="#666" size="20"></uni-icons>
+								<text class="text-icon color-1">&#xe62f;</text>
+								<!-- <uni-icons type="location" color="#666" size="20"></uni-icons> -->
 								{{item.businessName}}
 							</view>
 							<view class="text price">
@@ -26,7 +27,8 @@
 						</view>
 						<view class="row">
 							<view class="text">
-								<uni-icons type="location" color="#666" size="20"></uni-icons>
+								<text class="text-icon color-1">&#xe661;</text>
+								<!-- <uni-icons type="location" color="#666" size="20"></uni-icons> -->
 								{{moment(item.orderDate).format('MM')}}月{{moment(item.orderDate).format('DD')}}日
 								 {{ weekName(item.orderDate) }} 
 								 {{moment(item.orderDate).format('hh:mm')}}-{{moment(item.orderDate).format('hh:mm')}}
@@ -90,6 +92,7 @@
 	}
 	
 	const changeTab = (e) => {
+		data.pageNumber = 1;
 		data.orderType = e.id;
 		getQuery();
 	}
@@ -121,6 +124,23 @@
 	};
 	getQuery();
 	
+	const handleDetail = (item) => {
+		const id = item.id;
+		if(item.orderType == 1){
+			uni.navigateTo({
+				url:"/pages/activity/detail/index?id="+id
+			})
+		}else if(item.orderType == 2){
+			uni.navigateTo({
+				url:"/pages/other/courseDetail/index?id="+id
+			})
+		}else if(item.orderType == 3){
+			uni.navigateTo({
+				url:"/pages/other/tourismDetail/index?id="+id
+			})
+		}
+	}
+	
 	onPullDownRefresh(()=>{
 		console.log("onPullDownRefresh");
 		data.pageNumber = 1;
@@ -137,7 +157,9 @@
 	
 	
 </script>
-
+<style lang="scss">
+	@import url("@/static/style/public.css");
+</style>
 <style lang="scss" scoped>
 	.wrapper{
 		.header{

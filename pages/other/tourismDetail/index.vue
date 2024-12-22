@@ -87,14 +87,14 @@
 				</view>
 			</view>
 		</view>
-		<view class="footer" v-if="detail.stateCode==0 || isCancel">
-			<view class="footer-content" v-if="detail.stateCode==0">
+		<view class="footer" v-if="!isToken() || (isCancel && stateCode==0)">
+			<view class="footer-content" v-if="!isToken()">
 				<view class="footer-tips">
 					Tips: {{moment(detail.cancelTime).format("YYYY-MM-DD hh:mm")}} 前可取消报名
 				</view>
 				<button class="btn" hover-class="btnHover" @click="handleSignup">旅游报名</button>
 			</view>
-			<view class="footer-content" v-if="detail.stateCode==1">
+			<view class="footer-content" style="padding-top: 20rpx;" v-else-if="stateCode==1">
 				<button class="btn" hover-class="btnHover" @click="handleSignup">取消报名</button>
 			</view>
 		</view>
@@ -116,10 +116,11 @@
 		detail: {},
 		currentImg: "",
 		peopleList: [],
-		isCancel: false
+		isCancel: false,
+		stateCode: 0
 	});
 	
-	const { isExpand, detail, currentImg, peopleList, isCancel } = toRefs(data);
+	const { isExpand, detail, currentImg, peopleList, isCancel, stateCode } = toRefs(data);
 	
 	const weekName = (date) => {
 		const day = moment(date).day();
@@ -130,11 +131,22 @@
 		data.isExpand = !data.isExpand;
 	}
 	
+	const getStatus = () => {
+		get(Interface.tourism.getMyStateCode, {
+			id: id.value
+		}).then(res=>{
+			data.stateCode = res.data.stateCode;
+		})
+	}
+	
 	onLoad((options)=>{
 		console.log("options", options);
 		id.value = options.id;
 		getDetail();
 		getSignUpPeoples();
+		if(isToken()){
+			getStatus();
+		}
 	})
 	
 	const getDetail = () => {
@@ -156,7 +168,7 @@
 	}
 	
 	const getSignUpPeoples = () => {
-		get(Interface.activity.signPeoples, {
+		get(Interface.tourism.signPeoples, {
 			id: id.value
 		}).then(res=>{
 			data.peopleList = res.data;

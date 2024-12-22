@@ -56,7 +56,8 @@ const _sfc_main = {
             e: common_vendor.o(($event) => item.rating = $event, index),
             f: common_vendor.p({
               size: "24",
-              activeColor: "#ea3582",
+              activeColor: "#eb605b",
+              readonly: true,
               modelValue: item.rating
             }),
             g: common_vendor.t(item.rating),

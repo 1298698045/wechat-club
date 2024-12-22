@@ -81,20 +81,19 @@
 					<view class="label">活动描述</view>
 					<view class="desc-body">
 						<rich-text v-html="detail.description">
-							// {{ detail.description }}
 						</rich-text>
 					</view>
 				</view>
 			</view>
 		</view>
-		<view class="footer" v-if="detail.stateCode==0 || isCancel">
-			<view class="footer-content" v-if="detail.stateCode==0">
+		<view class="footer" v-if="!isToken() || (isCancel && stateCode==0)">
+			<view class="footer-content" v-if="!isToken()">
 				<view class="footer-tips">
 					Tips: {{moment(detail.cancelTime).format("YYYY-MM-DD hh:mm")}} 前可取消报名
 				</view>
 				<button class="btn" hover-class="btnHover" @click="handleSignup">活动报名</button>
 			</view>
-			<view class="footer-content" style="padding-top: 20rpx;" v-if="detail.stateCode==1">
+			<view class="footer-content" style="padding-top: 20rpx;" v-else-if="stateCode==1">
 				<button class="btn" hover-class="btnHover" @click="handleSignup">取消报名</button>
 			</view>
 		</view>
@@ -116,10 +115,11 @@
 		detail: {},
 		currentImg: "",
 		peopleList: [],
-		isCancel: false
+		isCancel: false,
+		stateCode: 0
 	});
 	
-	const { isExpand, detail, currentImg, peopleList, isCancel } = toRefs(data);
+	const { isExpand, detail, currentImg, peopleList, isCancel, stateCode } = toRefs(data);
 	
 	const weekName = (date) => {
 		const day = moment(date).day();
@@ -130,11 +130,24 @@
 		data.isExpand = !data.isExpand;
 	}
 	
+	const getStatus = () => {
+		get(Interface.activity.getMyStateCode, {
+			id: id.value
+		}).then(res=>{
+			data.stateCode = res.data.stateCode;
+		})
+	}
+	
+	
+	
 	onLoad((options)=>{
 		console.log("options", options);
 		id.value = options.id;
 		getDetail();
 		getSignUpPeoples();
+		if(isToken()){
+			getStatus();
+		}
 	})
 	
 	const getDetail = () => {
@@ -174,32 +187,7 @@
 	}
 	
 	const handleLocation = () => {
-	  console.log("获取位置信息");
-	//   uni.getLocation({
-	//     type: 'gcj02', // 使用GCJ-02坐标系，适配腾讯地图和微信内置地图
-	//     success: function (res) {
-	//       console.log("定位成功", res);
-	//       const { latitude, longitude } = res;
-	
-	//       // 打开地图并显示当前位置
-	//       uni.openLocation({
-	//         latitude,
-	//         longitude,
-	//         scale: 18, // 缩放级别，范围为5-18，默认值为18
-	//         name: "当前位置", // 地点名称，可选
-	//         address: "你所在的位置", // 地址描述，可选
-	//         success: function () {
-	//           console.log('打开地图成功');
-	//         },
-	//         fail: function (err) {
-	//           console.error('打开地图失败', err);
-	//         }
-	//       });
-	//     },
-	//     fail: function (err) {
-	//       console.error("定位失败", err);
-	//     }
-	//   });
+	    // console.log("获取位置信息");
 		let latitude = 39.904599;
 		let longitude = 116.407001;
 		uni.openLocation({
@@ -238,6 +226,9 @@
 		return token ? true : false;
 	};
 	
+	
+	
+	
 	const handleSignup = () => {
 		if(!isToken()){
 			uni.showModal({
@@ -251,6 +242,33 @@
 						})
 					}
 				}
+			})
+		}else {
+			let d = {
+				id: id.value
+			}
+			post(Interface.activity.sign, d).then(res=>{
+				let timestamp = new Date().getTime();
+				uni.requestPayment({
+					provider: "wxpay",
+					orderInfo: {
+						appid: "wx47ba8ec7242d28ed",
+						noncestr: "",
+						package: "Sign=WXPay",
+						partnerid: "1684621376",
+						prepayid: "",
+						timestamp: timestamp,
+						sign: "A842B45937F6EFF60DEC7A2EAA52D5A0",
+					},
+					success(res) {},
+					fail(e) {
+						uni.showToast({
+							title:'已取消支付',
+							duration:3000,
+							icon:'success'
+						})
+					}
+				})
 			})
 		}
 	}

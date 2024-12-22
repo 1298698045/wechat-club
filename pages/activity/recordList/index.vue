@@ -20,7 +20,7 @@
 		</view>
 		<view class="center">
 			<view class="record-list">
-				<view class="record-item" v-for="(item, index) in listData" :key="index">
+				<view class="record-item" v-for="(item, index) in listData" :key="index" @click="handleDetail(item)">
 					<view class="row top">
 						<view class="title">{{item.name}}</view>
 						<view class="status">{{statusName(item.stateCode)}}</view>
@@ -183,6 +183,12 @@
 		})
 	}
 	getQuery();
+	
+	const handleDetail = (item) => {
+		uni.navigateTo({
+			url:"/pages/activity/detail/index?id="+item.id
+		})
+	}
 	
 	const handleOpenFilter = () => {
 		data.isFilter = !data.isFilter;

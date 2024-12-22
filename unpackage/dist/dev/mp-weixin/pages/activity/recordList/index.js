@@ -87,6 +87,11 @@ const _sfc_main = {
       });
     };
     getQuery();
+    const handleDetail = (item) => {
+      common_vendor.index.navigateTo({
+        url: "/pages/activity/detail/index?id=" + item.id
+      });
+    };
     const handleOpenFilter = () => {
       data.isFilter = !data.isFilter;
     };
@@ -141,7 +146,8 @@ const _sfc_main = {
             i: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("hh:mm")),
             j: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.endTime).format("hh:mm")),
             k: common_vendor.t(item.price),
-            l: index
+            l: index,
+            m: common_vendor.o(($event) => handleDetail(item), index)
           };
         }),
         j: common_vendor.unref(isFilter)

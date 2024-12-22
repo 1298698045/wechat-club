@@ -6,7 +6,7 @@
 		<view class="rightContent">
 			<view class="user-name">{{item.nickName}}</view>
 			<view class="eval">
-				<uni-rate v-model="item.rating" size="24" activeColor="#ea3582" @change="onChange" />
+				<uni-rate v-model="item.rating" size="24" activeColor="#eb605b" :readonly="true" @change="onChange" />
 				<text>{{item.rating}}.0</text>
 			</view>
 			<view class="comment-desc">
@@ -98,8 +98,9 @@
 				display: flex;
 				align-items: center;
 				text{
-					padding-left: 20rpx;
+					padding-left: 10rpx;
 					color: #ea3582;
+					font-weight: 500;
 				}
 			}
 			.comment-desc{

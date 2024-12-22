@@ -54,8 +54,9 @@
   align-items: center;
 }
 .commentItem .rightContent .eval text.data-v-20dbeb0a {
-  padding-left: 20rpx;
+  padding-left: 10rpx;
   color: #ea3582;
+  font-weight: 500;
 }
 .commentItem .rightContent .comment-desc.data-v-20dbeb0a {
   line-height: 1.5;

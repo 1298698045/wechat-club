@@ -7,8 +7,10 @@ const Interface = {
     recommend: "/api/activitie/getRecommends",
     // 获取推荐活动列表
     detail: "/api/activitie/getById",
-    signPeoples: "/api/activitieLessonSignIn/getListByActivitieId"
+    signPeoples: "/api/activitieLessonSignIn/getListByActivitieId",
     // 获取报名列表
+    getMyStateCode: "/api/activitieLessonSignIn/getMyStateCode",
+    sign: "/api/activitie/ActivitieSignUp"
   },
   category: "/api/itemCategory/GetList",
   login: "/api/members/Login",
@@ -23,7 +25,10 @@ const Interface = {
   },
   course: {
     list: "/api/courses/getCourses",
-    detail: "/api/courses/getById"
+    detail: "/api/courses/getById",
+    signPeoples: "/api/courseSignUpDetail/getMyStateCode",
+    // 获取报名列表
+    getMyStateCode: "/api/activitieLessonSignIn/getMyStateCode"
   },
   comment: {
     upload: "/api/comment/upload",
@@ -32,7 +37,10 @@ const Interface = {
   },
   tourism: {
     list: "/api/travels/getTravels",
-    detail: "/api/travels/getById"
+    detail: "/api/travels/getById",
+    signPeoples: "/api/travelsLessonSignIn/getListByTravelId",
+    // 获取报名列表
+    getMyStateCode: "/api/travelsLessonSignIn/getMyStateCode"
   },
   uploadUrl: "http://47.96.15.8:9006"
 };
