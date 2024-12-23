@@ -23,7 +23,9 @@
         "memberInfo/index",
         "evaluate/index",
         "courseDetail/index",
-        "tourismDetail/index"
+        "tourismDetail/index",
+        "about/index",
+        "help/index"
       ]
     },
     {

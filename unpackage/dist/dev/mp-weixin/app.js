@@ -16,6 +16,8 @@ if (!Math) {
   "./pages/other/evaluate/index.js";
   "./pages/other/courseDetail/index.js";
   "./pages/other/tourismDetail/index.js";
+  "./pages/other/about/index.js";
+  "./pages/other/help/index.js";
   "./pages/my/personInfo/index.js";
   "./pages/my/order/index.js";
   "./pages/my/activity/index.js";

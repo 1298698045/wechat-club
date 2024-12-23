@@ -1,4 +1,5 @@
 const BASE_URL = "http://47.96.15.8:9006";
+// const BASE_URL = "https://www.taiyouqu.fun";
 const TIMEOUT = 5000;
 const request = (method, url, data, type='') => {
 	let token = uni.getStorageSync('token');

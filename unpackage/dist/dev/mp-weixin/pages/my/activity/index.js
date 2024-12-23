@@ -1,6 +1,5 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
-const common_assets = require("../../../common/assets.js");
 const utils_Interface = require("../../../utils/Interface.js");
 const utils_request = require("../../../utils/request.js");
 if (!Array) {
@@ -100,13 +99,12 @@ const _sfc_main = {
         d: common_vendor.p({
           tabs: common_vendor.unref(tabList)
         }),
-        e: common_assets._imports_0$2,
-        f: common_vendor.p({
+        e: common_vendor.p({
           type: "location",
           color: "#666",
           size: "20"
         }),
-        g: common_vendor.p({
+        f: common_vendor.p({
           type: "location",
           color: "#666",
           size: "20"

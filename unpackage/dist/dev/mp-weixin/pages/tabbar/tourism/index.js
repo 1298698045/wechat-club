@@ -56,10 +56,16 @@ const _sfc_main = {
         folderId: data.categoryId
       }).then((res) => {
         let list = res.data.map((item) => {
+          var _a;
           let currentImgData = item.pictures.find((row) => row.isRecommend == true);
           let currentImg = "";
           if (currentImgData) {
             currentImg = utils_Interface.Interface.uploadUrl + currentImgData.fileLocation;
+          }
+          if (currentImgData == void 0) {
+            if (item.pictures && item.pictures.length) {
+              currentImg = utils_Interface.Interface.uploadUrl + ((_a = item.pictures[0]) == null ? void 0 : _a.fileLocation);
+            }
           }
           item.currentImg = currentImg;
           return item;

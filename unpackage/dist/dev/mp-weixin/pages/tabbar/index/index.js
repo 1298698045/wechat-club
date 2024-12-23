@@ -32,9 +32,9 @@ const _sfc_main = {
       interval: 5e3,
       duration: 500,
       images: [
-        "/static/img/1.jpg",
-        "/static/img/2.jpg",
-        "/static/img/3.jpg"
+        "http://47.96.15.8:9006/images/2.jpg",
+        "http://47.96.15.8:9006/images/2.jpg",
+        "http://47.96.15.8:9006/images/3.jpg"
       ],
       current: 0,
       tabs: [
@@ -103,10 +103,16 @@ const _sfc_main = {
       utils_request.get(utils_Interface.Interface.activity.recommend, {}).then((res) => {
         data.activityTotal = res.total;
         data.listData = res.data.map((item) => {
+          var _a;
           let currentImgData = item.pictures.find((row) => row.isRecommend == true);
           let currentImg = "";
           if (currentImgData) {
             currentImg = utils_Interface.Interface.uploadUrl + currentImgData.fileLocation;
+          }
+          if (currentImgData == void 0) {
+            if (item.pictures && item.pictures.length) {
+              currentImg = utils_Interface.Interface.uploadUrl + ((_a = item.pictures[0]) == null ? void 0 : _a.fileLocation);
+            }
           }
           item.currentImg = currentImg;
           return item;

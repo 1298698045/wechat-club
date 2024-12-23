@@ -42,9 +42,122 @@ const _sfc_main = {
       isFilter: false,
       pageNumber: 1,
       pageSize: 10,
-      stateCode: -1
+      stateCode: -1,
+      times: [
+        {
+          type: 0,
+          name: "本周"
+        },
+        {
+          type: 1,
+          name: "上周"
+        },
+        {
+          type: 2,
+          name: "本月"
+        },
+        {
+          type: 3,
+          name: "上月"
+        }
+      ],
+      timeCurrent: -1,
+      startDate: "",
+      endDate: "",
+      categoryList: [],
+      categoryId: ""
     });
-    const { searchVal, listData, tabs, current, isFilter, pageNumber, pageSize, stateCode } = common_vendor.toRefs(data);
+    const {
+      searchVal,
+      listData,
+      tabs,
+      current,
+      isFilter,
+      pageNumber,
+      pageSize,
+      stateCode,
+      times,
+      timeCurrent,
+      startDate,
+      endDate,
+      categoryList,
+      categoryId
+    } = common_vendor.toRefs(data);
+    const changeTime = (item) => {
+      data.timeCurrent = item.type;
+      switch (item.type) {
+        case 0:
+          getWeekDate();
+        case 1:
+          getLastWeekDate();
+          break;
+        case 2:
+          getMonthDate();
+        case 3:
+          getLastMonthDate();
+      }
+    };
+    const changeCategory = (item) => {
+      data.categoryId = item.id;
+    };
+    const handleRest = () => {
+      data.startDate = "";
+      data.endDate = "";
+      data.categoryId = "";
+      data.timeCurrent = -1;
+      data.pageNumber = 1;
+      data.isFilter = false;
+      getQuery();
+    };
+    const handleConfirm = () => {
+      data.pageNumber = 1;
+      data.isFilter = false;
+      getQuery();
+    };
+    const getCategory = () => {
+      utils_request.get(utils_Interface.Interface.category, {
+        category: 1
+      }).then((res) => {
+        data.categoryList = res.data;
+      });
+    };
+    getCategory();
+    const getWeekDate = () => {
+      common_vendor.hooks.updateLocale("en", {
+        week: {
+          dow: 1
+          // 将周一设为一周的开始
+        }
+      });
+      let startDate2 = common_vendor.hooks().startOf("week").format("YYYY-MM-DD");
+      let endDate2 = common_vendor.hooks().endOf("week").format("YYYY-MM-DD");
+      data.startDate = startDate2;
+      data.endDate = endDate2;
+    };
+    const getLastWeekDate = () => {
+      common_vendor.hooks.updateLocale("en", {
+        week: {
+          dow: 1
+          // 将周一设为一周的开始
+        }
+      });
+      let startDate2 = common_vendor.hooks().subtract(1, "weeks").startOf("week").format("YYYY-MM-DD");
+      let endDate2 = common_vendor.hooks().subtract(1, "weeks").endOf("week").format("YYYY-MM-DD");
+      data.startDate = startDate2;
+      data.endDate = endDate2;
+    };
+    const getMonthDate = () => {
+      let startDate2 = common_vendor.hooks().startOf("month").format("YYYY-MM-DD");
+      let endDate2 = common_vendor.hooks().endOf("month").format("YYYY-MM-DD");
+      data.startDate = startDate2;
+      data.endDate = endDate2;
+    };
+    const getLastMonthDate = () => {
+      let startDate2 = common_vendor.hooks().subtract(1, "months").startOf("month").format("YYYY-MM-DD");
+      let endDate2 = common_vendor.hooks().subtract(1, "months").endOf("month").format("YYYY-MM-DD");
+      data.startDate = startDate2;
+      data.endDate = endDate2;
+    };
     const statusName = (code) => {
       const arr = ["未开始", "活动中", "已结束"];
       return arr[code];
@@ -67,8 +180,10 @@ const _sfc_main = {
         name: data.searchVal,
         page: data.pageNumber,
         rows: data.pageSize,
-        stateCode: data.stateCode
-        // folderId: data.categoryId
+        stateCode: data.stateCode,
+        folderId: data.categoryId,
+        startDate: data.startDate,
+        endDate: data.endDate
       }).then((res) => {
         let list = res.data;
         let total = res.total;
@@ -152,11 +267,29 @@ const _sfc_main = {
         }),
         j: common_vendor.unref(isFilter)
       }, common_vendor.unref(isFilter) ? {
-        k: common_vendor.o(() => {
+        k: common_vendor.f(common_vendor.unref(times), (item, index, i0) => {
+          return {
+            a: common_vendor.t(item.name),
+            b: common_vendor.unref(timeCurrent) == item.type ? 1 : "",
+            c: index,
+            d: common_vendor.o(($event) => changeTime(item), index)
+          };
         }),
-        l: common_vendor.o(closeFilter)
+        l: common_vendor.f(common_vendor.unref(categoryList), (item, index, i0) => {
+          return {
+            a: common_vendor.t(item.name),
+            b: common_vendor.unref(categoryId) == item.id ? 1 : "",
+            c: index,
+            d: common_vendor.o(($event) => changeCategory(item), index)
+          };
+        }),
+        m: common_vendor.o(handleRest),
+        n: common_vendor.o(handleConfirm),
+        o: common_vendor.o(() => {
+        }),
+        p: common_vendor.o(closeFilter)
       } : {}, {
-        m: common_vendor.unref(isFilter) ? 1 : ""
+        q: common_vendor.unref(isFilter) ? 1 : ""
       });
     };
   }

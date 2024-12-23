@@ -124,9 +124,9 @@
 		interval: 5000,
 		duration: 500,
 		images: [
-			'/static/img/1.jpg',
-			'/static/img/2.jpg',
-			'/static/img/3.jpg'
+			'http://47.96.15.8:9006/images/2.jpg',
+			'http://47.96.15.8:9006/images/2.jpg',
+			'http://47.96.15.8:9006/images/3.jpg'
 		],
 		current: 0,
 		tabs: [
@@ -188,6 +188,11 @@
 				let currentImg = '';
 				if(currentImgData){
 					currentImg = Interface.uploadUrl + currentImgData.fileLocation;
+				}
+				if(currentImgData==undefined){
+					if(item.pictures && item.pictures.length){
+						currentImg = Interface.uploadUrl + item.pictures[0]?.fileLocation;
+					}
 				}
 				item.currentImg = currentImg;
 				return item;

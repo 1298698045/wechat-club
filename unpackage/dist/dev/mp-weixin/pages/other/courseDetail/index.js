@@ -57,11 +57,17 @@ const _sfc_main = {
       utils_request.get(utils_Interface.Interface.course.detail, {
         id: id.value
       }).then((res) => {
+        var _a;
         data.detail = res.data;
         let currentImgData = data.detail.pictures.find((row) => row.isRecommend == true);
         let currentImg2 = "";
         if (currentImgData) {
           currentImg2 = utils_Interface.Interface.uploadUrl + currentImgData.fileLocation;
+        }
+        if (currentImgData == void 0) {
+          if (data.detail.pictures && data.detail.pictures.length) {
+            currentImg2 = utils_Interface.Interface.uploadUrl + ((_a = data.detail.pictures[0]) == null ? void 0 : _a.fileLocation);
+          }
         }
         data.currentImg = currentImg2;
         const then = common_vendor.hooks(data.detail.cancelTime);

@@ -162,6 +162,11 @@
 			if(currentImgData){
 				currentImg = Interface.uploadUrl + currentImgData.fileLocation;
 			}
+			if(currentImgData==undefined){
+				if(data.detail.pictures && data.detail.pictures.length){
+					currentImg = Interface.uploadUrl + data.detail.pictures[0]?.fileLocation;
+				}
+			}
 			data.currentImg = currentImg;
 			
 			const then = moment(data.detail.cancelTime);

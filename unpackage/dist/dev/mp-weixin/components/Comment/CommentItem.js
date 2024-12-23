@@ -36,8 +36,8 @@ const _sfc_main = {
       let url = row.photoUrl;
       let urls = item.pictures.map((v) => v.photoUrl);
       common_vendor.index.previewImage({
-        // urls: ["http://47.96.15.8:9006/images/1.jpg","http://47.96.15.8:9006/images/2.jpg","http://47.96.15.8:9006/images/3.jpg"],
-        // current: "http://47.96.15.8:9006/images/1.jpg",
+        // urls: ["http://47.96.15.8:9006/images/2.jpg","http://47.96.15.8:9006/images/2.jpg","http://47.96.15.8:9006/images/3.jpg"],
+        // current: "http://47.96.15.8:9006/images/2.jpg",
         urls,
         current: url,
         success: (res) => {

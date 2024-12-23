@@ -101,6 +101,11 @@
 				if(currentImgData){
 					currentImg = Interface.uploadUrl + currentImgData.fileLocation;
 				}
+				if(currentImgData==undefined){
+					if(item.pictures && item.pictures.length){
+						currentImg = Interface.uploadUrl + item.pictures[0]?.fileLocation;
+					}
+				}
 				item.currentImg = currentImg;
 				return item;
 			});

@@ -12,7 +12,7 @@
 			<view class="activity-list">
 				<view class="activity-item">
 					<view class="image">
-						<image class="img" src="@/static/img/1.jpg" mode="aspectFill"></image>
+						<image class="img" src="http://47.96.15.8:9006/images/2.jpg" mode="aspectFill"></image>
 					</view>
 					<view class="info">
 						<view class="row">

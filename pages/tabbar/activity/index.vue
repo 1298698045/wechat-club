@@ -70,9 +70,15 @@
 		}).then(res=>{
 			let list = res.data.map(item=>{
 				let currentImgData = item.pictures.find(row=>row.isRecommend==true);
+				console.log("currentImgData", currentImgData);
 				let currentImg = '';
 				if(currentImgData){
 					currentImg = Interface.uploadUrl + currentImgData.fileLocation;
+				}
+				if(currentImgData==undefined){
+					if(item.pictures && item.pictures.length){
+						currentImg = Interface.uploadUrl + item.pictures[0]?.fileLocation;
+					}
 				}
 				item.currentImg = currentImg;
 				return item;

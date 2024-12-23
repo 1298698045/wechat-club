@@ -80,17 +80,19 @@ const _sfc_main = {
       });
     };
     const handleItemGoto = (item, index) => {
-      if (item.url) {
-        common_vendor.index.navigateTo({
-          url: item.url
-        });
-      }
+      if (item.url)
+        ;
     };
     const gotoOrder = () => {
       utils_auth.checkAuth(() => {
         common_vendor.index.navigateTo({
           url: "/pages/my/order/index"
         });
+      });
+    };
+    const gotoAbout = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/other/about/index"
       });
     };
     return (_ctx, _cache) => {
@@ -107,7 +109,8 @@ const _sfc_main = {
         }),
         d: !login.value ? "logo-hover" : "",
         e: common_vendor.o(gotoOrder),
-        f: common_vendor.o(gotoUser)
+        f: common_vendor.o(gotoUser),
+        g: common_vendor.o(gotoAbout)
       };
     };
   }

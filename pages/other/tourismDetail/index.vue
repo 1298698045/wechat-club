@@ -155,10 +155,15 @@
 		}).then(res=>{
 			data.detail = res.data;
 			
-			let currentImgData = data.detail.travelPictures.find(row=>row.isRecommend==true);
+			let currentImgData = data.detail.pictures.find(row=>row.isRecommend==true);
 			let currentImg = '';
 			if(currentImgData){
 				currentImg = Interface.uploadUrl + currentImgData.fileLocation;
+			}
+			if(currentImgData==undefined){
+				if(data.detail.pictures && data.detail.pictures.length){
+					currentImg = Interface.uploadUrl + data.detail.pictures[0]?.fileLocation;
+				}
 			}
 			data.currentImg = currentImg;
 			const then = moment(data.detail.cancelTime);

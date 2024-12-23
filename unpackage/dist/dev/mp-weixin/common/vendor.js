@@ -12650,6 +12650,18 @@ const subPackages = [
         style: {
           navigationBarTitleText: "旅游详情"
         }
+      },
+      {
+        path: "about/index",
+        style: {
+          navigationBarTitleText: "关于"
+        }
+      },
+      {
+        path: "help/index",
+        style: {
+          navigationBarTitleText: "帮助与反馈"
+        }
       }
     ]
   },

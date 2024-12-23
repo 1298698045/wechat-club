@@ -43,5 +43,6 @@ const Interface = {
     getMyStateCode: "/api/travelsLessonSignIn/getMyStateCode"
   },
   uploadUrl: "http://47.96.15.8:9006"
+  // uploadUrl: "http://47.96.15.8:9006"
 };
 exports.Interface = Interface;

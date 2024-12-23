@@ -55,15 +55,20 @@
 										时间
 									</view>
 									<view class="filter-options">
-										<view class="tag-option active">本周</view>
-										<view class="tag-option">本周</view>
-										<view class="tag-option">本周</view>
-										<view class="tag-option">本周</view>
+										<view class="tag-option" :class="{active:timeCurrent==item.type}" v-for="(item, index) in times" :key="index" @click="changeTime(item)">{{item.name}}</view>
 									</view>
 								</view>
 								<view class="filter-item">
 									<view class="filter-label">
-										时间
+										活动分类
+									</view>
+									<view class="filter-options">
+										<view class="tag-option" :class="{active:categoryId==item.id}" v-for="(item, index) in categoryList" :key="index" @click="changeCategory(item)">{{item.name}}</view>
+									</view>
+								</view>
+							<!-- 	<view class="filter-item">
+									<view class="filter-label">
+										活动类型
 									</view>
 									<view class="filter-options">
 										<view class="tag-option">本周</view>
@@ -71,24 +76,13 @@
 										<view class="tag-option">本周</view>
 										<view class="tag-option">本周</view>
 									</view>
-								</view>
-								<view class="filter-item">
-									<view class="filter-label">
-										时间
-									</view>
-									<view class="filter-options">
-										<view class="tag-option">本周</view>
-										<view class="tag-option">本周</view>
-										<view class="tag-option">本周</view>
-										<view class="tag-option">本周</view>
-									</view>
-								</view>
+								</view> -->
 							</view>
 						</view>
 						<view class="filter-footer">
 							<view class="btn-group">
-								<button class="btn">重置</button>
-								<button class="btn primary">确定</button>
+								<button class="btn" @click="handleRest">重置</button>
+								<button class="btn primary" @click="handleConfirm">确定</button>
 							</view>
 						</view>
 					</view>
@@ -132,9 +126,120 @@
 		isFilter: false,
 		pageNumber: 1,
 		pageSize: 10,
-		stateCode: -1
+		stateCode: -1,
+		times: [
+			{
+				type: 0,
+				name: "本周"
+			},
+			{
+				type: 1,
+				name: "上周"
+			},
+			{
+				type: 2,
+				name: "本月"
+			},
+			{
+				type: 3,
+				name: "上月"
+			},
+		],
+		timeCurrent: -1,
+		startDate: "",
+		endDate: "",
+		categoryList: [],
+		categoryId: ""
 	});
-	const { searchVal, listData, tabs, current, isFilter, pageNumber, pageSize, stateCode } = toRefs(data);
+	const { searchVal, listData, tabs, current, isFilter, pageNumber, pageSize, stateCode, 
+	times, timeCurrent, startDate, endDate, categoryList, categoryId } = toRefs(data);
+	
+	const changeTime = (item) => {
+		data.timeCurrent = item.type;
+		switch(item.type){
+			case 0:
+				getWeekDate();
+			case 1:
+				getLastWeekDate();
+				break;
+			case 2:
+				getMonthDate();
+			case 3:
+				getLastMonthDate();
+		}
+	};
+	
+	const changeCategory = (item) => {
+		data.categoryId = item.id;
+	}
+	
+	const handleRest = () => {
+		data.startDate = "";
+		data.endDate = "";
+		data.categoryId = "";
+		data.timeCurrent = -1;
+		data.pageNumber = 1;
+		data.isFilter = false;
+		getQuery();
+	}
+	
+	const handleConfirm = () => {
+		data.pageNumber = 1;
+		data.isFilter = false;
+		getQuery();
+	}
+	
+	const getCategory = () => {
+		get(Interface.category, {
+			category: 1
+		}).then(res=>{
+			data.categoryList = res.data;
+			// data.categoryList.unshift({
+			// 	id: "",
+			// 	name: "全部"
+			// })
+		})
+	}
+	getCategory();
+	
+	const getWeekDate = () => {
+		moment.updateLocale('en', {
+		    week: {
+		        dow: 1, // 将周一设为一周的开始
+		    }
+		});
+		let startDate = moment().startOf('week').format('YYYY-MM-DD');
+		let endDate = moment().endOf('week').format('YYYY-MM-DD');
+		data.startDate = startDate;
+		data.endDate = endDate;
+	}
+	
+	const getLastWeekDate = () => {
+		moment.updateLocale('en', {
+		    week: {
+		        dow: 1, // 将周一设为一周的开始
+		    }
+		});
+		let startDate = moment().subtract(1, 'weeks').startOf('week').format('YYYY-MM-DD');
+		let endDate = moment().subtract(1, 'weeks').endOf('week').format('YYYY-MM-DD');
+		data.startDate = startDate;
+		data.endDate = endDate;
+		// console.log("data.startDate", data.startDate, data.endDate);
+	}
+	
+	const getMonthDate = () => {
+		let startDate = moment().startOf('month').format('YYYY-MM-DD');
+		let endDate = moment().endOf('month').format('YYYY-MM-DD');
+		data.startDate = startDate;
+		data.endDate = endDate;
+	}
+	
+	const getLastMonthDate = () => {
+		let startDate = moment().subtract(1, 'months').startOf('month').format('YYYY-MM-DD');
+		let endDate = moment().subtract(1, 'months').endOf('month').format('YYYY-MM-DD');
+		data.startDate = startDate;
+		data.endDate = endDate;
+	}
 	
 	const statusName = (code) => {
 		const arr = ['未开始','活动中','已结束'];
@@ -162,8 +267,10 @@
 			name: data.searchVal,
 			page: data.pageNumber,
 			rows: data.pageSize,
-			stateCode: data.stateCode
-			// folderId: data.categoryId
+			stateCode: data.stateCode,
+			folderId: data.categoryId,
+			startDate: data.startDate,
+			endDate: data.endDate
 		}).then(res=>{
 			let list = res.data;
 			let total = res.total;
@@ -325,7 +432,7 @@
 										text-align: center;
 										background: #e7e7e7;
 										color: #848484;
-										margin-right: 26rpx;
+										margin-right: 20rpx;
 										margin-bottom: 20rpx;
 										&:last-child{
 											margin-right: 0;

@@ -55,7 +55,7 @@
 			</view>
 		</view>
 		<view class="center-list">
-			<view class="center-list-item">
+			<view class="center-list-item" @click="gotoAbout">
 				<text class="list-icon color-1">&#xe60d;</text>
 				<text class="list-text">关于</text>
 			</view>
@@ -146,9 +146,9 @@
 	
 	const handleItemGoto = (item, index) => {
 		if(item.url){			
-			uni.navigateTo({
-				url: item.url
-			})
+			// uni.navigateTo({
+			// 	url: item.url
+			// })
 		}
 	};
 	
@@ -157,6 +157,12 @@
 			uni.navigateTo({
 				url: "/pages/my/order/index"
 			})
+		})
+	};
+	
+	const gotoAbout = () => {
+		uni.navigateTo({
+			url:"/pages/other/about/index"
 		})
 	}
 	

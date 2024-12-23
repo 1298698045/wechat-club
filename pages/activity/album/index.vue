@@ -3,7 +3,7 @@
 		<view class="albumList">
 			<view class="album-item" v-for="item in [1,2,3,4,5]" :index="item">
 				<view class="backImg">
-					<image class="img" src="../../../static/img/4.jpg" mode="aspectFill"></image>
+					<image class="img" src="http://47.96.15.8:9006/images/2.jpg" mode="aspectFill"></image>
 				</view>
 				<view class="album-item-content">
 					<view class="title">
@@ -28,7 +28,7 @@
 					</view>
 					<view class="album-images">
 						<view class="album-img" v-for="item in [1,2,3,4,5]" :index="item" @click="previewImg(item)">
-							<image class="img" src="@/static/img/5.jpg"></image>
+							<image class="img" src="http://47.96.15.8:9006/images/2.jpg"></image>
 						</view>
 					</view>
 				</view>
@@ -43,8 +43,8 @@
 	
 	const previewImg = () => {
 		uni.previewImage({
-			urls: ["http://47.96.15.8:9006/images/1.jpg","http://47.96.15.8:9006/images/2.jpg","http://47.96.15.8:9006/images/3.jpg"],
-			current: "http://47.96.15.8:9006/images/1.jpg",
+			urls: ["http://47.96.15.8:9006/images/2.jpg","http://47.96.15.8:9006/images/2.jpg","http://47.96.15.8:9006/images/3.jpg"],
+			current: "http://47.96.15.8:9006/images/2.jpg",
 			success: (res) => {
 				
 			}

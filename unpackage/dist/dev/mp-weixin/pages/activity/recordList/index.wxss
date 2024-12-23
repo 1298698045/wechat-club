@@ -187,7 +187,7 @@
   text-align: center;
   background: #e7e7e7;
   color: #848484;
-  margin-right: 26rpx;
+  margin-right: 20rpx;
   margin-bottom: 20rpx;
 }
 .record-wrap .center .popup .filter-wrap .filter-content .filter-category .filter-item .filter-options .tag-option.data-v-c00f9596:last-child {
