@@ -44,6 +44,8 @@ const _sfc_main = {
       id.value = options.id;
       getDetail();
       getSignUpPeoples();
+    });
+    common_vendor.onShow(() => {
       if (isToken()) {
         getStatus();
       }
@@ -88,8 +90,8 @@ const _sfc_main = {
       });
     };
     const handleLocation = () => {
-      let latitude = 39.904599;
-      let longitude = 116.407001;
+      let latitude = data.detail.latitude || 39.904599;
+      let longitude = data.detail.longitude || 116.407001;
       common_vendor.index.openLocation({
         latitude,
         longitude,
@@ -143,7 +145,7 @@ const _sfc_main = {
         let d = {
           id: id.value
         };
-        post(utils_Interface.Interface.activity.sign, d).then((res) => {
+        utils_request.post(utils_Interface.Interface.activity.sign, d).then((res) => {
           let timestamp = (/* @__PURE__ */ new Date()).getTime();
           common_vendor.index.requestPayment({
             provider: "wxpay",
@@ -228,16 +230,16 @@ const _sfc_main = {
         })
       }, {
         y: common_vendor.unref(detail).description,
-        z: !isToken() && !common_vendor.unref(isEnd) || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 0 && !common_vendor.unref(isEnd)
-      }, !isToken() && !common_vendor.unref(isEnd) || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 0 && !common_vendor.unref(isEnd) ? common_vendor.e({
-        A: !isToken()
-      }, !isToken() ? {
+        z: !isToken() || common_vendor.unref(stateCode) == 0 || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 1
+      }, !isToken() || common_vendor.unref(stateCode) == 0 || common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 1 ? common_vendor.e({
+        A: !isToken() || common_vendor.unref(stateCode) == 0
+      }, !isToken() || common_vendor.unref(stateCode) == 0 ? {
         B: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),
         C: common_vendor.o(handleSignup)
-      } : common_vendor.unref(stateCode) == 1 ? {
+      } : common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 1 ? {
         E: common_vendor.o(handleSignup)
       } : {}, {
-        D: common_vendor.unref(stateCode) == 1
+        D: common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 1
       }) : {});
     };
   }
