@@ -159,13 +159,16 @@
 		switch(item.type){
 			case 0:
 				getWeekDate();
+				break;
 			case 1:
 				getLastWeekDate();
 				break;
 			case 2:
 				getMonthDate();
+				break;
 			case 3:
 				getLastMonthDate();
+				break;
 		}
 	};
 	
@@ -212,6 +215,7 @@
 		let endDate = moment().endOf('week').format('YYYY-MM-DD');
 		data.startDate = startDate;
 		data.endDate = endDate;
+		// console.log("data.startDate", data.startDate, data.endDate);
 	}
 	
 	const getLastWeekDate = () => {
@@ -269,8 +273,8 @@
 			rows: data.pageSize,
 			stateCode: data.stateCode,
 			folderId: data.categoryId,
-			startDate: data.startDate,
-			endDate: data.endDate
+			startTime: data.startDate,
+			endTime: data.endDate
 		}).then(res=>{
 			let list = res.data;
 			let total = res.total;

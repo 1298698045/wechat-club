@@ -88,13 +88,16 @@ const _sfc_main = {
       switch (item.type) {
         case 0:
           getWeekDate();
+          break;
         case 1:
           getLastWeekDate();
           break;
         case 2:
           getMonthDate();
+          break;
         case 3:
           getLastMonthDate();
+          break;
       }
     };
     const changeCategory = (item) => {
@@ -182,8 +185,8 @@ const _sfc_main = {
         rows: data.pageSize,
         stateCode: data.stateCode,
         folderId: data.categoryId,
-        startDate: data.startDate,
-        endDate: data.endDate
+        startTime: data.startDate,
+        endTime: data.endDate
       }).then((res) => {
         let list = res.data;
         let total = res.total;
