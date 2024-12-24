@@ -86,14 +86,14 @@
 				</view>
 			</view>
 		</view>
-		<view class="footer" v-if="!isToken() && !isEnd || (isCancel && stateCode==0 && !isEnd)">
-			<view class="footer-content" v-if="!isToken()">
+		<view class="footer" v-if="(!isToken() || stateCode==0) || (isCancel && stateCode==1)">
+			<view class="footer-content" v-if="!isToken() || stateCode==0">
 				<view class="footer-tips">
 					Tips: {{moment(detail.cancelTime).format("YYYY-MM-DD hh:mm")}} 前可取消报名
 				</view>
 				<button class="btn" hover-class="btnHover" @click="handleSignup">活动报名</button>
 			</view>
-			<view class="footer-content" style="padding-top: 20rpx;" v-else-if="stateCode==1">
+			<view class="footer-content" style="padding-top: 20rpx;" v-else-if="isCancel && stateCode==1">
 				<button class="btn" hover-class="btnHover" @click="handleSignup">取消报名</button>
 			</view>
 		</view>
@@ -102,9 +102,9 @@
 
 <script setup>
 	import { computed, reactive, ref, toRef, toRefs } from "vue";
-	import { onLoad, onShareAppMessage } from "@dcloudio/uni-app";
+	import { onLoad, onShareAppMessage, onShow } from "@dcloudio/uni-app";
 	import Interface from "@/utils/Interface";
-	import { get } from "@/utils/request.js";
+	import { get, post } from "@/utils/request.js";
 	import moment from "moment";
 	const id = ref('');
 	
@@ -146,6 +146,13 @@
 		id.value = options.id;
 		getDetail();
 		getSignUpPeoples();
+		// if(isToken()){
+		// 	getStatus();
+		// }
+	});
+	
+	
+	onShow(()=>{
 		if(isToken()){
 			getStatus();
 		}
@@ -197,8 +204,8 @@
 	
 	const handleLocation = () => {
 	    // console.log("获取位置信息");
-		let latitude = 39.904599;
-		let longitude = 116.407001;
+		let latitude = data.detail.latitude || 39.904599;
+		let longitude = data.detail.longitude || 116.407001;
 		uni.openLocation({
 		  latitude,
 		  longitude,
