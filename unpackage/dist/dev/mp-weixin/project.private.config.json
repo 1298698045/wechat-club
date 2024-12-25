@@ -3,7 +3,7 @@
   "projectname": "wechat-club",
   "setting": {
     "compileHotReLoad": true,
-    "urlCheck": true
+    "urlCheck": false
   },
   "libVersion": "development",
   "condition": {
