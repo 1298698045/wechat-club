@@ -105,8 +105,11 @@
 	import { onLoad, onShareAppMessage, onShow } from "@dcloudio/uni-app";
 	import Interface from "@/utils/Interface";
 	import { get, post } from "@/utils/request.js";
+	import { useAuthStore } from '@/stores/authStore.js';
+	const authStore = useAuthStore();
 	import moment from "moment";
 	const id = ref('');
+	
 	
 	const weeks = ['周日','周一','周二','周三','周四','周五','周六']
 	
@@ -144,6 +147,10 @@
 	onLoad((options)=>{
 		console.log("options", options);
 		id.value = options.id;
+		if(options.invitee){
+			let invitee = options.invitee;
+			authStore.setInvitee(invitee);
+		}
 		getDetail();
 		getSignUpPeoples();
 		// if(isToken()){
@@ -226,13 +233,13 @@
 		const promise = new Promise(resolve => {
 		  setTimeout(() => {
 		    resolve({
-		      title: '自定义转发标题123'
+		      title: '自定义转发标题'
 		    })
 		  }, 2000)
 		})
 		return {
-		  title: '自定义转发标题123',
-		  path: '/pages/activity/detail/index?id=123',
+		  title: '自定义转发标题',
+		  path: '/pages/activity/detail/index?id='+data.id+'&invitee=' +authStore.invitationCode,
 		  promise 
 		}
 	});

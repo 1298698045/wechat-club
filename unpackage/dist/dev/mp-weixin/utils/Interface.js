@@ -42,7 +42,7 @@ const Interface = {
     // 获取报名列表
     getMyStateCode: "/api/travelsLessonSignIn/getMyStateCode"
   },
-  uploadUrl: "http://47.96.15.8:9006"
-  // uploadUrl: "http://47.96.15.8:9006"
+  // uploadUrl: "http://47.96.15.8:9006",
+  uploadUrl: "http://182.92.73.72:9006"
 };
 exports.Interface = Interface;

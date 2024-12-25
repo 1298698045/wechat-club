@@ -62,11 +62,12 @@
 			post(Interface.login,{
 				code: code.value,
 				nickName: userInfo.nickName,
-				avatarUrl: userInfo.avatarUrl
+				avatarUrl: userInfo.avatarUrl,
+				invitee: authStore.invitee
 			}).then(res=>{
 				console.log('res', res);
 				if(res.code === 20000){
-					let { wechatOpenid } = res.data;
+					let { wechatOpenid, invitationCode, invitee  } = res.data;
 					console.log("wechatOpenid", wechatOpenid);
 					try{
 						// uni.setStorageSync('token', wechatOpenid);
@@ -74,9 +75,11 @@
 						uni.showToast({
 							title:"保存成功！",
 							duration: 3000,
-							success: (res) => {
+							success: () => {
 								setTimeout(()=>{									
 									authStore.setToken(wechatOpenid);
+									authStore.setInvitationCode(invitationCode);
+									authStore.setInvitee(invitee);
 									uni.navigateBack({
 										delta: 1
 									})

@@ -2,6 +2,7 @@
 const common_vendor = require("../../../common/vendor.js");
 const utils_Interface = require("../../../utils/Interface.js");
 const utils_request = require("../../../utils/request.js");
+const stores_authStore = require("../../../stores/authStore.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   _easycom_uni_icons2();
@@ -13,6 +14,7 @@ if (!Math) {
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    const authStore = stores_authStore.useAuthStore();
     const id = common_vendor.ref("");
     const weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
     const data = common_vendor.reactive({
@@ -42,6 +44,10 @@ const _sfc_main = {
     common_vendor.onLoad((options) => {
       console.log("options", options);
       id.value = options.id;
+      if (options.invitee) {
+        let invitee = options.invitee;
+        authStore.setInvitee(invitee);
+      }
       getDetail();
       getSignUpPeoples();
     });
@@ -113,13 +119,13 @@ const _sfc_main = {
       const promise = new Promise((resolve) => {
         setTimeout(() => {
           resolve({
-            title: "自定义转发标题123"
+            title: "自定义转发标题"
           });
         }, 2e3);
       });
       return {
-        title: "自定义转发标题123",
-        path: "/pages/activity/detail/index?id=123",
+        title: "自定义转发标题",
+        path: "/pages/activity/detail/index?id=" + data.id + "&invitee=" + authStore.invitationCode,
         promise
       };
     });

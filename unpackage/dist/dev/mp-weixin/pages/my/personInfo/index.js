@@ -52,20 +52,23 @@ const _sfc_main = {
         utils_request.post(utils_Interface.Interface.login, {
           code: code.value,
           nickName: userInfo.nickName,
-          avatarUrl: userInfo.avatarUrl
+          avatarUrl: userInfo.avatarUrl,
+          invitee: authStore.invitee
         }).then((res) => {
           console.log("res", res);
           if (res.code === 2e4) {
-            let { wechatOpenid } = res.data;
+            let { wechatOpenid, invitationCode, invitee } = res.data;
             console.log("wechatOpenid", wechatOpenid);
             try {
               common_vendor.index.hideLoading();
               common_vendor.index.showToast({
                 title: "保存成功！",
                 duration: 3e3,
-                success: (res2) => {
+                success: () => {
                   setTimeout(() => {
                     authStore.setToken(wechatOpenid);
+                    authStore.setInvitationCode(invitationCode);
+                    authStore.setInvitee(invitee);
                     common_vendor.index.navigateBack({
                       delta: 1
                     });
