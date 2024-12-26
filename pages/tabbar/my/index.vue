@@ -4,10 +4,10 @@
 			<view class="bg-radius"></view>
 			<view class="logo" :hover-class="!login ? 'logo-hover' : ''">
 				<button class="btn" @tap="handleLogin">
-					<image class="logo-img" src="@/static/img/logo2.jpg"></image>
+					<image class="logo-img" :src="personalInfo.avatarUrl"></image>
 				</button>
 				<view class="logo-title">
-					<text class="uer-name">Lisa</text>
+					<text class="uer-name" @tap="handleLogin">{{personalInfo.userName || '未登录'}}</text>
 				</view>
 				<view class="count">
 					<view class="count-item" v-for="(c,index) in count" :key="index" @click="handleItemGoto(c, index)">
@@ -44,7 +44,7 @@
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view> -->
 		</view>
-		<view class="center-list">
+		<!-- <view class="center-list">
 			<view class="center-list-item border-bottom">
 				<text class="list-icon color-3">&#xe60c;</text>
 				<text class="list-text">帮助与反馈</text>
@@ -53,7 +53,7 @@
 				<text class="list-icon color-4">&#xe60c;</text>
 				<text class="list-text">服务条款及隐私</text>
 			</view>
-		</view>
+		</view> -->
 		<view class="center-list">
 			<view class="center-list-item" @click="gotoAbout">
 				<text class="list-icon color-1">&#xe60d;</text>
@@ -64,10 +64,11 @@
 	</view>
 </template>
 <script setup>
-	import { ref } from "vue";
+	import { reactive, ref } from "vue";
 	import Interface from "@/utils/Interface";
 	import { get, post } from "@/utils/request.js";
 	import { checkAuth } from '@/utils/auth.js';
+	import { onLoad, onShareAppMessage, onShow } from "@dcloudio/uni-app";
 	const navs = ref([
 		{
 			icon:"\u{e602}",
@@ -92,11 +93,11 @@
 		}
 	]);
 	const count = ref([
-		{
-			num:5,
-			text:'我的活动',
-			url: "/pages/my/activity/index"
-		},
+		// {
+		// 	num:5,
+		// 	text:'我的活动',
+		// 	url: "/pages/my/activity/index"
+		// },
 		{
 			num:7,
 			text:'会员等级'
@@ -109,31 +110,39 @@
 	const login = ref(!true);
 	const code = ref();
 	
+	const personalInfo = reactive({
+		userName: "",
+		avatarUrl: ""
+	})
+	
 	const handleLogin = async () => {
-		try {
-			const profileRes = await uni.getUserProfile({
-			  provider: "weixin",
-			  desc: "太友趣小程序隐私保护指引",
-			});
-			console.log("用户信息获取成功:", profileRes);
-			let userInfo = JSON.parse(profileRes.rawData);
-			console.log("user", userInfo)
+		// try {
+		// 	const profileRes = await uni.getUserProfile({
+		// 	  provider: "weixin",
+		// 	  desc: "太友趣小程序隐私保护指引",
+		// 	});
+		// 	console.log("用户信息获取成功:", profileRes);
+		// 	let userInfo = JSON.parse(profileRes.rawData);
+		// 	console.log("user", userInfo)
 			
-			const loginRes = await uni.login({ provider: "weixin" });
-			console.log("登录成功，code:", loginRes.code);
-			code.value = loginRes.code;
-			console.log("code.value", code.value);
+		// 	const loginRes = await uni.login({ provider: "weixin" });
+		// 	console.log("登录成功，code:", loginRes.code);
+		// 	code.value = loginRes.code;
+		// 	console.log("code.value", code.value);
 			
-			post(Interface.login,{
-				code: code.value,
-				nickName: userInfo.nickName,
-				avatarUrl: userInfo.avatarUrl
-			}).then(res=>{
-				console.log('res', res);
-			})
-		}catch(err){
-			console.log("err", err);
-		}	
+		// 	post(Interface.login,{
+		// 		code: code.value,
+		// 		nickName: userInfo.nickName,
+		// 		avatarUrl: userInfo.avatarUrl
+		// 	}).then(res=>{
+		// 		console.log('res', res);
+		// 	})
+		// }catch(err){
+		// 	console.log("err", err);
+		// }
+		checkAuth(()=>{
+			console.log("已登录")
+		})
 	}
 	
 	const gotoUser = () => {
@@ -164,7 +173,22 @@
 		uni.navigateTo({
 			url:"/pages/other/about/index"
 		})
+	};
+	
+	const getPersonalInfo = () => {
+		get(Interface.member.detail, {}).then(res=>{
+			console.log("res", res);
+			let { userName, avatarUrl } = res.data;
+			personalInfo.userName = userName;
+			personalInfo.avatarUrl = avatarUrl;
+		})
 	}
+	
+	onLoad(()=>{
+		checkAuth(()=>{
+			getPersonalInfo();
+		})
+	})
 	
 </script>
 <style>

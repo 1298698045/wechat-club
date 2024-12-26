@@ -268,30 +268,31 @@
 			})
 		}else {
 			let d = {
-				id: id.value
+				id: id.value,
+				category: 1
 			}
-			post(Interface.activity.sign, d).then(res=>{
+			get(Interface.create, d).then(res=>{
 				let timestamp = new Date().getTime();
-				uni.requestPayment({
-					provider: "wxpay",
-					orderInfo: {
-						appid: "wx47ba8ec7242d28ed",
-						noncestr: "",
-						package: "Sign=WXPay",
-						partnerid: "1684621376",
-						prepayid: "",
-						timestamp: timestamp,
-						sign: "A842B45937F6EFF60DEC7A2EAA52D5A0",
-					},
-					success(res) {},
-					fail(e) {
-						uni.showToast({
-							title:'已取消支付',
-							duration:3000,
-							icon:'success'
-						})
-					}
-				})
+				// uni.requestPayment({
+				// 	provider: "wxpay",
+				// 	orderInfo: {
+				// 		appid: "wx47ba8ec7242d28ed",
+				// 		noncestr: "",
+				// 		package: "Sign=WXPay",
+				// 		partnerid: "1684621376",
+				// 		prepayid: "",
+				// 		timestamp: timestamp,
+				// 		sign: "A842B45937F6EFF60DEC7A2EAA52D5A0",
+				// 	},
+				// 	success(res) {},
+				// 	fail(e) {
+				// 		uni.showToast({
+				// 			title:'已取消支付',
+				// 			duration:3000,
+				// 			icon:'success'
+				// 		})
+				// 	}
+				// })
 			})
 		}
 	}
