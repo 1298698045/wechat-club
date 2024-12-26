@@ -42,7 +42,9 @@ const Interface = {
     // 获取报名列表
     getMyStateCode: "/api/travelsLessonSignIn/getMyStateCode"
   },
-  uploadUrl: "http://47.96.15.8:9006"
+  uploadUrl: "http://47.96.15.8:9006",
   // uploadUrl: "http://182.92.73.72:9006",
+  create: "/api/orders/create"
+  // 生成订单
 };
 exports.Interface = Interface;

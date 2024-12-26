@@ -68,6 +68,8 @@
 	import Interface from "@/utils/Interface";
 	import { get, post } from "@/utils/request.js";
 	import { checkAuth } from '@/utils/auth.js';
+	import { useAuthStore } from '@/stores/authStore.js';
+	const authStore = useAuthStore();
 	import { onLoad, onShareAppMessage, onShow } from "@dcloudio/uni-app";
 	const navs = ref([
 		{
@@ -185,9 +187,15 @@
 	}
 	
 	onLoad(()=>{
-		checkAuth(()=>{
+		// checkAuth(()=>{
+		// 	getPersonalInfo();
+		// })
+	});
+	
+	onShow(()=>{
+		if(authStore.isLoggedIn){
 			getPersonalInfo();
-		})
+		}
 	})
 	
 </script>

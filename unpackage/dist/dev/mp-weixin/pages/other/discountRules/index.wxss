@@ -34,3 +34,19 @@
   color: #666;
   background: #f3f3f3;
 }
+.discount-wrap .level.data-v-40c726b6 {
+  color: #666;
+}
+.discount-wrap .red.data-v-40c726b6 {
+  color: red;
+}
+.discount-wrap .level-desc.data-v-40c726b6 {
+  font-size: 28rpx;
+  line-height: 2;
+}
+.discount-wrap .level-desc.disabled.data-v-40c726b6 {
+  color: #666;
+}
+.discount-wrap .number.data-v-40c726b6 {
+  color: #6be8f5;
+}

@@ -7,6 +7,28 @@
 				他都是至少保持V1等级的。
 			</view>
 		</view>
+		<view class="panel-box">
+			<view class="level">
+				V0等级
+			</view>
+			<view class="level-desc disabled">
+				<text class="red">*</text>
+				俱乐部成员的初始等级，无任何优惠权益
+			</view>
+		</view>
+		<view class="panel-box">
+			<view class="level">
+				V1等级
+			</view>
+			<view class="level-desc">
+				<text class="red">*</text>
+				一个自然月内，参加<text class="number">10</text>次活动或单词充值1000元
+			</view>
+			<view class="level-desc">
+				<text class="red">*</text>
+				享受报名折扣<text class="number">9</text>折
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -25,6 +47,22 @@
 				color: #666;
 				background: #f3f3f3;
 			}
+		}
+		.level{
+			color: #666;
+		}
+		.red{
+			color: red;
+		}
+		.level-desc{
+			font-size: 28rpx;
+			line-height: 2;
+			&.disabled{
+				color: #666;
+			}
+		}
+		.number{
+			color: #6be8f5;
 		}
 	}
 </style>

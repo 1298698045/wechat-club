@@ -23,17 +23,30 @@
   "appid": "wx47ba8ec7242d28ed",
   "projectname": "wechat-club",
   "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "current": -1,
+      "list": []
+    },
     "miniprogram": {
+      "current": 0,
       "list": [
         {
           "name": "首页",
-          "pathName": "pages/tabbar/index/index",
-          "query": ""
+          "id": 0,
+          "pathName": "pages/tabbar/index/index"
         },
         {
           "name": "活动详情页",
-          "pathName": "pages/activity/detail/index",
-          "query": ""
+          "id": 1,
+          "pathName": "pages/activity/detail/index"
         }
       ]
     }

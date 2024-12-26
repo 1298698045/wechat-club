@@ -149,31 +149,11 @@ const _sfc_main = {
         });
       } else {
         let d = {
-          id: id.value
+          id: id.value,
+          category: 1
         };
-        utils_request.post(utils_Interface.Interface.activity.sign, d).then((res) => {
-          let timestamp = (/* @__PURE__ */ new Date()).getTime();
-          common_vendor.index.requestPayment({
-            provider: "wxpay",
-            orderInfo: {
-              appid: "wx47ba8ec7242d28ed",
-              noncestr: "",
-              package: "Sign=WXPay",
-              partnerid: "1684621376",
-              prepayid: "",
-              timestamp,
-              sign: "A842B45937F6EFF60DEC7A2EAA52D5A0"
-            },
-            success(res2) {
-            },
-            fail(e) {
-              common_vendor.index.showToast({
-                title: "已取消支付",
-                duration: 3e3,
-                icon: "success"
-              });
-            }
-          });
+        utils_request.get(utils_Interface.Interface.create, d).then((res) => {
+          (/* @__PURE__ */ new Date()).getTime();
         });
       }
     };

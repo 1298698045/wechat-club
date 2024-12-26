@@ -1,12 +1,13 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
-const common_assets = require("../../../common/assets.js");
 const utils_Interface = require("../../../utils/Interface.js");
 const utils_request = require("../../../utils/request.js");
 const utils_auth = require("../../../utils/auth.js");
+const stores_authStore = require("../../../stores/authStore.js");
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    const authStore = stores_authStore.useAuthStore();
     common_vendor.ref([
       {
         icon: "",
@@ -32,11 +33,11 @@ const _sfc_main = {
       }
     ]);
     const count = common_vendor.ref([
-      {
-        num: 5,
-        text: "我的活动",
-        url: "/pages/my/activity/index"
-      },
+      // {
+      // 	num:5,
+      // 	text:'我的活动',
+      // 	url: "/pages/my/activity/index"
+      // },
       {
         num: 7,
         text: "会员等级"
@@ -47,30 +48,15 @@ const _sfc_main = {
       }
     ]);
     const login = common_vendor.ref(false);
-    const code = common_vendor.ref();
+    common_vendor.ref();
+    const personalInfo = common_vendor.reactive({
+      userName: "",
+      avatarUrl: ""
+    });
     const handleLogin = async () => {
-      try {
-        const profileRes = await common_vendor.index.getUserProfile({
-          provider: "weixin",
-          desc: "太友趣小程序隐私保护指引"
-        });
-        console.log("用户信息获取成功:", profileRes);
-        let userInfo = JSON.parse(profileRes.rawData);
-        console.log("user", userInfo);
-        const loginRes = await common_vendor.index.login({ provider: "weixin" });
-        console.log("登录成功，code:", loginRes.code);
-        code.value = loginRes.code;
-        console.log("code.value", code.value);
-        utils_request.post(utils_Interface.Interface.login, {
-          code: code.value,
-          nickName: userInfo.nickName,
-          avatarUrl: userInfo.avatarUrl
-        }).then((res) => {
-          console.log("res", res);
-        });
-      } catch (err) {
-        console.log("err", err);
-      }
+      utils_auth.checkAuth(() => {
+        console.log("已登录");
+      });
     };
     const gotoUser = () => {
       utils_auth.checkAuth(() => {
@@ -95,11 +81,28 @@ const _sfc_main = {
         url: "/pages/other/about/index"
       });
     };
+    const getPersonalInfo = () => {
+      utils_request.get(utils_Interface.Interface.member.detail, {}).then((res) => {
+        console.log("res", res);
+        let { userName, avatarUrl } = res.data;
+        personalInfo.userName = userName;
+        personalInfo.avatarUrl = avatarUrl;
+      });
+    };
+    common_vendor.onLoad(() => {
+    });
+    common_vendor.onShow(() => {
+      if (authStore.isLoggedIn) {
+        getPersonalInfo();
+      }
+    });
     return (_ctx, _cache) => {
       return {
-        a: common_assets._imports_0,
+        a: personalInfo.avatarUrl,
         b: common_vendor.o(handleLogin),
-        c: common_vendor.f(count.value, (c, index, i0) => {
+        c: common_vendor.t(personalInfo.userName || "未登录"),
+        d: common_vendor.o(handleLogin),
+        e: common_vendor.f(count.value, (c, index, i0) => {
           return {
             a: common_vendor.t(c.num),
             b: common_vendor.t(c.text),
@@ -107,13 +110,14 @@ const _sfc_main = {
             d: common_vendor.o(($event) => handleItemGoto(c), index)
           };
         }),
-        d: !login.value ? "logo-hover" : "",
-        e: common_vendor.o(gotoOrder),
-        f: common_vendor.o(gotoUser),
-        g: common_vendor.o(gotoAbout)
+        f: !login.value ? "logo-hover" : "",
+        g: common_vendor.o(gotoOrder),
+        h: common_vendor.o(gotoUser),
+        i: common_vendor.o(gotoAbout)
       };
     };
   }
 };
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-25e2cca3"]]);
+_sfc_main.__runtimeHooks = 2;
 wx.createPage(MiniProgramPage);
