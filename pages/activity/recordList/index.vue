@@ -103,7 +103,7 @@
 	const weeks = ['周日','周一','周二','周三','周四','周五','周六'];
 	const data = reactive({
 		searchVal: "",
-		listData: [1,2,3,4,5,6,7,8],
+		listData: [],
 		tabs: [
 			{
 				code: -1,

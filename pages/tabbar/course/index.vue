@@ -184,7 +184,7 @@
 		}
 		.center{
 			position: relative;
-			padding: 0 32rpx;
+			padding: 0 20rpx;
 		}
 	}
 	.course-list{

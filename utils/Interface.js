@@ -39,5 +39,7 @@ const Interface = {
 	uploadUrl: "http://47.96.15.8:9006",
 	// uploadUrl: "http://182.92.73.72:9006",
 	create: "/api/orders/create", // 生成订单
+	sign: "/api/common/signIn", // 扫码签到
+	memberlevels: "/api/memberlevels/GetPageList", // 会员等级操作
 };
 export default Interface;

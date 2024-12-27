@@ -30,6 +30,13 @@
 			</view>
 		</view> -->
 		<view class="center-list">
+			<view class="center-list-item border-bottom" @click="handleScanCode">
+				<!-- <text class="list-icon color-1"></text> -->
+				<view class="list-icon">
+					<uni-icons type="scan" size="23" color="#007aff"></uni-icons>
+				</view>
+				<text class="list-text">扫码签到</text>
+			</view>
 			<view class="center-list-item border-bottom" @click="gotoOrder">
 				<text class="list-icon color-1">&#xe737;</text>
 				<text class="list-text">我的订单</text>
@@ -105,7 +112,7 @@
 			text:'会员等级'
 		},
 		{
-			num:100,
+			num: 0,
 			text:'我的积分'
 		}
 	]);
@@ -114,7 +121,8 @@
 	
 	const personalInfo = reactive({
 		userName: "",
-		avatarUrl: ""
+		avatarUrl: "",
+		totalPoints: 0
 	})
 	
 	const handleLogin = async () => {
@@ -180,9 +188,11 @@
 	const getPersonalInfo = () => {
 		get(Interface.member.detail, {}).then(res=>{
 			console.log("res", res);
-			let { userName, avatarUrl } = res.data;
+			let { userName, avatarUrl, totalPoints } = res.data;
 			personalInfo.userName = userName;
 			personalInfo.avatarUrl = avatarUrl;
+			personalInfo.totalPoints = totalPoints;
+			count.value[1].num = totalPoints;
 		})
 	}
 	
@@ -197,6 +207,35 @@
 			getPersonalInfo();
 		}
 	})
+	
+	const handleSign = (category, id) => {
+		get(Interface.sign, {
+			category: category,
+			id: id
+		}).then(res=>{
+			uni.showToast({
+				title: res.msg,
+				icon: "success"
+			})
+		})
+	}
+	
+	const handleScanCode = () => {
+		checkAuth(()=>{
+			uni.scanCode({
+				// onlyFromCamera: true,
+				success (res) {
+					console.log(res);
+					let result = JSON.parse(res.result);
+					console.log("result", result);
+					let { category, id } = result;
+					handleSign(category, id);
+				}
+			})
+		})
+	};
+	
+	
 	
 </script>
 <style>
@@ -324,7 +363,7 @@
 			box-sizing: border-box;
 			flex-direction: row;
 			padding: 0rpx 20rpx;
-			
+			display: flex;
 			.list-icon {
 				width: 40rpx;
 				height: $list-item-height;

@@ -95,16 +95,16 @@
 }
 .wrap .center.data-v-cc77bab7 {
   position: relative;
-  padding: 0 32rpx;
+  padding: 0 20rpx;
   margin-top: 30rpx;
 }
 .wrap .center .tourism.data-v-cc77bab7 {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .wrap .center .tourism .tourism-item.data-v-cc77bab7 {
-  width: calc(50% - 16rpx);
-  margin-right: 32rpx;
+  width: calc(50% - 10rpx);
   background: #fff;
   margin-bottom: 32rpx;
   border-radius: 16rpx;
@@ -159,7 +159,4 @@
   font-size: 32rpx;
   color: #d83f36;
   font-weight: bold;
-}
-.wrap .center .tourism .tourism-item.data-v-cc77bab7:nth-child(2n) {
-  margin-right: 0;
 }

@@ -4,6 +4,14 @@ const utils_Interface = require("../../../utils/Interface.js");
 const utils_request = require("../../../utils/request.js");
 const utils_auth = require("../../../utils/auth.js");
 const stores_authStore = require("../../../stores/authStore.js");
+if (!Array) {
+  const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
+  _easycom_uni_icons2();
+}
+const _easycom_uni_icons = () => "../../../uni_modules/uni-icons/components/uni-icons/uni-icons.js";
+if (!Math) {
+  _easycom_uni_icons();
+}
 const _sfc_main = {
   __name: "index",
   setup(__props) {
@@ -43,7 +51,7 @@ const _sfc_main = {
         text: "会员等级"
       },
       {
-        num: 100,
+        num: 0,
         text: "我的积分"
       }
     ]);
@@ -51,7 +59,8 @@ const _sfc_main = {
     common_vendor.ref();
     const personalInfo = common_vendor.reactive({
       userName: "",
-      avatarUrl: ""
+      avatarUrl: "",
+      totalPoints: 0
     });
     const handleLogin = async () => {
       utils_auth.checkAuth(() => {
@@ -84,9 +93,11 @@ const _sfc_main = {
     const getPersonalInfo = () => {
       utils_request.get(utils_Interface.Interface.member.detail, {}).then((res) => {
         console.log("res", res);
-        let { userName, avatarUrl } = res.data;
+        let { userName, avatarUrl, totalPoints } = res.data;
         personalInfo.userName = userName;
         personalInfo.avatarUrl = avatarUrl;
+        personalInfo.totalPoints = totalPoints;
+        count.value[1].num = totalPoints;
       });
     };
     common_vendor.onLoad(() => {
@@ -96,6 +107,31 @@ const _sfc_main = {
         getPersonalInfo();
       }
     });
+    const handleSign = (category, id) => {
+      utils_request.get(utils_Interface.Interface.sign, {
+        category,
+        id
+      }).then((res) => {
+        common_vendor.index.showToast({
+          title: res.msg,
+          icon: "success"
+        });
+      });
+    };
+    const handleScanCode = () => {
+      utils_auth.checkAuth(() => {
+        common_vendor.index.scanCode({
+          // onlyFromCamera: true,
+          success(res) {
+            console.log(res);
+            let result = JSON.parse(res.result);
+            console.log("result", result);
+            let { category, id } = result;
+            handleSign(category, id);
+          }
+        });
+      });
+    };
     return (_ctx, _cache) => {
       return {
         a: personalInfo.avatarUrl,
@@ -111,9 +147,15 @@ const _sfc_main = {
           };
         }),
         f: !login.value ? "logo-hover" : "",
-        g: common_vendor.o(gotoOrder),
-        h: common_vendor.o(gotoUser),
-        i: common_vendor.o(gotoAbout)
+        g: common_vendor.p({
+          type: "scan",
+          size: "23",
+          color: "#007aff"
+        }),
+        h: common_vendor.o(handleScanCode),
+        i: common_vendor.o(gotoOrder),
+        j: common_vendor.o(gotoUser),
+        k: common_vendor.o(gotoAbout)
       };
     };
   }

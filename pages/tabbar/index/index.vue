@@ -176,7 +176,7 @@
 			data.memberNumber = res.total;
 		})
 	};
-	getMemberList();
+	// getMemberList();
 	
 	// 获取推荐活动
 	const getRecommends = () => {
@@ -199,7 +199,7 @@
 			});
 		})
 	}
-	getRecommends();
+	// getRecommends();
 	
 	const handleTab = (e) => {
 		data.currentTab = e.id;
@@ -243,6 +243,8 @@
 		if(commonRef && commonRef.value){
 			commonRef.value.getQuery();
 		}
+		getMemberList();
+		getRecommends();
 	})
 	
 	

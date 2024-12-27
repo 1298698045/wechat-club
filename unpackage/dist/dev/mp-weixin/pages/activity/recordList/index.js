@@ -19,7 +19,7 @@ const _sfc_main = {
     const weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
     const data = common_vendor.reactive({
       searchVal: "",
-      listData: [1, 2, 3, 4, 5, 6, 7, 8],
+      listData: [],
       tabs: [
         {
           code: -1,

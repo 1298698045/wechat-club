@@ -185,14 +185,15 @@
 		}
 		.center{
 			position: relative;
-			padding: 0 32rpx;
+			padding: 0 20rpx;
 			margin-top: 30rpx;
 			.tourism{
 				display: flex;
 				flex-wrap: wrap;
+				justify-content: space-between;
 				.tourism-item{
-					width: calc(50% - 16rpx);
-					margin-right: 32rpx;
+					width: calc(50% - 10rpx);
+					// margin-right: 32rpx;
 					background: #fff;
 					margin-bottom: 32rpx;
 					border-radius: 16rpx;
@@ -248,9 +249,9 @@
 						}
 					}
 				}
-				.tourism-item:nth-child(2n){
-					margin-right: 0;
-				}
+				// .tourism-item:nth-child(2n){
+				// 	margin-right: 0;
+				// }
 			}
 		}
 	}

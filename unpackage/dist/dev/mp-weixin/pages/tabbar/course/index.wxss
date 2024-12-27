@@ -95,7 +95,7 @@
 }
 .wrap .center.data-v-cefcc65d {
   position: relative;
-  padding: 0 32rpx;
+  padding: 0 20rpx;
 }
 .course-list .course-item.data-v-cefcc65d {
   margin-top: 24rpx;

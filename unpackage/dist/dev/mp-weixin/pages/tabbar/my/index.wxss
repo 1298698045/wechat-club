@@ -126,6 +126,7 @@
   box-sizing: border-box;
   flex-direction: row;
   padding: 0rpx 20rpx;
+  display: flex;
 }
 .center-list .center-list-item .list-icon.data-v-25e2cca3 {
   width: 40rpx;

@@ -98,7 +98,6 @@ const _sfc_main = {
         data.memberNumber = res.total;
       });
     };
-    getMemberList();
     const getRecommends = () => {
       utils_request.get(utils_Interface.Interface.activity.recommend, {}).then((res) => {
         data.activityTotal = res.total;
@@ -119,7 +118,6 @@ const _sfc_main = {
         });
       });
     };
-    getRecommends();
     const handleTab = (e) => {
       data.currentTab = e.id;
       common_vendor.index.showLoading({
@@ -157,6 +155,8 @@ const _sfc_main = {
       if (commonRef && commonRef.value) {
         commonRef.value.getQuery();
       }
+      getMemberList();
+      getRecommends();
     });
     common_vendor.onPageScroll((e) => {
       if (e.scrollTop >= 100) {
