@@ -22,8 +22,8 @@ const Interface = {
 	course: {
 		list: "/api/courses/getCourses",
 		detail: "/api/courses/getById",
-		signPeoples: "/api/courseSignUpDetail/getMyStateCode", // 获取报名列表
-		getMyStateCode: "/api/activitieLessonSignIn/getMyStateCode",
+		signPeoples: "/api/courseSignUpDetail/getListByCourseId", // 获取报名列表
+		getMyStateCode: "/api/courseSignUpDetail/getMyStateCode",
 	},
 	comment: {
 		upload: "/api/comment/upload",

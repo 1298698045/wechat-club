@@ -80,22 +80,21 @@
 				<view class="desc-wrap">
 					<view class="label">活动描述</view>
 					<view class="desc-body">
-						<rich-text>
-							{{ detail.description }}
+						<rich-text v-html="detail.description">
 						</rich-text>
 					</view>
 				</view>
 			</view>
 		</view>
-		<view class="footer" v-if="!isToken() || (isCancel && stateCode==0)">
-			<view class="footer-content" v-if="!isToken()">
+		<view class="footer" v-if="(!isToken() || stateCode==0) || (isCancel && stateCode==1)">
+			<view class="footer-content" v-if="!isToken() || stateCode==0">
 				<view class="footer-tips">
 					Tips: {{moment(detail.cancelTime).format("YYYY-MM-DD hh:mm")}} 前可取消报名
 				</view>
 				<button class="btn" hover-class="btnHover" @click="handleSignup">课程报名</button>
 			</view>
-			<view class="footer-content" style="padding-top: 20rpx;" v-else-if="stateCode==1">
-				<button class="btn" hover-class="btnHover" @click="handleSignup">取消报名</button>
+			<view class="footer-content" style="padding-top: 20rpx;" v-else-if="isCancel && stateCode==1">
+				<button class="btn" hover-class="btnHover" @click="cancelSignup">取消报名</button>
 			</view>
 		</view>
 	</view>
@@ -103,11 +102,14 @@
 
 <script setup>
 	import { computed, reactive, ref, toRef, toRefs } from "vue";
-	import { onLoad, onShareAppMessage } from "@dcloudio/uni-app";
+	import { onLoad, onShareAppMessage, onShow } from "@dcloudio/uni-app";
 	import Interface from "@/utils/Interface";
-	import { get } from "@/utils/request.js";
+	import { get, post } from "@/utils/request.js";
+	import { useAuthStore } from '@/stores/authStore.js';
+	const authStore = useAuthStore();
 	import moment from "moment";
 	const id = ref('');
+	
 	
 	const weeks = ['周日','周一','周二','周三','周四','周五','周六']
 	
@@ -116,18 +118,14 @@
 		detail: {},
 		currentImg: "",
 		peopleList: [],
-		isBefore: false,
-		stateCode: 0
+		isCancel: false,
+		stateCode: 0,
+		isEnd: false,
+		isBook: false,
+		category: 2
 	});
 	
-	const { isExpand, detail, currentImg, peopleList, isBefore, stateCode } = toRefs(data);
-	
-	const isCancel = computed(()=>{
-		const now = moment(data.detail.endTime);
-		const isBefore = moment.isBefore(now);
-		console.log("isBefore:", isBefore);
-		return isBefore;
-	})
+	const { isExpand, detail, currentImg, peopleList, isCancel, stateCode, isEnd, isBook, category } = toRefs(data);
 	
 	const weekName = (date) => {
 		const day = moment(date).day();
@@ -147,11 +145,23 @@
 	}
 	
 	
+	
 	onLoad((options)=>{
 		console.log("options", options);
 		id.value = options.id;
+		if(options.invitee){
+			let invitee = options.invitee;
+			authStore.setInvitee(invitee);
+		}
 		getDetail();
 		getSignUpPeoples();
+		// if(isToken()){
+		// 	getStatus();
+		// }
+	});
+	
+	
+	onShow(()=>{
 		if(isToken()){
 			getStatus();
 		}
@@ -174,9 +184,14 @@
 				}
 			}
 			data.currentImg = currentImg;
+			
 			const then = moment(data.detail.cancelTime);
 			const isBefore = moment().isBefore(then);
+			console.log("isBefore", isBefore);
 			data.isCancel = isBefore;
+			
+			data.isEnd = moment().isAfter(data.detail.endTime);
+			console.log("isEnd", data.isEnd);
 		})
 	}
 	
@@ -197,34 +212,9 @@
 	}
 	
 	const handleLocation = () => {
-	  console.log("获取位置信息");
-	//   uni.getLocation({
-	//     type: 'gcj02', // 使用GCJ-02坐标系，适配腾讯地图和微信内置地图
-	//     success: function (res) {
-	//       console.log("定位成功", res);
-	//       const { latitude, longitude } = res;
-	
-	//       // 打开地图并显示当前位置
-	//       uni.openLocation({
-	//         latitude,
-	//         longitude,
-	//         scale: 18, // 缩放级别，范围为5-18，默认值为18
-	//         name: "当前位置", // 地点名称，可选
-	//         address: "你所在的位置", // 地址描述，可选
-	//         success: function () {
-	//           console.log('打开地图成功');
-	//         },
-	//         fail: function (err) {
-	//           console.error('打开地图失败', err);
-	//         }
-	//       });
-	//     },
-	//     fail: function (err) {
-	//       console.error("定位失败", err);
-	//     }
-	//   });
-		let latitude = 39.904599;
-		let longitude = 116.407001;
+	    // console.log("获取位置信息");
+		let latitude = data.detail.latitude || 39.904599;
+		let longitude = data.detail.longitude || 116.407001;
 		uni.openLocation({
 		  latitude,
 		  longitude,
@@ -232,10 +222,10 @@
 		  name: "当前位置", // 地点名称，可选
 		  address: data.detail.address, // 地址描述，可选
 		  success: function () {
-			console.log('打开地图成功');
+		    console.log('打开地图成功');
 		  },
 		  fail: function (err) {
-			console.error('打开地图失败', err);
+		    console.error('打开地图失败', err);
 		  }
 		});
 	};
@@ -245,13 +235,13 @@
 		const promise = new Promise(resolve => {
 		  setTimeout(() => {
 		    resolve({
-		      title: '自定义转发标题123'
+		      title: '自定义转发标题'
 		    })
 		  }, 2000)
 		})
 		return {
-		  title: '自定义转发标题123',
-		  path: '/pages/activity/detail/index?id=123',
+		  title: '自定义转发标题',
+		  path: '/pages/activity/detail/index?id='+data.id+'&invitee=' +authStore.invitationCode,
 		  promise 
 		}
 	});
@@ -261,12 +251,17 @@
 		return token ? true : false;
 	};
 	
+	
+	
+	
 	const handleSignup = () => {
-		if(!isToken()){			
+		if (data.isBook) return;
+		data.isBook = true;
+		if(!isToken()){
 			uni.showModal({
-				title: "提示",
-				content:"请先完善用户信息",
-				showCancel:false,
+				title:  "提示",
+				content: "请先完善用户信息",
+				showCancel: false,
 				success(res) {
 					if(res.confirm == true){
 						uni.navigateTo({
@@ -275,7 +270,68 @@
 					}
 				}
 			})
+		}else {
+			uni.showLoading({
+				mask: true,
+				title: "报名中～"
+			})
+			let d = {
+				id: id.value,
+				category: data.category
+			}
+			get(Interface.create, d).then(res=>{
+				console.log("res", res);
+				let orderInfo = res.data;
+				const { appId, nonceStr, paySign, signType, timeStamp } = res.data;
+				// let timestamp = new Date().getTime();
+				uni.hideLoading();
+				uni.requestPayment({
+					provider:'wxpay',
+					appid: appId,
+					timeStamp: String(timeStamp),
+					nonceStr: nonceStr,
+					package: orderInfo.package,
+					signType: signType,
+					paySign: paySign,
+					success(res) {
+						data.isBook = false;
+						uni.showToast({
+							title:'报名成功！',
+							duration:3000,
+							icon:'success'
+						});
+						getDetail();
+						getStatus();
+					},
+					fail(err) {
+						console.log("err", err);
+						data.isBook = false;
+						uni.showToast({
+							title:'已取消支付',
+							duration:3000,
+							icon:'success'
+						});
+					}
+				})
+			})
 		}
+	}
+	
+	const cancelSignup = () => {
+		get(Interface.revoke, {
+			category: data.category,
+			id: id.value
+		}).then(res=>{
+			uni.showToast({
+				title: res.message,
+				duration:3000,
+				icon:'success'
+			});
+			if(res.status == 200){
+				getDetail();
+				getStatus();
+			}
+		})
 	}
 	
 </script>
