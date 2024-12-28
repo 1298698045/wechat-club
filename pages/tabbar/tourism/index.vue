@@ -27,7 +27,7 @@
 						<view class="price">
 							<view class="text icon">¥</view>
 							<view class="text number">{{item.price}}</view>
-							<view class="text">起</view>
+							<!-- <view class="text">起</view> -->
 						</view>
 					</view>
 				</view>
