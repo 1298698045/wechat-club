@@ -94,7 +94,7 @@
 				<button class="btn" hover-class="btnHover" @click="handleSignup">活动报名</button>
 			</view>
 			<view class="footer-content" style="padding-top: 20rpx;" v-else-if="isCancel && stateCode==1">
-				<button class="btn" hover-class="btnHover" @click="handleSignup">取消报名</button>
+				<button class="btn" hover-class="btnHover" @click="cancelSignup">取消报名</button>
 			</view>
 		</view>
 	</view>
@@ -120,10 +120,12 @@
 		peopleList: [],
 		isCancel: false,
 		stateCode: 0,
-		isEnd: false
+		isEnd: false,
+		isBook: false,
+		category: 1
 	});
 	
-	const { isExpand, detail, currentImg, peopleList, isCancel, stateCode, isEnd } = toRefs(data);
+	const { isExpand, detail, currentImg, peopleList, isCancel, stateCode, isEnd, isBook, category } = toRefs(data);
 	
 	const weekName = (date) => {
 		const day = moment(date).day();
@@ -253,11 +255,13 @@
 	
 	
 	const handleSignup = () => {
+		if (data.isBook) return;
+		data.isBook = true;
 		if(!isToken()){
 			uni.showModal({
-				title: "提示",
-				content:"请先完善用户信息",
-				showCancel:false,
+				title:  "提示",
+				content: "请先完善用户信息",
+				showCancel: false,
 				success(res) {
 					if(res.confirm == true){
 						uni.navigateTo({
@@ -267,34 +271,67 @@
 				}
 			})
 		}else {
+			uni.showLoading({
+				mask: true,
+				title: "报名中～"
+			})
 			let d = {
 				id: id.value,
 				category: 1
 			}
 			get(Interface.create, d).then(res=>{
-				let timestamp = new Date().getTime();
-				// uni.requestPayment({
-				// 	provider: "wxpay",
-				// 	orderInfo: {
-				// 		appid: "wx47ba8ec7242d28ed",
-				// 		noncestr: "",
-				// 		package: "Sign=WXPay",
-				// 		partnerid: "1684621376",
-				// 		prepayid: "",
-				// 		timestamp: timestamp,
-				// 		sign: "A842B45937F6EFF60DEC7A2EAA52D5A0",
-				// 	},
-				// 	success(res) {},
-				// 	fail(e) {
-				// 		uni.showToast({
-				// 			title:'已取消支付',
-				// 			duration:3000,
-				// 			icon:'success'
-				// 		})
-				// 	}
-				// })
+				console.log("res", res);
+				let orderInfo = res.data;
+				const { appId, nonceStr, paySign, signType, timeStamp } = res.data;
+				// let timestamp = new Date().getTime();
+				uni.hideLoading();
+				uni.requestPayment({
+					provider:'wxpay',
+					appid: appId,
+					timeStamp: String(timeStamp),
+					nonceStr: nonceStr,
+					package: orderInfo.package,
+					signType: signType,
+					paySign: paySign,
+					success(res) {
+						data.isBook = false;
+						uni.showToast({
+							title:'报名成功！',
+							duration:3000,
+							icon:'success'
+						});
+						getDetail();
+						getStatus();
+					},
+					fail(err) {
+						console.log("err", err);
+						data.isBook = false;
+						uni.showToast({
+							title:'已取消支付',
+							duration:3000,
+							icon:'success'
+						});
+					}
+				})
 			})
 		}
+	}
+	
+	const cancelSignup = () => {
+		get(Interface.revoke, {
+			category: data.category,
+			id: id.value
+		}).then(res=>{
+			uni.showToast({
+				title: res.message,
+				duration:3000,
+				icon:'success'
+			});
+			if(res.status == 200){
+				getDetail();
+				getStatus();
+			}
+		})
 	}
 	
 </script>

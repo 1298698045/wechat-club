@@ -31,7 +31,6 @@
 		</view> -->
 		<view class="center-list">
 			<view class="center-list-item border-bottom" @click="handleScanCode">
-				<!-- <text class="list-icon color-1"></text> -->
 				<view class="list-icon">
 					<uni-icons type="scan" size="23" color="#007aff"></uni-icons>
 				</view>
@@ -108,7 +107,7 @@
 		// 	url: "/pages/my/activity/index"
 		// },
 		{
-			num:7,
+			num: "普通用户",
 			text:'会员等级'
 		},
 		{
@@ -188,10 +187,11 @@
 	const getPersonalInfo = () => {
 		get(Interface.member.detail, {}).then(res=>{
 			console.log("res", res);
-			let { userName, avatarUrl, totalPoints } = res.data;
+			let { userName, avatarUrl, levelName, totalPoints } = res.data;
 			personalInfo.userName = userName;
 			personalInfo.avatarUrl = avatarUrl;
 			personalInfo.totalPoints = totalPoints;
+			count.value[0].num = levelName;
 			count.value[1].num = totalPoints;
 		})
 	}

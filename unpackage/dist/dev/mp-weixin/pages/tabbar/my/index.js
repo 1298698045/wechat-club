@@ -47,7 +47,7 @@ const _sfc_main = {
       // 	url: "/pages/my/activity/index"
       // },
       {
-        num: 7,
+        num: "普通用户",
         text: "会员等级"
       },
       {
@@ -93,10 +93,11 @@ const _sfc_main = {
     const getPersonalInfo = () => {
       utils_request.get(utils_Interface.Interface.member.detail, {}).then((res) => {
         console.log("res", res);
-        let { userName, avatarUrl, totalPoints } = res.data;
+        let { userName, avatarUrl, levelName, totalPoints } = res.data;
         personalInfo.userName = userName;
         personalInfo.avatarUrl = avatarUrl;
         personalInfo.totalPoints = totalPoints;
+        count.value[0].num = levelName;
         count.value[1].num = totalPoints;
       });
     };

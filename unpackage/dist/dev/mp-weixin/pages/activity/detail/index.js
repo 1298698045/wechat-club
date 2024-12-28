@@ -24,9 +24,11 @@ const _sfc_main = {
       peopleList: [],
       isCancel: false,
       stateCode: 0,
-      isEnd: false
+      isEnd: false,
+      isBook: false,
+      category: 1
     });
-    const { isExpand, detail, currentImg, peopleList, isCancel, stateCode, isEnd } = common_vendor.toRefs(data);
+    const { isExpand, detail, currentImg, peopleList, isCancel, stateCode, isEnd, isBook, category } = common_vendor.toRefs(data);
     const weekName = (date) => {
       const day = common_vendor.hooks(date).day();
       return weeks[day];
@@ -134,6 +136,9 @@ const _sfc_main = {
       return token ? true : false;
     };
     const handleSignup = () => {
+      if (data.isBook)
+        return;
+      data.isBook = true;
       if (!isToken()) {
         common_vendor.index.showModal({
           title: "提示",
@@ -148,14 +153,65 @@ const _sfc_main = {
           }
         });
       } else {
+        common_vendor.index.showLoading({
+          mask: true,
+          title: "报名中～"
+        });
         let d = {
           id: id.value,
           category: 1
         };
         utils_request.get(utils_Interface.Interface.create, d).then((res) => {
-          (/* @__PURE__ */ new Date()).getTime();
+          console.log("res", res);
+          let orderInfo = res.data;
+          const { appId, nonceStr, paySign, signType, timeStamp } = res.data;
+          common_vendor.index.hideLoading();
+          common_vendor.index.requestPayment({
+            provider: "wxpay",
+            appid: appId,
+            timeStamp: String(timeStamp),
+            nonceStr,
+            package: orderInfo.package,
+            signType,
+            paySign,
+            success(res2) {
+              data.isBook = false;
+              common_vendor.index.showToast({
+                title: "报名成功！",
+                duration: 3e3,
+                icon: "success"
+              });
+              getDetail();
+              getStatus();
+            },
+            fail(err) {
+              console.log("err", err);
+              data.isBook = false;
+              common_vendor.index.showToast({
+                title: "已取消支付",
+                duration: 3e3,
+                icon: "success"
+              });
+            }
+          });
         });
       }
+    };
+    const cancelSignup = () => {
+      utils_request.get(utils_Interface.Interface.revoke, {
+        category: data.category,
+        id: id.value
+      }).then((res) => {
+        common_vendor.index.showToast({
+          title: res.message,
+          duration: 3e3,
+          icon: "success"
+        });
+        if (res.status == 200) {
+          getDetail();
+          getStatus();
+        }
+      });
     };
     return (_ctx, _cache) => {
       return common_vendor.e({
@@ -223,7 +279,7 @@ const _sfc_main = {
         B: common_vendor.t(common_vendor.unref(common_vendor.hooks)(common_vendor.unref(detail).cancelTime).format("YYYY-MM-DD hh:mm")),
         C: common_vendor.o(handleSignup)
       } : common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 1 ? {
-        E: common_vendor.o(handleSignup)
+        E: common_vendor.o(cancelSignup)
       } : {}, {
         D: common_vendor.unref(isCancel) && common_vendor.unref(stateCode) == 1
       }) : {});

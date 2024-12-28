@@ -48,7 +48,9 @@ const Interface = {
   // 生成订单
   sign: "/api/common/signIn",
   // 扫码签到
-  memberlevels: "/api/memberlevels/GetPageList"
+  memberlevels: "/api/memberlevels/GetPageList",
   // 会员等级操作
+  revoke: "/api/orders/revoke"
+  // 取消报名
 };
 exports.Interface = Interface;
