@@ -196,7 +196,6 @@
 }
 .detailWrap .detail-content .detail-container .desc-wrap.data-v-f6bfdfd4 {
   margin-top: -10rpx;
-  min-height: 1000rpx;
   background: #fff;
   padding: 20rpx;
   border-radius: 10rpx;

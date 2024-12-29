@@ -35,9 +35,9 @@
 								 {{moment(detail.startTime).format('hh:mm')}}-{{moment(detail.endTime).format('hh:mm')}}
 							</view>
 						</view>
-						<view class="row">
+					<!-- 	<view class="row">
 							<view class="label">级别</view>
-						</view>
+						</view> -->
 					</view>
 				</view>
 			</view>
@@ -511,7 +511,7 @@
 				}
 				.desc-wrap{
 					margin-top: -10rpx;
-					min-height: 1000rpx;
+					// min-height: 1000rpx;
 					background: #fff;
 					padding: 20rpx;
 					border-radius: 10rpx;
