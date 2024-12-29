@@ -23,7 +23,7 @@ const _sfc_main = {
     const authStore = stores_authStore.useAuthStore();
     const formData = common_vendor.reactive({
       name: "",
-      sex: 1
+      sex: 0
     });
     const range = common_vendor.ref([
       { value: 0, text: "女" },
@@ -33,9 +33,10 @@ const _sfc_main = {
     };
     const code = common_vendor.ref();
     const handleSave = async () => {
+      console.log("invitee:", authStore.invitee);
       try {
         common_vendor.index.showLoading({
-          mask: true,
+          mask: false,
           title: "保存中～"
         });
         const profileRes = await common_vendor.index.getUserProfile({
@@ -48,9 +49,10 @@ const _sfc_main = {
         const loginRes = await common_vendor.index.login({ provider: "weixin" });
         console.log("登录成功，code:", loginRes.code);
         code.value = loginRes.code;
-        console.log("code.value", code.value);
+        console.log("invitee:", authStore.invitee);
         utils_request.post(utils_Interface.Interface.login, {
           code: code.value,
+          userName: formData.name,
           nickName: userInfo.nickName,
           avatarUrl: userInfo.avatarUrl,
           invitee: authStore.invitee

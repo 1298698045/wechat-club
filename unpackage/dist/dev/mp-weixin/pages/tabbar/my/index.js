@@ -137,7 +137,7 @@ const _sfc_main = {
       return {
         a: personalInfo.avatarUrl,
         b: common_vendor.o(handleLogin),
-        c: common_vendor.t(personalInfo.userName || "未登录"),
+        c: common_vendor.t(personalInfo.userName || "未设置昵称"),
         d: common_vendor.o(handleLogin),
         e: common_vendor.f(count.value, (c, index, i0) => {
           return {

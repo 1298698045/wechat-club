@@ -231,19 +231,20 @@
 	};
 	
 	
-	onShareAppMessage(()=>{
-		const promise = new Promise(resolve => {
-		  setTimeout(() => {
-		    resolve({
-		      title: '自定义转发标题'
-		    })
-		  }, 2000)
-		})
-		return {
-		  title: '自定义转发标题',
-		  path: '/pages/activity/detail/index?id='+data.id+'&invitee=' +authStore.invitationCode,
-		  promise 
-		}
+	onShareAppMessage(() => {
+	    console.log("authStore.invitationCode:", authStore.invitationCode);
+
+	    return new Promise((resolve) => {
+	        setTimeout(() => {
+	            const path = `/pages/activity/detail/index?id=${id.value}&invitee=${authStore.invitationCode}`;
+	            console.log("Generated Path:", path);
+	
+	            resolve({
+	                title: data.detail.name || '默认标题',
+	                path: path,
+	            });
+	        }, 200);
+	    });
 	});
 	
 	const isToken = () => {

@@ -7,7 +7,7 @@
 					<image class="logo-img" :src="personalInfo.avatarUrl"></image>
 				</button>
 				<view class="logo-title">
-					<text class="uer-name" @tap="handleLogin">{{personalInfo.userName || '未登录'}}</text>
+					<text class="uer-name" @tap="handleLogin">{{personalInfo.userName || '未设置昵称'}}</text>
 				</view>
 				<view class="count">
 					<view class="count-item" v-for="(c,index) in count" :key="index" @click="handleItemGoto(c, index)">

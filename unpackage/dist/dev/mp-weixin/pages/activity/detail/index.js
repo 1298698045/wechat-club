@@ -118,18 +118,17 @@ const _sfc_main = {
       });
     };
     common_vendor.onShareAppMessage(() => {
-      const promise = new Promise((resolve) => {
+      console.log("authStore.invitationCode:", authStore.invitationCode);
+      return new Promise((resolve) => {
         setTimeout(() => {
+          const path = `/pages/activity/detail/index?id=${id.value}&invitee=${authStore.invitationCode}`;
+          console.log("Generated Path:", path);
           resolve({
-            title: "自定义转发标题"
+            title: data.detail.name || "默认标题",
+            path
           });
-        }, 2e3);
+        }, 200);
       });
-      return {
-        title: "自定义转发标题",
-        path: "/pages/activity/detail/index?id=" + data.id + "&invitee=" + authStore.invitationCode,
-        promise
-      };
     });
     const isToken = () => {
       let token = common_vendor.index.getStorageSync("token");

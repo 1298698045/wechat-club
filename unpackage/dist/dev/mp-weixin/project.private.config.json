@@ -12,7 +12,7 @@
         {
           "name": "活动详情页",
           "pathName": "pages/activity/detail/index",
-          "query": "id=c017caac-af89-4dad-bfef-e6f7bccce86e&invitee=8888888",
+          "query": "id=c017caac-af89-4dad-bfef-e6f7bccce86e&invitee=tyq0000001",
           "launchMode": "default",
           "scene": null
         },

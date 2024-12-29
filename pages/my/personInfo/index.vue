@@ -31,7 +31,7 @@
 	const authStore = useAuthStore();
 	const formData = reactive({
 		name: "",
-		sex: 1
+		sex: 0
 	});
 	const range = ref([
 		{ value: 0, text: "女" },
@@ -43,9 +43,10 @@
 	};
 	const code = ref();
 	const handleSave = async () => {
+		console.log("invitee:", authStore.invitee);
 		try{
 			uni.showLoading({
-				mask: true,
+				mask: false,
 				title: "保存中～"
 			})
 			const profileRes = await uni.getUserProfile({
@@ -58,9 +59,11 @@
 			const loginRes = await uni.login({ provider: "weixin" });
 			console.log("登录成功，code:", loginRes.code);
 			code.value = loginRes.code;
-			console.log("code.value", code.value);
+			// console.log("code.value", code.value);
+			console.log("invitee:", authStore.invitee);
 			post(Interface.login,{
 				code: code.value,
+				userName: formData.name,
 				nickName: userInfo.nickName,
 				avatarUrl: userInfo.avatarUrl,
 				invitee: authStore.invitee
