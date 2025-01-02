@@ -34,7 +34,7 @@
 								 {{moment(item.orderDate).format('hh:mm')}}-{{moment(item.orderDate).format('hh:mm')}}
 							</view>
 							<view class="text payStatus">
-								已付款
+								{{orderText(item.orderType)}}
 							</view>
 						</view>
 					</view>
@@ -85,6 +85,10 @@
 	
 	const { searchVal, listData, pageNumber, pageSize, isPage, tabList, orderType } = toRefs(data);
 	
+	
+	const orderText = (type) => {
+		return type == 0 ? '未支付' : type == 1 ? '已支付' : type == 2 ? '退款中' : type == 3 ? '已退款' : type == 4 ? '支付失败' : type == 5 ? '退款失败' : '';
+	}
 	
 	const weekName = (date) => {
 		const day = moment(date).day();

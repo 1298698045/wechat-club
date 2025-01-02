@@ -42,6 +42,9 @@ const _sfc_main = {
       orderType: 1
     });
     const { searchVal, listData, pageNumber, pageSize, isPage, tabList, orderType } = common_vendor.toRefs(data);
+    const orderText = (type) => {
+      return type == 0 ? "未支付" : type == 1 ? "已支付" : type == 2 ? "退款中" : type == 3 ? "已退款" : type == 4 ? "支付失败" : type == 5 ? "退款失败" : "";
+    };
     const weekName = (date) => {
       const day = common_vendor.hooks(date).day();
       return weeks[day];
@@ -109,7 +112,8 @@ const _sfc_main = {
             f: common_vendor.t(weekName(item.orderDate)),
             g: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("hh:mm")),
             h: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.orderDate).format("hh:mm")),
-            i: index
+            i: common_vendor.t(orderText(item.orderType)),
+            j: index
           };
         })
       };
