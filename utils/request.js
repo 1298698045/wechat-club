@@ -1,5 +1,5 @@
-const BASE_URL = "http://47.96.15.8:9006";
-// const BASE_URL = "https://www.taiyouqu.fun";
+// const BASE_URL = "http://47.96.15.8:9006";
+const BASE_URL = "https://taiyouqu.fun";
 // const BASE_URL = "http://182.92.73.72:9006";
 const TIMEOUT = 50000;
 const request = (method, url, data, type='') => {

@@ -1,6 +1,6 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
-const BASE_URL = "http://47.96.15.8:9006";
+const BASE_URL = "https://taiyouqu.fun";
 const TIMEOUT = 5e4;
 const request = (method, url, data, type = "") => {
   let token = common_vendor.index.getStorageSync("token");
