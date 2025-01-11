@@ -12612,7 +12612,8 @@ const subPackages = [
       {
         path: "album/index",
         style: {
-          navigationBarTitleText: "活动影集"
+          navigationBarTitleText: "活动影集",
+          enablePullDownRefresh: true
         }
       }
     ]
@@ -12661,6 +12662,12 @@ const subPackages = [
         path: "help/index",
         style: {
           navigationBarTitleText: "帮助与反馈"
+        }
+      },
+      {
+        path: "notice/notice",
+        style: {
+          navigationBarTitleText: "通知公告"
         }
       }
     ]

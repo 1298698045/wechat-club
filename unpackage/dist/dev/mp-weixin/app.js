@@ -18,6 +18,7 @@ if (!Math) {
   "./pages/other/tourismDetail/index.js";
   "./pages/other/about/index.js";
   "./pages/other/help/index.js";
+  "./pages/other/notice/notice.js";
   "./pages/my/personInfo/index.js";
   "./pages/my/order/index.js";
   "./pages/my/activity/index.js";

@@ -25,7 +25,8 @@
         "courseDetail/index",
         "tourismDetail/index",
         "about/index",
-        "help/index"
+        "help/index",
+        "notice/notice"
       ]
     },
     {

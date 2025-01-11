@@ -129,7 +129,8 @@
 					"path" : "album/index",
 					"style" : 
 					{
-						"navigationBarTitleText" : "活动影集"
+						"navigationBarTitleText" : "活动影集",
+						"enablePullDownRefresh": true
 					}
 				}
 			]
@@ -185,6 +186,13 @@
 					"style" :
 					{
 						"navigationBarTitleText" : "帮助与反馈"
+					}
+				},
+				{
+					"path" : "notice/notice",
+					"style" : 
+					{
+						"navigationBarTitleText" : "通知公告"
 					}
 				}
 			]

@@ -1,5 +1,7 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
+const utils_Interface = require("../../../utils/Interface.js");
+const utils_request = require("../../../utils/request.js");
 if (!Array) {
   const _easycom_uni_icons2 = common_vendor.resolveComponent("uni-icons");
   _easycom_uni_icons2();
@@ -11,27 +13,95 @@ if (!Math) {
 const _sfc_main = {
   __name: "index",
   setup(__props) {
-    const previewImg = () => {
+    const weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+    const data = common_vendor.reactive({
+      listData: [],
+      pageNumber: 1,
+      pageSize: 5,
+      isPage: false
+    });
+    const { listData, pageNumber, pageSize, isPage } = common_vendor.toRefs(data);
+    const weekName = (date) => {
+      const day = common_vendor.hooks(date).day();
+      return weeks[day];
+    };
+    const getQuery = () => {
+      utils_request.get(utils_Interface.Interface.activity.album, {
+        page: data.pageNumber,
+        rows: data.pageSize
+      }).then((res) => {
+        let list = res.data.map((item) => {
+          let backImg = "";
+          if (item.showPictures.length) {
+            backImg = utils_Interface.Interface.uploadUrl + item.showPictures[0].fileLocation;
+          }
+          item.backImg = backImg;
+          return item;
+        });
+        let total = res.total;
+        if (data.pageNumber * data.pageSize < total) {
+          data.isPage = true;
+        } else {
+          data.isPage = false;
+        }
+        let temp = [];
+        if (data.pageNumber == 1) {
+          temp = list;
+        } else {
+          temp = data.listData.concat(list);
+        }
+        data.listData = temp;
+      });
+    };
+    const previewImg = (item, row) => {
+      let current = utils_Interface.Interface.uploadUrl + row.fileLocation;
+      let urls = [];
+      item.showPictures.forEach((v) => {
+        let url = utils_Interface.Interface.uploadUrl + v.fileLocation;
+        urls.push(url);
+      });
       common_vendor.index.previewImage({
-        urls: ["http://47.96.15.8:9006/images/2.jpg", "http://47.96.15.8:9006/images/2.jpg", "http://47.96.15.8:9006/images/3.jpg"],
-        current: "http://47.96.15.8:9006/images/2.jpg",
+        urls,
+        current,
         success: (res) => {
         }
       });
     };
+    common_vendor.onLoad(() => {
+      getQuery();
+    });
+    common_vendor.onPullDownRefresh(() => {
+      data.pageNumber = 1;
+      getQuery();
+    });
+    common_vendor.onReachBottom(() => {
+      if (data.isPage) {
+        data.pageNumber++;
+        getQuery();
+      }
+    });
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.f([1, 2, 3, 4, 5], (item, k0, i0) => {
+        a: common_vendor.f(common_vendor.unref(listData), (item, index, i0) => {
           return {
-            a: "aa9cd241-0-" + i0,
-            b: "aa9cd241-1-" + i0,
-            c: common_vendor.f([1, 2, 3, 4, 5], (item2, k1, i1) => {
+            a: item.backImg,
+            b: common_vendor.t(item.name),
+            c: "aa9cd241-0-" + i0,
+            d: common_vendor.t(item.address),
+            e: "aa9cd241-1-" + i0,
+            f: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("MM")),
+            g: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("DD")),
+            h: common_vendor.t(weekName(item.startTime)),
+            i: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.startTime).format("hh:mm")),
+            j: common_vendor.t(common_vendor.unref(common_vendor.hooks)(item.endTime).format("hh:mm")),
+            k: common_vendor.f(item.showPictures, (row, idx, i1) => {
               return {
-                a: item2,
-                b: common_vendor.o(($event) => previewImg())
+                a: common_vendor.unref(utils_Interface.Interface).uploadUrl + row.fileLocation,
+                b: idx,
+                c: common_vendor.o(($event) => previewImg(item, row))
               };
             }),
-            d: item
+            l: index
           };
         }),
         b: common_vendor.p({

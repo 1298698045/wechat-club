@@ -1,34 +1,36 @@
 <template>
 	<view class="album-wrap">
 		<view class="albumList">
-			<view class="album-item" v-for="item in [1,2,3,4,5]" :index="item">
+			<view class="album-item" v-for="(item, index) in listData" :index="index">
 				<view class="backImg">
-					<image class="img" src="http://47.96.15.8:9006/images/2.jpg" mode="aspectFill"></image>
+					<image class="img" :src="item.backImg" mode="aspectFill"></image>
 				</view>
 				<view class="album-item-content">
 					<view class="title">
-						高尔夫教学体验
+						{{item.name}}
 					</view>
 					<view class="album-info">
 						<view class="left">
 							<view class="into">
 								<view class="row">
 									<uni-icons type="location" color="#fff"></uni-icons>
-									青年湖高尔夫俱乐部 ｜''
+									{{item.address}}
 								</view>
 								<view class="row">
 									<uni-icons type="location" color="#fff"></uni-icons>
-									10月19日 周四 14:00-16:00
+									{{moment(item.startTime).format('MM')}}月{{moment(item.startTime).format('DD')}}日
+									 {{ weekName(item.startTime) }} 
+									 {{moment(item.startTime).format('hh:mm')}}-{{moment(item.endTime).format('hh:mm')}}
 								</view>
 							</view>
 						</view>
 						<view class="right">
-							<button class="btn">点击查看</button>
+							<!-- <button class="btn">点击查看</button> -->
 						</view>
 					</view>
 					<view class="album-images">
-						<view class="album-img" v-for="item in [1,2,3,4,5]" :index="item" @click="previewImg(item)">
-							<image class="img" src="http://47.96.15.8:9006/images/2.jpg"></image>
+						<view class="album-img" v-for="(row, idx) in item.showPictures" :index="idx" @click="previewImg(item, row)">
+							<image class="img" :src="Interface.uploadUrl + row.fileLocation"></image>
 						</view>
 					</view>
 				</view>
@@ -38,23 +40,91 @@
 </template>
 
 <script setup>
-	import { ref, reactive } from "vue";
-	import { onLoad } from "@dcloudio/uni-app";
+	import { ref, reactive, toRefs } from "vue";
+	import Interface from "@/utils/Interface";
+	import { get } from "@/utils/request.js";
+	import moment from "moment";
+	import { onLoad, onPullDownRefresh, onReachBottom } from "@dcloudio/uni-app";
+	const weeks = ['周日','周一','周二','周三','周四','周五','周六'];
 	
-	const previewImg = () => {
+	const data = reactive({
+		listData: [],
+		pageNumber: 1,
+		pageSize: 5,
+		isPage: false
+	});
+	const { listData, pageNumber, pageSize, isPage } = toRefs(data);
+	
+	const weekName = (date) => {
+		const day = moment(date).day();
+		return weeks[day];
+	}
+	const getQuery = () => {
+		get(Interface.activity.album, {
+			page: data.pageNumber,
+			rows: data.pageSize
+		}).then(res=>{
+			let list = res.data.map(item=>{
+				let backImg = "";
+				if(item.showPictures.length){
+					backImg = Interface.uploadUrl + item.showPictures[0].fileLocation;
+				}
+				item.backImg = backImg;
+				return item;
+			});
+			let total = res.total;
+			if(data.pageNumber * data.pageSize < total) {
+				data.isPage = true;
+			}else {
+				data.isPage = false;
+			};
+			let temp = [];
+			if(data.pageNumber == 1){
+				temp = list;
+			}else {
+				temp = data.listData.concat(list);
+			}
+			data.listData = temp;
+		})
+	}
+	
+	const previewImg = (item, row) => {
+		let current = Interface.uploadUrl + row.fileLocation;
+		let urls = [];
+		item.showPictures.forEach(v=>{
+			let url = Interface.uploadUrl + v.fileLocation;
+			urls.push(url);
+		})
 		uni.previewImage({
-			urls: ["http://47.96.15.8:9006/images/2.jpg","http://47.96.15.8:9006/images/2.jpg","http://47.96.15.8:9006/images/3.jpg"],
-			current: "http://47.96.15.8:9006/images/2.jpg",
+			urls: urls,
+			current: current,
 			success: (res) => {
 				
 			}
 		})
 	}
+	onLoad(()=>{
+		getQuery();
+	});
+	
+	onPullDownRefresh(()=>{
+		data.pageNumber = 1;
+		getQuery();
+	});
+	
+	onReachBottom(()=>{
+		if(data.isPage){
+			data.pageNumber++;
+			getQuery();
+		}
+	})
+	
 	
 </script>
 
 <style lang="scss" scoped>
 	.album-wrap{
+		margin-bottom: 20rpx;
 		.albumList{
 			padding: 0 32rpx;
 			.album-item{

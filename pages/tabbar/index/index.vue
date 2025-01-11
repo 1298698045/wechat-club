@@ -63,6 +63,12 @@
 					</view>
 					<view class="menu-item-name">活动影集</view>
 				</view>
+				<view class="menu-item" @click="handleNotice">
+					<view class="menu-item-icon">
+						<uni-icons type="notification" size="30" color="#6be8f5"></uni-icons>
+					</view>
+					<view class="menu-item-name">通知公告</view>
+				</view>
 				<view class="menu-item" @click="goto">
 					<view class="menu-item-icon">
 						<!-- <image style="width: 48rpx;height: 48rpx;" src="../../../static/img/icon.png" mode="aspectFill"></image> -->
@@ -223,6 +229,12 @@
 	const handleAlbum = () => {
 		uni.navigateTo({
 			url: "/pages/activity/album/index"
+		})
+	}
+	
+	const handleNotice = () => {
+		uni.navigateTo({
+			url: "/pages/other/notice/notice"
 		})
 	}
 	

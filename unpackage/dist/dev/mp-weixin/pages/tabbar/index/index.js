@@ -140,6 +140,11 @@ const _sfc_main = {
         url: "/pages/activity/album/index"
       });
     };
+    const handleNotice = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/other/notice/notice"
+      });
+    };
     const gotoDiscout = () => {
       common_vendor.index.navigateTo({
         url: "/pages/other/discountRules/index"
@@ -231,45 +236,51 @@ const _sfc_main = {
         }),
         p: common_vendor.o(handleAlbum),
         q: common_vendor.p({
+          type: "notification",
+          size: "30",
+          color: "#6be8f5"
+        }),
+        r: common_vendor.o(handleNotice),
+        s: common_vendor.p({
           type: "list",
           size: "30",
           color: "#6be8f5"
         }),
-        r: common_vendor.o(goto),
-        s: common_vendor.p({
+        t: common_vendor.o(goto),
+        v: common_vendor.p({
           type: "wallet",
           size: "30",
           color: "#6be8f5"
         }),
-        t: common_vendor.o(gotoDiscout),
-        v: common_vendor.o(handleTab),
-        w: common_vendor.p({
+        w: common_vendor.o(gotoDiscout),
+        x: common_vendor.o(handleTab),
+        y: common_vendor.p({
           tabs: common_vendor.unref(tabs)
         }),
-        x: common_vendor.unref(isTabsFixed) ? 1 : "",
-        y: common_vendor.unref(top) + "px",
-        z: common_vendor.unref(currentTab) == 0
+        z: common_vendor.unref(isTabsFixed) ? 1 : "",
+        A: common_vendor.unref(top) + "px",
+        B: common_vendor.unref(currentTab) == 0
       }, common_vendor.unref(currentTab) == 0 ? {
-        A: common_vendor.t(common_vendor.unref(activityTotal))
+        C: common_vendor.t(common_vendor.unref(activityTotal))
       } : {}, {
-        B: common_vendor.unref(currentTab) == 1
+        D: common_vendor.unref(currentTab) == 1
       }, common_vendor.unref(currentTab) == 1 ? {
-        C: common_vendor.t(common_vendor.unref(commentTotal)),
-        D: common_vendor.o(handleEval)
+        E: common_vendor.t(common_vendor.unref(commentTotal)),
+        F: common_vendor.o(handleEval)
       } : {}, {
-        E: common_vendor.unref(currentTab) == 0
+        G: common_vendor.unref(currentTab) == 0
       }, common_vendor.unref(currentTab) == 0 ? {
-        F: common_vendor.p({
+        H: common_vendor.p({
           list: common_vendor.unref(listData)
         })
       } : common_vendor.unref(currentTab) == 1 ? {
-        H: common_vendor.sr(commonRef, "184b8d5d-6", {
+        J: common_vendor.sr(commonRef, "184b8d5d-7", {
           "k": "commonRef"
         }),
-        I: common_vendor.o(setCommentTotal)
+        K: common_vendor.o(setCommentTotal)
       } : {}, {
-        G: common_vendor.unref(currentTab) == 1,
-        J: common_vendor.unref(activityTotal) > 0 || common_vendor.unref(commentTotal) > 0
+        I: common_vendor.unref(currentTab) == 1,
+        L: common_vendor.unref(activityTotal) > 0 || common_vendor.unref(commentTotal) > 0
       }, common_vendor.unref(activityTotal) > 0 || common_vendor.unref(commentTotal) > 0 ? {} : {});
     };
   }

@@ -7,7 +7,8 @@ const Interface = {
 		detail: "/api/activitie/getById",
 		signPeoples: "/api/activitieLessonSignIn/getListByActivitieId", // 获取报名列表
 		getMyStateCode: "/api/activitieLessonSignIn/getMyStateCode",
-		sign: "/api/activitie/ActivitieSignUp"
+		sign: "/api/activitie/ActivitieSignUp",
+		album: "/api/activitie/getAlbum"
 	},
 	category: "/api/itemCategory/GetList",
 	login: "/api/members/Login",
@@ -43,5 +44,6 @@ const Interface = {
 	sign: "/api/common/signIn", // 扫码签到
 	memberlevels: "/api/memberlevels/GetPageList", // 会员等级操作
 	revoke: "/api/orders/revoke", // 取消报名
+	latestNotice: "/api/minutes/getLatest"
 };
 export default Interface;
